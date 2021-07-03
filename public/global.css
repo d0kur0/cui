@@ -1,0 +1,42 @@
+html,
+body {
+  margin: auto;
+  --ancent-color: rgb(18, 124, 230);
+  --ancent-color-light: rgb(32, 138, 243);
+}
+
+body {
+  color: #333;
+  margin: auto;
+  box-sizing: border-box;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu,
+    Cantarell, "Helvetica Neue", sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+a {
+  color: var(--ancent-color);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+label {
+  display: block;
+}
+
+input,
+button,
+select,
+textarea {
+  font-family: inherit;
+  font-size: inherit;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 2px;
+}
