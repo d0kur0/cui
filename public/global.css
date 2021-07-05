@@ -3,14 +3,14 @@ body {
   margin: auto;
   --ancent-color: rgb(18, 124, 230);
   --ancent-color-light: rgb(32, 138, 243);
+  --ancent-color-dark: rgb(19, 105, 190);
 }
 
 body {
   color: #333;
   margin: auto;
   box-sizing: border-box;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu,
-    Cantarell, "Helvetica Neue", sans-serif;
+  font-family: "Roboto", sans-serif;
 }
 
 * {
@@ -34,7 +34,7 @@ input,
 button,
 select,
 textarea {
-  font-family: inherit;
+  font: inherit;
   font-size: inherit;
   box-sizing: border-box;
   border: 1px solid #ccc;

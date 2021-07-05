@@ -11,20 +11,7 @@ firebase
 firebase
   .firestore()
   .enablePersistence()
-  .catch(err => {
-    if (err.code == "failed-precondition") {
-      // Multiple tabs open, persistence can only be enabled
-      // in one tab at a a time.
-      // ...
-      console.log("failed-precondition FUCK");
-    } else if (err.code == "unimplemented") {
-      // The current browser does not support all of the
-      // features required to enable persistence
-      // ...
-      console.log("unimplemented FUCK");
-    }
-    //console.log(err);
-  });
+  .catch(console.warn); 
 
 export const auth = firebase.auth();
 export const googleProvider = new firebase.auth.GoogleAuthProvider();

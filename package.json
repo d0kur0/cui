@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "build": "NODE_ENV=production node .esbuild.mjs",
-    "dev": "NODE_ENV=development node .esbuild.mjs serve"
+    "build": "cross-env NODE_ENV=production node .esbuild.mjs",
+    "dev": "cross-env NODE_ENV=development node .esbuild.mjs serve"
   },
   "devDependencies": {
     "browser-sync": "^2.26.14",
@@ -12,11 +12,13 @@
     "esbuild-svelte": "^0.5.1",
     "prettier": "^2.3.1",
     "prettier-plugin-svelte": "^2.3.1",
-    "svelte": "^3.0.0"
+    "svelte": "^3.0.0",
+    "cross-env": "^7.0.3"
   },
   "dependencies": {
     "@storeon/svelte": "^1.0.0",
     "carbon-icons-svelte": "^10.33.0",
+    "date-fns": "^2.22.1",
     "firebase": "^8.6.7",
     "invert-color": "^2.0.0",
     "storeon": "^3.1.4",

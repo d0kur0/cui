@@ -7,6 +7,7 @@
   justify-content: center;
   box-shadow: 0px 1px 5px 0px #dadada;
   font-size: 1.1em;
+  font-weight: 500;
 }
 </style>
 

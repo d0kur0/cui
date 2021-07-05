@@ -1,7 +1,8 @@
 <script>
+import DateSelecter from "../components/DateSelecter.svelte";
 import PageContainer from "../components/PageContainer.svelte";
-import { link } from "svelte-spa-router";
-import { auth } from "../firebase";
 </script>
 
-<PageContainer title="Записи">123</PageContainer>
+<PageContainer title="Записи">
+  <DateSelecter />
+</PageContainer>
