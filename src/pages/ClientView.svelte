@@ -1,6 +1,5 @@
 <script>
 import { useStoreon } from "@storeon/svelte";
-import PageContainer from "../components/PageContainer.svelte";
 import EmptyMessage from "../components/EmptyMessage.svelte";
 import ClientForm from "../components/ClientForm.svelte";
 import { CLIENTS_DELETE, CLIENTS_UPDATE } from "../stores/clients";
@@ -25,17 +24,15 @@ const handleDelete = () => {
 };
 </script>
 
-<PageContainer title="Редактирование клиента">
-  {#if client}
-    <ClientForm on:submit="{handleSubmit}" buttonText="Изменить" client="{client}" />
-    <FormItem>
-      <Button
-        on:click="{handleDelete}"
-        onlyBorder="{true}"
-        danger="{true}"
-        fullWidth="{true}">Удалить</Button>
-    </FormItem>
-  {:else}
-    <EmptyMessage message="Клиент не найден" />
-  {/if}
-</PageContainer>
+{#if client}
+  <ClientForm on:submit="{handleSubmit}" buttonText="Изменить" client="{client}" />
+  <FormItem>
+    <Button
+      on:click="{handleDelete}"
+      onlyBorder="{true}"
+      danger="{true}"
+      fullWidth="{true}">Удалить</Button>
+  </FormItem>
+{:else}
+  <EmptyMessage message="Клиент не найден" />
+{/if}

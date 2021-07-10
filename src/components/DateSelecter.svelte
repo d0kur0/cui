@@ -1,4 +1,8 @@
 <style>
+.picker {
+  user-select: none;
+}
+
 .picker__toolbar {
   display: flex;
   justify-content: space-between;
@@ -41,12 +45,10 @@
 
 .picker__days {
   padding: 10px 15px;
+  padding-top: 5px;
   display: flex;
-  justify-content: space-between;
-}
-
-.picker__days-name {
-  font-size: 0.8em;
+  flex-wrap: wrap;
+  justify-content: space-around;
 }
 
 .picker__days-number {
@@ -62,10 +64,19 @@
   transition: 0.3s;
   font-size: 0.9em;
   background-color: rgb(241, 241, 241);
+  position: relative;
 }
 
 .picker__days-number:hover {
   background-color: rgb(226, 226, 226);
+}
+
+.picker__days-number:disabled {
+  background-color: transparent;
+}
+
+.picker__days-number:disabled > .picker__days-counter {
+  display: none;
 }
 
 .picker__days-number--active {
@@ -77,16 +88,26 @@
   background-color: var(--ancent-color-dark);
 }
 
+.picker__days-number--active > .picker__days-counter {
+  background-color: #fff;
+  border: 1px solid rgb(226, 226, 226);
+  color: #555;
+}
+
 .picker__days-counter {
-  font-size: 0.6em;
-  width: 8px;
-  height: 8px;
+  font-size: 0.7em;
+  width: 15px;
+  height: 15px;
   background-color: var(--ancent-color-light);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   color: #fff;
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  font-weight: bold;
 }
 
 .picker__days-day {
@@ -94,6 +115,8 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  position: relative;
+  flex-basis: calc(100% / 7);
 }
 
 .picker__date {
@@ -103,41 +126,100 @@
   padding: 5px;
   background-color: rgb(241, 241, 241);
   font-size: 0.9em;
+  text-transform: capitalize;
+}
+
+.picker__day-names {
+  display: flex;
+  justify-content: space-between;
+  padding: 5px 15px;
+  padding-top: 10px;
+}
+
+.picker__day-name {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7em;
+  font-weight: bold;
+  flex-basis: calc(100% / 7);
 }
 </style>
 
 <script>
+import { RECORDS_SET_DATE } from "./../stores/records.js";
 import { useStoreon } from "@storeon/svelte";
 import { ChevronLeft32, ChevronRight32 } from "carbon-icons-svelte";
-import { getDate, isEqual } from "date-fns";
+import { addMonths, format, getDate, isEqual, startOfMonth, subMonths } from "date-fns";
 import { getWeekDays } from "../helpers/getWeekDays";
+import ruLocale from "date-fns/locale/ru";
 
 const dayNames = ["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"];
 
-const { recordsDate } = useStoreon("recordsDate");
-const weekDays = getWeekDays($recordsDate);
+const { recordsDate, dispatch } = useStoreon("recordsDate");
+$: weekDays = getWeekDays($recordsDate);
+
+const handlePlusMonth = () => {
+  dispatch(RECORDS_SET_DATE, startOfMonth(addMonths($recordsDate, 1)));
+};
+
+const handleMinusMonth = () => {
+  dispatch(RECORDS_SET_DATE, startOfMonth(subMonths($recordsDate, 1)));
+};
+
+const handleSelectToday = () => {
+  dispatch(RECORDS_SET_DATE, new Date());
+};
+
+const handleSelectDate = event => {
+  dispatch(RECORDS_SET_DATE, new Date(event.target.value));
+};
+
+const handleSelectDay = dayAsDate => {
+  dispatch(RECORDS_SET_DATE, dayAsDate);
+};
 </script>
 
 <div class="picker">
   <div class="picker__toolbar">
-    <button class="picker__toolbar-button">Июль 2020</button>
+    <button class="picker__toolbar-button" on:click="{handleSelectDate}">
+      Июль 2020
+    </button>
     <div class="picker__toolbar-arrows">
-      <button class="picker__toolbar-button"><ChevronLeft32 /></button>
-      <button class="picker__toolbar-button">Сегодня</button>
-      <button class="picker__toolbar-button"><ChevronRight32 /></button>
+      <button class="picker__toolbar-button" on:click="{handleMinusMonth}">
+        <ChevronLeft32 />
+      </button>
+      <button class="picker__toolbar-button" on:click="{handleSelectToday}">
+        Сегодня
+      </button>
+      <button class="picker__toolbar-button" on:click="{handlePlusMonth}">
+        <ChevronRight32 />
+      </button>
     </div>
   </div>
+  <div class="picker__day-names">
+    {#each dayNames as dayName}
+      <div class="picker__day-name">{dayName}</div>
+    {/each}
+  </div>
   <div class="picker__days">
-    {#each weekDays as day, index}
+    {#each weekDays as { date, isActive }}
       <div class="picker__days-day">
-        <div class="picker__days-name">{dayNames[index]}</div>
         <button
+          on:click="{() => handleSelectDay(date)}"
           class="picker__days-number"
-          class:picker__days-number--active="{isEqual($recordsDate, day)}"
-          >{getDate(day)}</button>
-        <div class="picker__days-counter"></div>
+          class:picker__days-number--active="{isEqual(
+            $recordsDate.setHours(0, 0, 0, 0),
+            date.setHours(0, 0, 0, 0)
+          )}"
+          disabled="{!isActive}">
+          <div class="picker__days-counter">3</div>
+          {getDate(date)}
+        </button>
       </div>
     {/each}
   </div>
-  <div class="picker__date">5 Июнь 2020</div>
+  <div class="picker__date">
+    {format($recordsDate, "d LLLL yyyy", { locale: ruLocale })}
+  </div>
 </div>

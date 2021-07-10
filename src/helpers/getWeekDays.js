@@ -1,16 +1,46 @@
-import { sub, add, getDay } from "date-fns";
+import { eachDayOfInterval, startOfMonth, endOfMonth, getDay, sub, add } from "date-fns";
 
 export const getWeekDays = recordsDate => {
-  const currentDayOfWeek = getDay(recordsDate) || 7;
-  const mapOfWeekDays = [];
+  let allDaysInMonth;
 
-  for (let dayOfWeek = 1; dayOfWeek <= 7; dayOfWeek++) {
-    const days = Math.abs(currentDayOfWeek - dayOfWeek);
-    const isSub = dayOfWeek < currentDayOfWeek;
-    const dayDate = isSub ? sub(recordsDate, { days }) : add(recordsDate, { days });
-
-    mapOfWeekDays.push(dayDate);
+  try {
+    allDaysInMonth = eachDayOfInterval({
+      start: startOfMonth(recordsDate),
+      end: endOfMonth(recordsDate),
+    });
+  } catch (e) {
+    console.warn("error on allDaysInMonth");
   }
 
-  return mapOfWeekDays;
+  const firstWeekDay = getDay(allDaysInMonth[0]) || 7;
+
+  let firstOffsetDays = [];
+  if (firstWeekDay > 1) {
+    firstOffsetDays = eachDayOfInterval({
+      start: sub(allDaysInMonth[0], { days: firstWeekDay - 1 }),
+      end: sub(allDaysInMonth[0], { days: 1 }),
+    });
+  }
+
+  let lastOffsetDays = [];
+  const missingDays = 42 - (allDaysInMonth.length + firstOffsetDays.length);
+
+  if (missingDays) {
+    const lastDayOfMonth = allDaysInMonth[allDaysInMonth.length - 1];
+
+    try {
+      lastOffsetDays = eachDayOfInterval({
+        start: add(lastDayOfMonth, { days: 1 }),
+        end: add(lastDayOfMonth, { days: missingDays }),
+      });
+    } catch (error) {
+      console.warn("error on lastOffsetDays");
+    }
+  }
+
+  return [
+    ...firstOffsetDays.map(date => ({ date, isActive: false })),
+    ...allDaysInMonth.map(date => ({ date, isActive: true })),
+    ...lastOffsetDays.map(date => ({ date, isActive: false })),
+  ];
 };

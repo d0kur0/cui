@@ -19,8 +19,6 @@ const handleSignIn = () => {
 };
 </script>
 
-<PageContainer title="Авторизация" hideTabBar="{true}">
-  <div class="centered">
-    <Button on:click="{handleSignIn}">Войти используя Google</Button>
-  </div>
-</PageContainer>
+<div class="centered">
+  <Button on:click="{handleSignIn}">Войти используя Google</Button>
+</div>

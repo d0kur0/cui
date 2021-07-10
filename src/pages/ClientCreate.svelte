@@ -1,5 +1,4 @@
 <script>
-import PageContainer from "../components/PageContainer.svelte";
 import { push } from "svelte-spa-router";
 import { useStoreon } from "@storeon/svelte";
 import { CLIENTS_CREATE } from "../stores/clients";
@@ -13,6 +12,4 @@ const handleSubmit = ({ detail }) => {
 };
 </script>
 
-<PageContainer title="Создание клиента">
-  <ClientForm on:submit="{handleSubmit}" />
-</PageContainer>
+<ClientForm on:submit="{handleSubmit}" />

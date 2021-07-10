@@ -13,6 +13,4 @@ const handleSubmit = ({ detail }) => {
 };
 </script>
 
-<PageContainer title="Создание услуги">
-  <ServiceForm on:submit="{handleSubmit}" />
-</PageContainer>
+<ServiceForm on:submit="{handleSubmit}" />

@@ -6,8 +6,9 @@
   display: flex;
   align-items: center;
   justify-content: space-around;
-  height: 100%;
-  border-top: 1px solid #ddd;
+  height: calc(100%);
+  background-color: #ffafcc;
+  border-radius: 15px 15px 0 0;
 }
 
 .tabbar__item {
@@ -25,57 +26,67 @@
   align-items: center;
   justify-content: center;
   font-size: 0.7em;
-  color: rgb(107, 107, 107);
-  transition: 0.3s;
+  color: rgb(39, 39, 39);
+  transition: 0.5s;
   width: 100%;
   height: 100%;
+  font-weight: 600;
 }
 
 .tabbar__link:hover,
 .tabbar__link:focus {
-  color: var(--ancent-color);
+  color: #a35471;
   text-decoration: none;
-  background-color: rgb(245, 245, 245);
+  background-color: inherit;
 }
 
 :global(.tabbar__item > a.active) {
-  color: var(--ancent-color);
+  color: #c5557e;
+}
+
+:global(.tabbar__link > svg) {
+  width: 25px;
 }
 </style>
 
 <script>
-import UserMultiple32 from "carbon-icons-svelte/lib/UserMultiple32";
-import UserAvatar32 from "carbon-icons-svelte/lib/UserAvatar32";
-import ShoppingCatalog32 from "carbon-icons-svelte/lib/ShoppingCatalog32";
-import CalendarHeatMap32 from "carbon-icons-svelte/lib/CalendarHeatMap32";
+import IoIosListBox from "svelte-icons/io/IoIosListBox.svelte";
+import TiUser from "svelte-icons/ti/TiUser.svelte";
+import TiGroup from "svelte-icons/ti/TiGroup.svelte";
+import TiCalendar from "svelte-icons/ti/TiCalendar.svelte";
+import TiChartArea from "svelte-icons/ti/TiChartArea.svelte";
 import active from "svelte-spa-router/active";
 import { link } from "svelte-spa-router";
-
-const iconStyles = "width: 24px; height: 24px; padding-bottom: 3px;";
 </script>
 
 <ul class="tabbar">
   <li class="tabbar__item">
     <a use:link use:active href="/" class="tabbar__link">
-      <CalendarHeatMap32 style="{iconStyles}" /> Записи
+      <TiCalendar />
     </a>
   </li>
 
   <li class="tabbar__item">
     <a use:link use:active href="/clients" class="tabbar__link">
-      <UserMultiple32 style="{iconStyles}" /> Клиенты
+      <TiGroup />
     </a>
   </li>
 
   <li class="tabbar__item">
     <a use:link use:active href="/services" class="tabbar__link">
-      <ShoppingCatalog32 style="{iconStyles}" /> Услуги
+      <IoIosListBox />
+    </a>
+  </li>
+
+  <li class="tabbar__item">
+    <a use:link use:active href="/statistic" class="tabbar__link">
+      <TiChartArea />
     </a>
   </li>
 
   <li class="tabbar__item">
     <a use:link use:active href="/account" class="tabbar__link">
-      <UserAvatar32 style="{iconStyles}" /> Аккаунт
+      <TiUser />
     </a>
   </li>
 </ul>

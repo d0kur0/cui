@@ -32,7 +32,12 @@ let buildOptions = {
 
 if (command === "serve") {
   const browserSync = create();
-  browserSync.init({ ui: false, watch: false, server: "./public" });
+  browserSync.init({
+    ui: false,
+    watch: false,
+    server: "./public",
+    files: "./public/**/**",
+  });
 
   buildOptions = {
     ...buildOptions,

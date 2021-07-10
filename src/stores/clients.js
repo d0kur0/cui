@@ -104,7 +104,7 @@ export let clients = store => {
         localStorage.removeItem(PERSISTENT_KEY);
       }
     }
-    console.log(cachedClients);
+
     return { clients: cachedClients || [] };
   });
 

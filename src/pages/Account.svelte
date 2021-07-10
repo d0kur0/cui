@@ -26,7 +26,6 @@
 import { useStoreon } from "@storeon/svelte";
 import { USER_SIGN_OUT } from "../stores/user";
 import Avatar from "../components/Avatar.svelte";
-import PageContainer from "../components/PageContainer.svelte";
 
 const { user, dispatch } = useStoreon("user");
 const handleExit = () => {
@@ -34,14 +33,12 @@ const handleExit = () => {
 };
 </script>
 
-<PageContainer title="Аккаунт">
-  <div class="user">
-    <div class="user__avatar"><Avatar initials="{$user.name}" /></div>
-    <div class="user__info">
-      <div class="user__name">{$user.name}</div>
-      <div class="user__exit">
-        <button on:click="{handleExit}" class="user__exit-button">Выйти</button>
-      </div>
+<div class="user">
+  <div class="user__avatar"><Avatar initials="{$user.name}" /></div>
+  <div class="user__info">
+    <div class="user__name">{$user.name}</div>
+    <div class="user__exit">
+      <button on:click="{handleExit}" class="user__exit-button">Выйти</button>
     </div>
   </div>
-</PageContainer>
+</div>

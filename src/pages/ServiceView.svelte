@@ -25,17 +25,15 @@ const handleDelete = () => {
 };
 </script>
 
-<PageContainer title="Редактирование усуги">
-  {#if service}
-    <ServiceForm on:submit="{handleSubmit}" buttonText="Изменить" service="{service}" />
-    <FormItem>
-      <Button
-        on:click="{handleDelete}"
-        onlyBorder="{true}"
-        danger="{true}"
-        fullWidth="{true}">Удалить</Button>
-    </FormItem>
-  {:else}
-    <EmptyMessage message="Услуга не найдена" />
-  {/if}
-</PageContainer>
+{#if service}
+  <ServiceForm on:submit="{handleSubmit}" buttonText="Изменить" service="{service}" />
+  <FormItem>
+    <Button
+      on:click="{handleDelete}"
+      onlyBorder="{true}"
+      danger="{true}"
+      fullWidth="{true}">Удалить</Button>
+  </FormItem>
+{:else}
+  <EmptyMessage message="Услуга не найдена" />
+{/if}

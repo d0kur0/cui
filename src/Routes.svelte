@@ -14,6 +14,7 @@ import Services from "./pages/Services.svelte";
 import ServiceCreate from "./pages/ServiceCreate.svelte";
 import ServiceView from "./pages/ServiceView.svelte";
 import Account from "./pages/Account.svelte";
+import PageContainer from "./components/PageContainer.svelte";
 
 const { user, dispatch } = useStoreon("user");
 
@@ -61,4 +62,6 @@ const routes = {
 };
 </script>
 
-<Router routes="{routes}" />
+<PageContainer title="Авторизация" hideTabBar="{false}">
+  <Router routes="{routes}" />
+</PageContainer>

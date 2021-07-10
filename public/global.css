@@ -10,7 +10,8 @@ body {
   color: #333;
   margin: auto;
   box-sizing: border-box;
-  font-family: "Roboto", sans-serif;
+  font-family: "Source Sans Pro", sans-serif;
+  max-width: 550px;
 }
 
 * {

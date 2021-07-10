@@ -21,28 +21,26 @@ const handleSearchInput = event => {
 };
 </script>
 
-<PageContainer title="Услуги">
-  <SearchBar on:change="{handleSearchInput}" on:input="{handleSearchInput}" />
-  <FabButton href="/services/create" />
-  {#if filteredServices.length}
-    <List items="{filteredServices}" let:item>
-      <li>
-        <a href="{`/services/${item.id}`}" use:link class="list__event-button">
-          Open service
-        </a>
+<SearchBar on:change="{handleSearchInput}" on:input="{handleSearchInput}" />
+<FabButton href="/services/create" />
+{#if filteredServices.length}
+  <List items="{filteredServices}" let:item>
+    <li>
+      <a href="{`/services/${item.id}`}" use:link class="list__event-button">
+        Open service
+      </a>
 
-        <div class="list__item">
-          <div class="list__item-content">
-            <h2>{item.name}</h2>
-            <h3>{item.price} рублей</h3>
-          </div>
-          <div class="list__item-end">
-            <ChevronRight32 />
-          </div>
+      <div class="list__item">
+        <div class="list__item-content">
+          <h2>{item.name}</h2>
+          <h3>{item.price} рублей</h3>
         </div>
-      </li>
-    </List>
-  {:else}
-    <EmptyMessage />
-  {/if}
-</PageContainer>
+        <div class="list__item-end">
+          <ChevronRight32 />
+        </div>
+      </div>
+    </li>
+  </List>
+{:else}
+  <EmptyMessage />
+{/if}
