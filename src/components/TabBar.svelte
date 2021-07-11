@@ -7,7 +7,7 @@
   align-items: center;
   justify-content: space-around;
   height: calc(100%);
-  background-color: #ffafcc;
+  background-color: #ffd6fc;
   border-radius: 15px 15px 0 0;
 }
 
@@ -27,7 +27,7 @@
   justify-content: center;
   font-size: 0.7em;
   color: rgb(39, 39, 39);
-  transition: 0.5s;
+  transition: 0.2s;
   width: 100%;
   height: 100%;
   font-weight: 600;
@@ -41,7 +41,7 @@
 }
 
 :global(.tabbar__item > a.active) {
-  color: #c5557e;
+  color: #a35471;
 }
 
 :global(.tabbar__link > svg) {

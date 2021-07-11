@@ -1,7 +1,7 @@
 <style>
 .button {
   font: inherit;
-  background-color: var(--ancent-color);
+  background-color: #80b8ff;
   border: 1px solid var(--ancent-color);
   color: #fff;
   border: none;
@@ -12,7 +12,7 @@
 
 .button:hover,
 .button:active {
-  background-color: var(--ancent-color-light);
+  background-color: #78acf0;
 }
 
 .button--fullwidth {
@@ -34,8 +34,8 @@
 }
 
 .button--danger:hover {
-  border: 1px solid rgb(255, 126, 126);
-  background-color: rgb(255, 103, 103);
+  border: 1px solid rgb(243, 103, 103);
+  background-color: rgb(245, 81, 81);
 }
 
 .button--only-border,

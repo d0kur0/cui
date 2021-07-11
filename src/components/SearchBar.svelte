@@ -1,7 +1,7 @@
 <style>
 .searchbar {
   background-color: #fff;
-  padding: 20px 15px;
+  padding: 15px 15px;
 }
 
 .searchbar__fake-input {
@@ -12,7 +12,7 @@
   background-color: rgb(241, 241, 241);
   box-shadow: 0 0 2px 1px #e0e0e0;
   border-radius: 5px;
-  height: 35px;
+  height: 32px;
 }
 
 .searchbar__fake-input:focus-within {
@@ -22,6 +22,7 @@
 .searchbar__input {
   flex-grow: 1;
   font: inherit;
+  font-weight: 500;
   background-color: transparent;
   border: none;
   outline: none;
@@ -32,6 +33,10 @@
 
 .searchbar__leading-icon {
   padding: 2px 10px;
+}
+
+:global(.searchbar__leading-icon > svg) {
+  width: 25px;
 }
 
 .searchbar__clear-button {
@@ -50,7 +55,7 @@
 </style>
 
 <script>
-import Search32 from "carbon-icons-svelte/lib/Search32";
+import IoMdSearch from "svelte-icons/io/IoMdSearch.svelte";
 import CloseFilled20 from "carbon-icons-svelte/lib/CloseFilled16";
 
 let searchValue;
@@ -70,7 +75,7 @@ const handleClearInput = () => {
 <div class="searchbar">
   <div class="searchbar__fake-input">
     <div class="searchbar__leading-icon">
-      <Search32 style="width: 26px; height: 26px;" />
+      <IoMdSearch />
     </div>
 
     <input

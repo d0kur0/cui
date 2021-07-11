@@ -1,12 +1,15 @@
 <style>
 .picker {
   user-select: none;
+  background-color: #fff7ff;
+  border-radius: 10px;
+  margin: 10px;
 }
 
 .picker__toolbar {
   display: flex;
   justify-content: space-between;
-  border-bottom: 2px dashed rgb(230, 230, 230);
+  border-bottom: 2px dashed #b5b5b5;
   padding: 8px 15px;
 }
 
@@ -17,7 +20,9 @@
   padding: 0;
   margin: 0;
   cursor: pointer;
-  color: var(--ancent-color);
+  color: #000;
+  font: inherit;
+  font-weight: 500;
   transition: 0.3s;
   display: flex;
   align-items: center;
@@ -25,12 +30,11 @@
 }
 
 :global(.picker__toolbar-button > svg) {
-  width: 28px;
-  height: 28px;
+  width: 24px;
 }
 
 .picker__toolbar-button:hover {
-  color: var(--ancent-color-dark);
+  color: rgb(71, 71, 71);
 }
 
 .picker__toolbar-arrows {
@@ -52,6 +56,8 @@
 }
 
 .picker__days-number {
+  font: inherit;
+  font-weight: 600;
   width: 34px;
   height: 34px;
   border-radius: 50%;
@@ -63,7 +69,7 @@
   border: none;
   transition: 0.3s;
   font-size: 0.9em;
-  background-color: rgb(241, 241, 241);
+  background-color: #e5f0ff;
   position: relative;
 }
 
@@ -80,25 +86,19 @@
 }
 
 .picker__days-number--active {
-  background-color: var(--ancent-color);
+  background-color: #61b0ff;
   color: #fff;
 }
 
 .picker__days-number--active:hover {
-  background-color: var(--ancent-color-dark);
-}
-
-.picker__days-number--active > .picker__days-counter {
-  background-color: #fff;
-  border: 1px solid rgb(226, 226, 226);
-  color: #555;
+  background-color: #61b0ff;
 }
 
 .picker__days-counter {
   font-size: 0.7em;
   width: 15px;
   height: 15px;
-  background-color: var(--ancent-color-light);
+  background-color: rgb(112 184 255);
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -124,9 +124,12 @@
   align-items: center;
   justify-content: center;
   padding: 5px;
-  background-color: rgb(241, 241, 241);
-  font-size: 0.9em;
+  font-size: 1em;
   text-transform: capitalize;
+  color: #000;
+  font-weight: 500;
+  border-top: 1px solid #000;
+  margin: 0 15px;
 }
 
 .picker__day-names {
@@ -141,8 +144,9 @@
   align-items: center;
   justify-content: center;
   font-size: 0.7em;
-  font-weight: bold;
+  font-weight: 600;
   flex-basis: calc(100% / 7);
+  color: #000;
 }
 </style>
 
@@ -152,6 +156,7 @@ import { useStoreon } from "@storeon/svelte";
 import { ChevronLeft32, ChevronRight32 } from "carbon-icons-svelte";
 import { addMonths, format, getDate, isEqual, startOfMonth, subMonths } from "date-fns";
 import { getWeekDays } from "../helpers/getWeekDays";
+import IoMdCalendar from "svelte-icons/io/IoMdCalendar.svelte";
 import ruLocale from "date-fns/locale/ru";
 
 const dayNames = ["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"];
@@ -183,7 +188,7 @@ const handleSelectDay = dayAsDate => {
 <div class="picker">
   <div class="picker__toolbar">
     <button class="picker__toolbar-button" on:click="{handleSelectDate}">
-      Июль 2020
+      <IoMdCalendar />
     </button>
     <div class="picker__toolbar-arrows">
       <button class="picker__toolbar-button" on:click="{handleMinusMonth}">

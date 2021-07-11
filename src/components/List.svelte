@@ -27,7 +27,8 @@
   align-items: center;
   justify-content: space-between;
   border-bottom: 1px solid #ddd;
-  padding: 15px 0;
+  padding: 10px 0;
+  color: #5f5f5f;
 }
 
 :global(.list__item-avatar) {

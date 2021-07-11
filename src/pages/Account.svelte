@@ -26,6 +26,7 @@
 import { useStoreon } from "@storeon/svelte";
 import { USER_SIGN_OUT } from "../stores/user";
 import Avatar from "../components/Avatar.svelte";
+import Title from "../components/Title.svelte";
 
 const { user, dispatch } = useStoreon("user");
 const handleExit = () => {
@@ -33,6 +34,7 @@ const handleExit = () => {
 };
 </script>
 
+<Title title="Аккаунт" />
 <div class="user">
   <div class="user__avatar"><Avatar initials="{$user.name}" /></div>
   <div class="user__info">

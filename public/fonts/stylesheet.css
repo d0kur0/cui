@@ -1,0 +1,96 @@
+@font-face {
+    font-family: 'Circe Rounded';
+    src: url('CirceRounded-ExtraLight.eot');
+    src: local('Circe Rounded Extra Light'), local('CirceRounded-ExtraLight'),
+        url('CirceRounded-ExtraLight.eot?#iefix') format('embedded-opentype'),
+        url('CirceRounded-ExtraLight.woff2') format('woff2'),
+        url('CirceRounded-ExtraLight.woff') format('woff'),
+        url('CirceRounded-ExtraLight.ttf') format('truetype');
+    font-weight: 200;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Circe Rounded';
+    src: url('CirceRounded-Regular2.eot');
+    src: local('Circe Rounded  Regular 2'), local('CirceRounded-Regular2'),
+        url('CirceRounded-Regular2.eot?#iefix') format('embedded-opentype'),
+        url('CirceRounded-Regular2.woff2') format('woff2'),
+        url('CirceRounded-Regular2.woff') format('woff'),
+        url('CirceRounded-Regular2.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Circe Rounded Alt';
+    src: url('CirceRoundedAlt-Regular2.eot');
+    src: local('Circe Rounded Alt  Regular 2'), local('CirceRoundedAlt-Regular2'),
+        url('CirceRoundedAlt-Regular2.eot?#iefix') format('embedded-opentype'),
+        url('CirceRoundedAlt-Regular2.woff2') format('woff2'),
+        url('CirceRoundedAlt-Regular2.woff') format('woff'),
+        url('CirceRoundedAlt-Regular2.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Circe Rounded';
+    src: url('CirceRounded-Regular3.eot');
+    src: local('Circe Rounded  Regular 3'), local('CirceRounded-Regular3'),
+        url('CirceRounded-Regular3.eot?#iefix') format('embedded-opentype'),
+        url('CirceRounded-Regular3.woff2') format('woff2'),
+        url('CirceRounded-Regular3.woff') format('woff'),
+        url('CirceRounded-Regular3.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Circe Rounded';
+    src: url('CirceRounded-Regular5.eot');
+    src: local('Circe Rounded  Regular 5'), local('CirceRounded-Regular5'),
+        url('CirceRounded-Regular5.eot?#iefix') format('embedded-opentype'),
+        url('CirceRounded-Regular5.woff2') format('woff2'),
+        url('CirceRounded-Regular5.woff') format('woff'),
+        url('CirceRounded-Regular5.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Circe Rounded';
+    src: url('CirceRounded-Regular.eot');
+    src: local('Circe Rounded'), local('CirceRounded-Regular'),
+        url('CirceRounded-Regular.eot?#iefix') format('embedded-opentype'),
+        url('CirceRounded-Regular.woff2') format('woff2'),
+        url('CirceRounded-Regular.woff') format('woff'),
+        url('CirceRounded-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Circe Rounded Alt';
+    src: url('CirceRounded-AltBold.eot');
+    src: local('Circe Rounded Alt Bold'), local('CirceRounded-AltBold'),
+        url('CirceRounded-AltBold.eot?#iefix') format('embedded-opentype'),
+        url('CirceRounded-AltBold.woff2') format('woff2'),
+        url('CirceRounded-AltBold.woff') format('woff'),
+        url('CirceRounded-AltBold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Circe Rounded';
+    src: url('CirceRounded-Regular4.eot');
+    src: local('Circe Rounded  Regular 4'), local('CirceRounded-Regular4'),
+        url('CirceRounded-Regular4.eot?#iefix') format('embedded-opentype'),
+        url('CirceRounded-Regular4.woff2') format('woff2'),
+        url('CirceRounded-Regular4.woff') format('woff'),
+        url('CirceRounded-Regular4.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+

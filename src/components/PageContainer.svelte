@@ -1,6 +1,6 @@
 <style>
 .page-container {
-  --navbar-height: 45px;
+  --navbar-height: 80px;
   --tabbar-height: 50px;
 }
 

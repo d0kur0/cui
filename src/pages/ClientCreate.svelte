@@ -3,6 +3,7 @@ import { push } from "svelte-spa-router";
 import { useStoreon } from "@storeon/svelte";
 import { CLIENTS_CREATE } from "../stores/clients";
 import ClientForm from "../components/ClientForm.svelte";
+import Title from "../components/Title.svelte";
 
 const { dispatch } = useStoreon();
 
@@ -12,4 +13,5 @@ const handleSubmit = ({ detail }) => {
 };
 </script>
 
+<Title title="Создание клиента" />
 <ClientForm on:submit="{handleSubmit}" />

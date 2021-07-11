@@ -4,7 +4,7 @@ import Clients from "./pages/Clients.svelte";
 import ClientCreate from "./pages/ClientCreate.svelte";
 import SignIn from "./pages/SignIn.svelte";
 import wrap from "svelte-spa-router/wrap";
-import { location, push } from "svelte-spa-router";
+import { location, push, replace } from "svelte-spa-router";
 import { auth } from "./firebase";
 import { useStoreon } from "@storeon/svelte";
 import { USER_CLEAR_DATA, USER_SET_DATA, USER_SET_IS_SIGNED } from "./stores/user";
@@ -15,6 +15,8 @@ import ServiceCreate from "./pages/ServiceCreate.svelte";
 import ServiceView from "./pages/ServiceView.svelte";
 import Account from "./pages/Account.svelte";
 import PageContainer from "./components/PageContainer.svelte";
+import Statistic from "./pages/Statistic.svelte";
+import RecordCreate from "./pages/RecordCreate.svelte";
 
 const { user, dispatch } = useStoreon("user");
 
@@ -42,7 +44,9 @@ const signedInWrapper = component =>
   });
 
 const routes = {
-  "/": signedInWrapper(Records),
+  "/": wrap({ component: async () => {}, conditions: [() => push("/records")] }),
+  "/records": signedInWrapper(Records),
+  "/records/create": signedInWrapper(RecordCreate),
 
   // Clients
   "/clients": signedInWrapper(Clients),
@@ -55,6 +59,7 @@ const routes = {
   "/services/:id": signedInWrapper(ServiceView),
 
   "/account": signedInWrapper(Account),
+  "/statistic": signedInWrapper(Statistic),
   "/signIn": SignIn,
 
   // Catch-all route last
@@ -62,6 +67,6 @@ const routes = {
 };
 </script>
 
-<PageContainer title="Авторизация" hideTabBar="{false}">
-  <Router routes="{routes}" />
+<PageContainer title="Авторизация" hideTabBar="{!$user.isSignedIn}">
+  <Router restoreScrollState="{true}" routes="{routes}" />
 </PageContainer>

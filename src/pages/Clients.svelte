@@ -4,9 +4,9 @@ import List from "../components/List.svelte";
 import SearchBar from "../components/SearchBar.svelte";
 import ChevronRight32 from "carbon-icons-svelte/lib/ChevronRight32";
 import { link } from "svelte-spa-router";
-import FabButton from "../components/FabButton.svelte";
 import EmptyMessage from "../components/EmptyMessage.svelte";
 import { useStoreon } from "@storeon/svelte";
+import Title from "../components/Title.svelte";
 
 const { clients } = useStoreon("clients");
 let searchQuery = "";
@@ -21,8 +21,8 @@ const handleSearchInput = event => {
 };
 </script>
 
+<Title title="Мои клиенты" />
 <SearchBar on:input="{handleSearchInput}" />
-<FabButton href="/clients/create" />
 {#if filteredClients.length}
   <List items="{filteredClients}" let:item>
     <li>
