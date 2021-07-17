@@ -17,7 +17,6 @@
   background-color: #fff;
   color: rgba(0, 0, 0, 0.54);
   overflow-y: scroll;
-  position: relative;
 }
 
 .page-container__tabbar {
@@ -27,6 +26,7 @@
 
 <script>
 import NavBar from "./NavBar.svelte";
+import Notifications from "./Notifications.svelte";
 import TabBar from "./TabBar.svelte";
 
 export let title;
@@ -45,4 +45,6 @@ export let hideTabBar = false;
       <TabBar />
     </div>
   {/if}
+
+  <Notifications />
 </main>

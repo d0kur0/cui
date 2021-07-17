@@ -17,6 +17,7 @@ import Account from "./pages/Account.svelte";
 import PageContainer from "./components/PageContainer.svelte";
 import Statistic from "./pages/Statistic.svelte";
 import RecordCreate from "./pages/RecordCreate.svelte";
+import RecordView from "./pages/RecordView.svelte";
 
 const { user, dispatch } = useStoreon("user");
 
@@ -47,6 +48,7 @@ const routes = {
   "/": wrap({ component: async () => {}, conditions: [() => push("/records")] }),
   "/records": signedInWrapper(Records),
   "/records/create": signedInWrapper(RecordCreate),
+  "/records/:id": signedInWrapper(RecordView),
 
   // Clients
   "/clients": signedInWrapper(Clients),

@@ -39,7 +39,7 @@ export let services = store => {
     } catch (error) {
       store.dispatch(SET_ERROR_MESSAGE, "Не удалось создать услугу");
       console.warn("error on servicesCreate");
-      console.error(error);
+      console.log(error);
     }
 
     store.dispatch(SET_PENDING, false);
@@ -56,7 +56,7 @@ export let services = store => {
     } catch (error) {
       store.dispatch(SET_ERROR_MESSAGE, "Не удалось загрузить услуги");
       console.warn("error on servicesFetch");
-      console.error(error);
+      console.log(error);
     }
 
     store.dispatch(SET_PENDING, false);
@@ -72,7 +72,7 @@ export let services = store => {
     } catch (error) {
       store.dispatch(SET_ERROR_MESSAGE, "Не удалось удалить услугу");
       console.warn("error on serviceDelete");
-      console.error(error);
+      console.log(error);
     }
 
     store.dispatch(SET_PENDING, false);
@@ -88,7 +88,7 @@ export let services = store => {
     } catch (error) {
       store.dispatch(SET_ERROR_MESSAGE, "Не удалось обновить услугу");
       console.warn("error on serviceUpdate");
-      console.error(error);
+      console.log(error);
     }
 
     store.dispatch(SET_PENDING, false);
@@ -97,20 +97,27 @@ export let services = store => {
   store.on("@init", () => {
     store.dispatch(SERVICES_FETCH);
     let cachedServices = localStorage.getItem(PERSISTENT_KEY);
+
     if (cachedServices !== undefined) {
       try {
         cachedServices = JSON.parse(cachedServices);
       } catch (error) {
         console.warn("Error on parse services cache");
-        console.error(error);
+        console.log(error);
         localStorage.removeItem(PERSISTENT_KEY);
       }
     }
-    console.log(cachedServices);
+
     return { services: cachedServices || [] };
   });
 
-  store.on("@changed", store =>
-    localStorage.setItem(PERSISTENT_KEY, JSON.stringify(store.services))
-  );
+  store.on("@changed", state => {
+    try {
+      state.services &&
+        localStorage.setItem(PERSISTENT_KEY, JSON.stringify(state.services));
+    } catch (error) {
+      console.warn("Error on @changes services state");
+      console.log(error);
+    }
+  });
 };

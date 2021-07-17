@@ -7,6 +7,7 @@ import Button from "../components/Button.svelte";
 import FormItem from "../components/FormItem.svelte";
 import ServiceForm from "../components/ServiceForm.svelte";
 import { push } from "svelte-spa-router";
+import Title from "../components/Title.svelte";
 
 export let params = {};
 
@@ -25,6 +26,7 @@ const handleDelete = () => {
 };
 </script>
 
+<Title title="Ред. услуги" />
 {#if service}
   <ServiceForm on:submit="{handleSubmit}" buttonText="Изменить" service="{service}" />
   <FormItem>

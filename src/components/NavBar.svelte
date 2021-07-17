@@ -63,8 +63,6 @@ import { link, pop } from "svelte-spa-router";
 import { location } from "svelte-spa-router";
 
 const allowedLocations = ["/clients", "/services", "/records"];
-const createLink = `${$location}/create`;
-console.log($location);
 </script>
 
 <div class="navbar">

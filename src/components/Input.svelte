@@ -19,6 +19,7 @@
   font: inherit;
   font-size: 1.1em;
   outline: none;
+  width: 100%;
 }
 
 .input__input::placeholder {
@@ -47,9 +48,7 @@ export let value = "";
     placeholder="{placeholder}"
     required="{required}"
     type="{type}"
-    id="{name}" 
-
-  value={value}
+    id="{name}"
+    value="{value}"
     name="{name}" />
 </div>
-  

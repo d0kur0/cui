@@ -49,7 +49,7 @@ export let user = store => {
     } catch (error) {
       store.dispatch(SET_ERROR_MESSAGE, "Ошибка авторизации");
       console.warn("error on signIn");
-      console.error(error);
+      console.log(error);
     }
 
     store.dispatch(SET_PENDING, false);
@@ -63,7 +63,7 @@ export let user = store => {
     } catch (error) {
       store.dispatch(SET_ERROR_MESSAGE, "Ошибка выхода из аккаунта");
       console.warn("error on signOut");
-      console.error(error);
+      console.log(error);
     }
 
     store.dispatch(SET_PENDING, false);

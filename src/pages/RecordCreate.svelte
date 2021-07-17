@@ -8,7 +8,7 @@ import { RECORDS_CREATE } from "../stores/records";
 const { dispatch } = useStoreon();
 
 const handleSubmit = ({ detail }) => {
-  dispatch(RECORDS_CREATE, detail.service);
+  dispatch(RECORDS_CREATE, detail.record);
   push("/records");
 };
 </script>

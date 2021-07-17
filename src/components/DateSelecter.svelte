@@ -176,10 +176,6 @@ const handleSelectToday = () => {
   dispatch(RECORDS_SET_DATE, new Date());
 };
 
-const handleSelectDate = event => {
-  dispatch(RECORDS_SET_DATE, new Date(event.target.value));
-};
-
 const handleSelectDay = dayAsDate => {
   dispatch(RECORDS_SET_DATE, dayAsDate);
 };
@@ -187,7 +183,7 @@ const handleSelectDay = dayAsDate => {
 
 <div class="picker">
   <div class="picker__toolbar">
-    <button class="picker__toolbar-button" on:click="{handleSelectDate}">
+    <button class="picker__toolbar-button">
       <IoMdCalendar />
     </button>
     <div class="picker__toolbar-arrows">

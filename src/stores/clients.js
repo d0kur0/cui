@@ -37,7 +37,7 @@ export let clients = store => {
     } catch (error) {
       store.dispatch(SET_ERROR_MESSAGE, "Не удалось создать клиента");
       console.warn("error on clientsCreate");
-      console.error(error);
+      console.log(error);
     }
 
     store.dispatch(SET_PENDING, false);
@@ -54,7 +54,7 @@ export let clients = store => {
     } catch (error) {
       store.dispatch(SET_ERROR_MESSAGE, "Не удалось загрузить клиентов");
       console.warn("error on clientsFetch");
-      console.error(error);
+      console.log(error);
     }
 
     store.dispatch(SET_PENDING, false);
@@ -70,7 +70,7 @@ export let clients = store => {
     } catch (error) {
       store.dispatch(SET_ERROR_MESSAGE, "Не удалось удалить клиента");
       console.warn("error on clientDelete");
-      console.error(error);
+      console.log(error);
     }
 
     store.dispatch(SET_PENDING, false);
@@ -86,7 +86,7 @@ export let clients = store => {
     } catch (error) {
       store.dispatch(SET_ERROR_MESSAGE, "Не удалось обновить клиента");
       console.warn("error on clientUpdate");
-      console.error(error);
+      console.log(error);
     }
 
     store.dispatch(SET_PENDING, false);
@@ -95,12 +95,13 @@ export let clients = store => {
   store.on("@init", () => {
     store.dispatch(CLIENTS_FETCH);
     let cachedClients = localStorage.getItem(PERSISTENT_KEY);
+
     if (cachedClients !== undefined) {
       try {
         cachedClients = JSON.parse(cachedClients);
       } catch (error) {
         console.warn("Error on parse clients cache");
-        console.error(error);
+        console.log(error);
         localStorage.removeItem(PERSISTENT_KEY);
       }
     }
@@ -108,7 +109,13 @@ export let clients = store => {
     return { clients: cachedClients || [] };
   });
 
-  store.on("@changed", store =>
-    localStorage.setItem(PERSISTENT_KEY, JSON.stringify(store.clients))
-  );
+  store.on("@changed", state => {
+    try {
+      state.clients &&
+        localStorage.setItem(PERSISTENT_KEY, JSON.stringify(state.clients));
+    } catch (error) {
+      console.warn("Error on @changed clients store");
+      console.log(error);
+    }
+  });
 };
