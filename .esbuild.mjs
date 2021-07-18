@@ -8,7 +8,7 @@ const [command] = process.argv.slice(2);
 
 function generateServiceWorker() {
   return generateSW({
-    swDest: "./public/service-worker.js",
+    swDest: "./public/build/service-worker.js",
     globDirectory: "./public/",
     globPatterns: ["**/**.js", "**/**.css", "index.html", "favicon.png"],
   });
@@ -50,6 +50,7 @@ if (command === "serve") {
   };
 }
 
+console.log("build");
 esbuild
   .build(buildOptions)
   .then(() => generateServiceWorker())

@@ -50,7 +50,7 @@ import EmptyMessage from "../components/EmptyMessage.svelte";
 import { format } from "date-fns";
 import Avatar from "../components/Avatar.svelte";
 
-const { records, recordsDate, clients, services, dispatch } = useStoreon(
+const { records, clients, services } = useStoreon(
   "records",
   "recordsDate",
   "clients",

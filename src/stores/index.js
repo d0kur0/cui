@@ -5,6 +5,7 @@ import { storeonLogger } from "storeon/devtools";
 import { services } from "./services";
 import { records } from "./records";
 import { common } from "./common";
+import { statistic } from "./statistic";
 
 export const store = createStoreon([
   user,
@@ -12,5 +13,6 @@ export const store = createStoreon([
   services,
   records,
   common,
+  statistic,
   //process.env.NODE_ENV !== "production" && storeonLogger,
 ]);

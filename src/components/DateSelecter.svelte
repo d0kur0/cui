@@ -98,7 +98,7 @@
   font-size: 0.7em;
   width: 15px;
   height: 15px;
-  background-color: rgb(112 184 255);
+  background-color: #ff6a6a;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -107,7 +107,7 @@
   position: absolute;
   top: -2px;
   right: -2px;
-  font-weight: bold;
+  font-weight: normal;
 }
 
 .picker__days-day {
@@ -161,8 +161,15 @@ import ruLocale from "date-fns/locale/ru";
 
 const dayNames = ["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"];
 
-const { recordsDate, dispatch } = useStoreon("recordsDate");
-$: weekDays = getWeekDays($recordsDate);
+const { recordsDate, monthDaysCount, dispatch } = useStoreon(
+  "recordsDate",
+  "monthDaysCount"
+);
+$: weekDays = getWeekDays($recordsDate).map(day => {
+  const dayOfMonth = getDate(day.date);
+  const counter = $monthDaysCount?.[dayOfMonth] || 0;
+  return { ...day, counter };
+});
 
 const handlePlusMonth = () => {
   dispatch(RECORDS_SET_DATE, startOfMonth(addMonths($recordsDate, 1)));
@@ -204,7 +211,7 @@ const handleSelectDay = dayAsDate => {
     {/each}
   </div>
   <div class="picker__days">
-    {#each weekDays as { date, isActive }}
+    {#each weekDays as { date, isActive, counter }}
       <div class="picker__days-day">
         <button
           on:click="{() => handleSelectDay(date)}"
@@ -214,7 +221,9 @@ const handleSelectDay = dayAsDate => {
             date.setHours(0, 0, 0, 0)
           )}"
           disabled="{!isActive}">
-          <div class="picker__days-counter">3</div>
+          {#if counter}
+            <div class="picker__days-counter">{counter}</div>
+          {/if}
           {getDate(date)}
         </button>
       </div>

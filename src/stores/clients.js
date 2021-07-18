@@ -15,11 +15,13 @@ const PERSISTENT_KEY = "store-clients";
 export let clients = store => {
   store.on(CLIENTS_PUSH, (state, client) => ({ clients: [client, ...state.clients] }));
   store.on(CLIENTS_SET, (_, clients) => ({ clients }));
+
   store.on(CLIENTS_UPDATE_LOCALLY, (state, client) => ({
     clients: state.clients.map(mapClient =>
       mapClient.id === client.id ? client : mapClient
     ),
   }));
+
   store.on(CLIENTS_DELETE_LOCALLY, (state, id) => ({
     clients: state.clients.filter(mapClient => mapClient.id !== id),
   }));

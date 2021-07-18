@@ -1,6 +1,7 @@
 import { format } from "date-fns";
 import { db } from "../firebase";
 import { SET_ERROR_MESSAGE, SET_PENDING, SET_SUCCESS_MESSAGE } from "./common";
+import { STATISTIC_CALC_MONTH_DAYS_COUNT } from "./statistic";
 
 export const RECORDS_SET_DATE = "records/setDate";
 export const RECORDS_SET_DATE_LOCALLY = "records/setDateLocally";
@@ -13,7 +14,9 @@ export const RECORDS_DELETE_LOCALLY = "records/deleteLocally";
 export const RECORDS_DELETE = "records/delete";
 export const RECORDS_CREATE = "records/create";
 
-const PERSISTENT_KEY = "store-records";
+const getPersistentKey = recordsDate => {
+  return `records-${format(recordsDate, "dd-LL-yyyy")}`;
+};
 
 export let records = store => {
   store.on(RECORDS_SET_DATE, async (_, recordsDate) => {
@@ -46,6 +49,7 @@ export let records = store => {
       db.collection("records").doc(id).delete();
       store.dispatch(RECORDS_DELETE_LOCALLY, id);
       store.dispatch(SET_SUCCESS_MESSAGE, "Запись удалена");
+      store.dispatch(STATISTIC_CALC_MONTH_DAYS_COUNT);
     } catch (error) {
       store.dispatch(SET_ERROR_MESSAGE, "Не удалось удалить запись");
       console.warn("error on recordDelete");
@@ -80,6 +84,7 @@ export let records = store => {
       docRef.set(record);
       store.dispatch(RECORDS_PUSH, { ...record, id: docRef.id });
       store.dispatch(SET_SUCCESS_MESSAGE, "Запись создана");
+      store.dispatch(STATISTIC_CALC_MONTH_DAYS_COUNT);
     } catch (error) {
       store.dispatch(SET_ERROR_MESSAGE, "Не удалось создать запись");
       console.warn("error on recordCreate");
@@ -134,11 +139,10 @@ export let records = store => {
 
   store.on("@init", state => {
     const currentDate = state.recordsDate || new Date();
-    let cachedRecords = localStorage.getItem(
-      `${PERSISTENT_KEY}_${format(currentDate, "dd-LL-yyyy")}`
-    );
+    let cachedRecords = localStorage.getItem(getPersistentKey(currentDate));
+    console.log(cachedRecords);
 
-    if (cachedRecords !== undefined) {
+    if (cachedRecords) {
       try {
         cachedRecords = JSON.parse(cachedRecords);
         cachedRecords = cachedRecords.map(record => ({
@@ -149,7 +153,7 @@ export let records = store => {
       } catch (error) {
         console.warn("Error on parse records cache");
         console.log(error);
-        localStorage.removeItem(PERSISTENT_KEY);
+        localStorage.removeItem(getPersistentKey(state.recordsDate));
       }
     }
 
@@ -162,7 +166,7 @@ export let records = store => {
       const currentDate = state.recordsDate || new Date();
       state.records &&
         localStorage.setItem(
-          `${PERSISTENT_KEY}_${format(currentDate, "dd-LL-yyyy")}`,
+          getPersistentKey(currentDate),
           JSON.stringify(state.records)
         );
     } catch (error) {

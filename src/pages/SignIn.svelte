@@ -8,7 +8,6 @@
 </style>
 
 <script>
-import PageContainer from "../components/PageContainer.svelte";
 import Button from "../components/Button.svelte";
 import { useStoreon } from "@storeon/svelte";
 import { USER_SIGN_IN } from "../stores/user";
