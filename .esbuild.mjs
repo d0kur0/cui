@@ -8,7 +8,7 @@ const [command] = process.argv.slice(2);
 
 function generateServiceWorker() {
   return generateSW({
-    swDest: "./public/build/service-worker.js",
+    swDest: "./public/service-worker.js",
     globDirectory: "./public/",
     globPatterns: ["**/**.js", "**/**.css", "index.html", "favicon.png"],
   });
