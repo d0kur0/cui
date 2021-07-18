@@ -1,6 +1,5 @@
 <script>
 import { useStoreon } from "@storeon/svelte";
-import PageContainer from "../components/PageContainer.svelte";
 import EmptyMessage from "../components/EmptyMessage.svelte";
 import { SERVICES_DELETE, SERVICES_UPDATE } from "../stores/services";
 import Button from "../components/Button.svelte";
