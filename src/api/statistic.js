@@ -14,8 +14,6 @@ const getPersistentKey = date => {
 };
 
 export const statisticGetMonthRecords = async ({ userId, date }) => {
-  console.log(userId);
-
   const startDate = startOfMonth(date);
   startDate.setHours(0, 0, 0);
 

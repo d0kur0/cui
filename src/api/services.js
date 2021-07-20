@@ -48,7 +48,7 @@ export const serviceGetFormCache = () => {
 };
 
 export const serviceSetToCache = ({ services }) => {
-  if (!services) return;
+  if (!services || !services.length) return;
   const persistentKey = getPersistentKey();
 
   try {

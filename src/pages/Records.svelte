@@ -37,6 +37,11 @@
   flex-grow: 1;
   text-align: right;
 }
+
+.description {
+  margin-top: 8px;
+  font-size: 0.9em;
+}
 </style>
 
 <script>
@@ -101,6 +106,9 @@ $: recordForList = $records.map(record => {
               <div class="services__service">{service}</div>
             {/each}
           </div>
+          {#if item.description}
+            <div class="description">Примечание: {item.description}</div>
+          {/if}
         </div>
       </div>
     </li>

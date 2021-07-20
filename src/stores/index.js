@@ -14,5 +14,5 @@ export const store = createStoreon([
   records,
   common,
   statistic,
-  //process.env.NODE_ENV !== "production" && storeonLogger,
+  process.env.NODE_ENV !== "production" && storeonLogger,
 ]);

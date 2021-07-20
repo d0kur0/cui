@@ -71,7 +71,7 @@ export let records = store => {
     store.dispatch(SET_PENDING, true);
 
     try {
-      recordUpdate(record);
+      recordUpdate({ record });
       store.dispatch(RECORDS_UPDATE_LOCALLY, record);
       store.dispatch(SET_SUCCESS_MESSAGE, "Услуга обновлена");
     } catch (error) {

@@ -77,7 +77,7 @@ export const recordGetFromCache = ({ date }) => {
 };
 
 export const recordSetToCache = ({ records, date }) => {
-  if (!records) return;
+  if (!records || !records.length) return;
   const persistentKey = getPersistentKey(date);
 
   try {

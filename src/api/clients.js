@@ -46,7 +46,7 @@ export const clientGetFormCache = () => {
 };
 
 export const clientSetToCache = ({ clients }) => {
-  if (!clients) return;
+  if (!clients || !clients.legnth) return;
   const persistentKey = getPersistentKey();
 
   try {

@@ -9,7 +9,7 @@ import { SET_ERROR_MESSAGE } from "../stores/common";
 import { useStoreon } from "@storeon/svelte";
 import { format } from "date-fns";
 
-export let record = { clientId: "", serviceIds: [], date: "" };
+export let record = { description: "", clientId: "", serviceIds: [], date: "" };
 export let buttonText = "Создать";
 
 const dispatchEvent = createEventDispatcher();
@@ -38,7 +38,7 @@ const handleSubmit = () => {
 };
 
 const handleInputDate = ({ target }) => {
-  record.date = target.value;
+  record.date = new Date(target.value);
 };
 
 const handleSelectClient = ({ detail }) => {
@@ -47,6 +47,10 @@ const handleSelectClient = ({ detail }) => {
 
 const handleSelectServices = ({ detail }) => {
   record.serviceIds = detail.serviceIds;
+};
+
+const handleInputDescription = ({ target }) => {
+  record.description = target.value;
 };
 </script>
 
@@ -60,6 +64,16 @@ const handleSelectServices = ({ detail }) => {
       type="datetime-local"
       label="Дата записи"
       name="date" />
+  </FormItem>
+
+  <FormItem>
+    <Input
+      on:input="{handleInputDescription}"
+      value="{record.description}"
+      placeholder="Нужен топ без липкого слоя"
+      type="text"
+      label="Примечание к записи"
+      name="description" />
   </FormItem>
 
   <FormItem>
