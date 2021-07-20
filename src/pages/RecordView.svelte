@@ -14,6 +14,7 @@ const { records, dispatch } = useStoreon("records");
 $: record = $records.find(record => record.id === params?.id);
 
 const handleSubmit = ({ detail }) => {
+  console.log("handleSubmit", detail);
   dispatch(RECORDS_UPDATE, detail.record);
   push("/records");
 };

@@ -88,7 +88,7 @@ $: recordForList = $records.map(record => {
                 {item.client?.name || "Deleted Client"}
               </div>
               <div class="client__info-time">
-                {format(item.date, "hh:mm")}
+                {format(item.date, "HH:mm")}
               </div>
             </div>
             <div class="client__price">

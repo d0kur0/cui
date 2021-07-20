@@ -3,7 +3,7 @@ import App from "./App.svelte";
 
 if ("serviceWorker" in navigator) {
   const wb = new Workbox("/service-worker.js");
-  process.env.NODE_ENV === "production" && wb.register();
+  wb.register();
 }
 
 const app = new App({
@@ -12,3 +12,4 @@ const app = new App({
 });
 
 export default app;
+ 
