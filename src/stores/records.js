@@ -1,7 +1,13 @@
-import { format } from "date-fns";
-import { db } from "../firebase";
 import { SET_ERROR_MESSAGE, SET_PENDING, SET_SUCCESS_MESSAGE } from "./common";
 import { STATISTIC_CALC_MONTH_DAYS_COUNT } from "./statistic";
+import {
+  recordCreate,
+  recordDelete,
+  recordGetAll,
+  recordGetFromCache,
+  recordSetToCache,
+  recordUpdate,
+} from "./../api/records";
 
 export const RECORDS_SET_DATE = "records/setDate";
 export const RECORDS_SET_DATE_LOCALLY = "records/setDateLocally";
@@ -14,10 +20,6 @@ export const RECORDS_DELETE_LOCALLY = "records/deleteLocally";
 export const RECORDS_DELETE = "records/delete";
 export const RECORDS_CREATE = "records/create";
 
-const getPersistentKey = recordsDate => {
-  return `records-${format(recordsDate, "dd-LL-yyyy")}`;
-};
-
 export let records = store => {
   store.on(RECORDS_SET_DATE, async (_, recordsDate) => {
     store.dispatch(RECORDS_SET_DATE_LOCALLY, recordsDate);
@@ -28,32 +30,38 @@ export let records = store => {
     return { recordsDate };
   });
 
-  store.on(RECORDS_DELETE_LOCALLY, (state, id) => ({
-    records: state.records.filter(record => record.id !== id),
-  }));
+  store.on(RECORDS_DELETE_LOCALLY, ({ records }, id) => {
+    return { records: records.filter(r => r.id !== id) };
+  });
 
-  store.on(RECORDS_UPDATE_LOCALLY, (state, record) => ({
-    records: state.records.map(mapRecord =>
-      mapRecord.id === record.id ? record : mapRecord
-    ),
-  }));
+  store.on(RECORDS_UPDATE_LOCALLY, ({ records }, newRecord) => {
+    const updatedRecords = records.map(record =>
+      record.id === newRecord.id ? newRecord : record
+    );
 
-  store.on(RECORDS_PUSH, (state, record) => ({ records: [record, ...state.records] }));
-  store.on(RECORDS_SET, (_, records) => ({ records }));
+    return { records: updatedRecords };
+  });
 
-  // Async tasks
-  store.on(RECORDS_DELETE, async (_, id) => {
+  store.on(RECORDS_PUSH, ({ records }, record) => {
+    return { records: [record, ...records] };
+  });
+
+  store.on(RECORDS_SET, (_, records) => {
+    return { records };
+  });
+
+  store.on(RECORDS_DELETE, async (_, recordId) => {
     store.dispatch(SET_PENDING, true);
 
     try {
-      db.collection("records").doc(id).delete();
-      store.dispatch(RECORDS_DELETE_LOCALLY, id);
+      recordDelete({ recordId });
+      store.dispatch(RECORDS_DELETE_LOCALLY, recordId);
       store.dispatch(SET_SUCCESS_MESSAGE, "Запись удалена");
       store.dispatch(STATISTIC_CALC_MONTH_DAYS_COUNT);
     } catch (error) {
       store.dispatch(SET_ERROR_MESSAGE, "Не удалось удалить запись");
-      console.warn("error on recordDelete");
-      console.log(error);
+      console.warn(`error on ${RECORDS_DELETE}`);
+      console.error(error);
     }
 
     store.dispatch(SET_PENDING, false);
@@ -63,115 +71,57 @@ export let records = store => {
     store.dispatch(SET_PENDING, true);
 
     try {
-      db.collection("records").doc(record.id).update(record);
+      recordUpdate(record);
       store.dispatch(RECORDS_UPDATE_LOCALLY, record);
       store.dispatch(SET_SUCCESS_MESSAGE, "Услуга обновлена");
     } catch (error) {
       store.dispatch(SET_ERROR_MESSAGE, "Не удалось обновить запись");
-      console.warn("error on recordUpdate");
-      console.log(error);
+      console.warn(`error on ${RECORDS_UPDATE}`);
+      console.error(error);
     }
 
     store.dispatch(SET_PENDING, false);
   });
 
-  store.on(RECORDS_CREATE, async (_, record) => {
+  store.on(RECORDS_CREATE, async ({ user }, record) => {
     store.dispatch(SET_PENDING, true);
 
     try {
-      record = { ...record, createdAt: new Date(), date: new Date(record.date) };
-      const docRef = db.collection("records").doc();
-      docRef.set(record);
-      store.dispatch(RECORDS_PUSH, { ...record, id: docRef.id });
+      const id = recordCreate({ record, userId: user.id });
+      store.dispatch(RECORDS_PUSH, { ...record, id });
       store.dispatch(SET_SUCCESS_MESSAGE, "Запись создана");
       store.dispatch(STATISTIC_CALC_MONTH_DAYS_COUNT);
     } catch (error) {
       store.dispatch(SET_ERROR_MESSAGE, "Не удалось создать запись");
-      console.warn("error on recordCreate");
-      console.log(error);
+      console.warn(`error on ${RECORDS_CREATE}`);
+      console.error(error);
     }
 
     store.dispatch(SET_PENDING, false);
   });
 
-  store.on(RECORDS_FETCH, async state => {
+  store.on(RECORDS_FETCH, async ({ user, recordsDate }) => {
     store.dispatch(SET_PENDING, true);
 
     try {
-      const startDate = state.recordsDate
-        ? new Date(state.recordsDate.getTime())
-        : new Date();
-      startDate.setHours(0, 0, 0);
-
-      const endDate = state.recordsDate
-        ? new Date(state.recordsDate.getTime())
-        : new Date();
-      endDate.setHours(23, 59, 59);
-
-      const query = db
-        .collection("records")
-        .orderBy("date", "desc")
-        .where("date", ">=", startDate)
-        .where("date", "<=", endDate);
-
-      const queryResult = await query.get();
-
-      const records = queryResult.docs.map(doc => {
-        const record = doc.data();
-
-        return {
-          id: doc.id,
-          ...record,
-          date: record.date.toDate(),
-          createdAt: record.createdAt.toDate(),
-        };
-      });
-
+      const records = await recordGetAll({ userId: user.id, date: recordsDate });
       store.dispatch(RECORDS_SET, records);
     } catch (error) {
       store.dispatch(SET_ERROR_MESSAGE, "Не удалось загрузить записи");
-      console.warn("error on recordsFetch");
-      console.log(error);
+      console.warn(`error on ${RECORDS_FETCH}`);
+      console.error(error);
     }
 
     store.dispatch(SET_PENDING, false);
   });
 
-  store.on("@init", state => {
-    const currentDate = state.recordsDate || new Date();
-    let cachedRecords = localStorage.getItem(getPersistentKey(currentDate));
-    console.log(cachedRecords);
-
-    if (cachedRecords) {
-      try {
-        cachedRecords = JSON.parse(cachedRecords);
-        cachedRecords = cachedRecords.map(record => ({
-          ...record,
-          date: new Date(record.date),
-          createdAt: new Date(record.createdAt),
-        }));
-      } catch (error) {
-        console.warn("Error on parse records cache");
-        console.log(error);
-        localStorage.removeItem(getPersistentKey(state.recordsDate));
-      }
-    }
-
-    store.dispatch(RECORDS_FETCH);
-    return { recordsDate: new Date(), records: cachedRecords || [] };
+  store.on("@init", ({ recordsDate }) => {
+    const date = recordsDate || new Date();
+    return { recordsDate: new Date(), records: recordGetFromCache({ date }) || [] };
   });
 
-  store.on("@changed", state => {
-    try {
-      const currentDate = state.recordsDate || new Date();
-      state.records &&
-        localStorage.setItem(
-          getPersistentKey(currentDate),
-          JSON.stringify(state.records)
-        );
-    } catch (error) {
-      console.warn("Error on @changes records state");
-      console.log(error);
-    }
+  store.on("@changed", ({ records, recordsDate }) => {
+    const date = recordsDate || new Date();
+    records && recordSetToCache({ date, records });
   });
 };

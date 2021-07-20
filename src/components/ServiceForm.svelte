@@ -28,7 +28,7 @@ const handleInput = ({ target }) => (service[target.name] = target.value);
     <Input
       on:input="{handleInput}"
       required="{true}"
-      value="{service.description}"
+      value="{service.price}"
       placeholder="1000"
       type="number"
       label="Стоимость"

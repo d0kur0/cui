@@ -13,7 +13,8 @@
     "esbuild-svelte": "^0.5.1",
     "prettier": "^2.3.1",
     "prettier-plugin-svelte": "^2.3.1",
-    "svelte": "^3.0.0"
+    "svelte": "^3.0.0",
+    "workbox-build": "^6.1.5"
   },
   "dependencies": {
     "@storeon/svelte": "^1.0.0",
@@ -23,7 +24,6 @@
     "storeon": "^3.1.4",
     "svelte-icons": "^2.1.0",
     "svelte-spa-router": "^3.1.0",
-    "workbox-build": "^6.1.5",
     "workbox-window": "^6.1.5"
   }
 }

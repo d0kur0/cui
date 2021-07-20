@@ -12,7 +12,7 @@ const emptyUserStruct = { id: "", name: "", email: "", picture: "" };
 export let user = store => {
   store.on("@init", () => ({
     user: {
-      isSignedIn: true,
+      isSignedIn: false,
       ...emptyUserStruct,
     },
   }));

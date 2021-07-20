@@ -1,5 +1,7 @@
 <style>
 .page-container {
+  position: relative;
+  background-color: #fff;
   --navbar-height: 80px;
   --tabbar-height: 50px;
 }
@@ -16,7 +18,7 @@
   height: calc((var(--vh, 1vh) * 100) - (var(--tabbar-height) + var(--navbar-height)));
   background-color: #fff;
   color: rgba(0, 0, 0, 0.54);
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 
 .page-container__tabbar {

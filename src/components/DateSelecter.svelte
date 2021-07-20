@@ -158,6 +158,7 @@ import { addMonths, format, getDate, isEqual, startOfMonth, subMonths } from "da
 import { getWeekDays } from "../helpers/getWeekDays";
 import IoMdCalendar from "svelte-icons/io/IoMdCalendar.svelte";
 import ruLocale from "date-fns/locale/ru";
+import { STATISTIC_SET_MONTH_DAYS_COUNT } from "../stores/statistic.js";
 
 const dayNames = ["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"];
 
@@ -172,10 +173,12 @@ $: weekDays = getWeekDays($recordsDate).map(day => {
 });
 
 const handlePlusMonth = () => {
+  dispatch(STATISTIC_SET_MONTH_DAYS_COUNT, {});
   dispatch(RECORDS_SET_DATE, startOfMonth(addMonths($recordsDate, 1)));
 };
 
 const handleMinusMonth = () => {
+  dispatch(STATISTIC_SET_MONTH_DAYS_COUNT, {});
   dispatch(RECORDS_SET_DATE, startOfMonth(subMonths($recordsDate, 1)));
 };
 

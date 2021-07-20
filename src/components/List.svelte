@@ -18,7 +18,7 @@
 
 :global(.list > li:hover),
 :global(.list > li:focus-within) {
-  background-color: rgb(245, 245, 245);
+  background-color: #fff7fe;
 }
 
 :global(.list__item) {

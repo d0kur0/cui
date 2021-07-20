@@ -1,75 +1,55 @@
-import { endOfMonth, format, getDate, startOfMonth } from "date-fns";
-import { db } from "../firebase";
+import { format } from "date-fns";
+import {
+  statisticGetMonthDaysCount,
+  statisticGetMonthRecords,
+  statisticGetMonthRecordsFromCache,
+} from "../api/statistic";
 
 export const STATISTIC_CALC_MONTH_DAYS_COUNT = "statistic/calcMonthDaysCount";
 export const STATISTIC_SET_MONTH_DAYS_COUNT = "statistic/setMonthDaysCount";
-
-const getPersistentKey = recordsDate => {
-  return `monthDaysCount_${format(recordsDate, "LL-yyyy")}`;
-};
+export const STATISTIC_SET_MONTH_RECORDS = "statistic/setMonthRecords";
 
 let previousMonth;
 
 export let statistic = store => {
-  store.on("@init", state => {
-    let cachedCounter;
-
-    try {
-      const valueFormCache = localStorage.getItem(getPersistentKey(state.recordsDate));
-      valueFormCache !== undefined && (cachedCounter = JSON.parse(valueFormCache));
-    } catch (error) {
-      console.warn("error on init statistic");
-      console.log(error);
-    }
-
-    return { monthDaysCount: cachedCounter || {} };
+  store.on(STATISTIC_SET_MONTH_DAYS_COUNT, (_, monthDaysCount) => {
+    return { monthDaysCount };
   });
 
-  store.on(STATISTIC_SET_MONTH_DAYS_COUNT, (_, monthDaysCount) => ({ monthDaysCount }));
+  store.on(STATISTIC_SET_MONTH_RECORDS, (_, monthRecords) => {
+    return { monthRecords };
+  });
 
-  store.on(STATISTIC_CALC_MONTH_DAYS_COUNT, async state => {
+  store.on(STATISTIC_CALC_MONTH_DAYS_COUNT, async ({ user, recordsDate }) => {
     try {
-      const startDate = startOfMonth(state.recordsDate);
-      startDate.setHours(0, 0, 0);
-
-      const endDate = endOfMonth(state.recordsDate);
-      endDate.setHours(23, 59, 59);
-
-      const query = db
-        .collection("records")
-        .orderBy("date", "desc")
-        .where("date", ">=", startDate)
-        .where("date", "<=", endDate);
-
-      const queryResult = await query.get();
-
-      const recordDates = queryResult.docs.map(doc => {
-        const record = doc.data();
-        return { date: record.date.toDate() };
+      const monthRecords = await statisticGetMonthRecords({
+        userId: user.id,
+        date: recordsDate,
       });
 
-      const monthDaysCount = recordDates.reduce((acc, { date }) => {
-        const dayOfMonth = getDate(date);
-        acc[dayOfMonth] = (acc?.[dayOfMonth] || 0) + 1;
-        return acc;
-      }, {});
+      const monthDaysCount = statisticGetMonthDaysCount({ records: monthRecords });
 
-      localStorage.setItem(
-        getPersistentKey(state.recordsDate),
-        JSON.stringify(monthDaysCount)
-      );
-
+      store.dispatch(STATISTIC_SET_MONTH_RECORDS, monthRecords);
       store.dispatch(STATISTIC_SET_MONTH_DAYS_COUNT, monthDaysCount);
     } catch (error) {
-      console.warn("error on calcMonthDaysCount");
-      console.log(error);
+      console.warn(`error on ${STATISTIC_CALC_MONTH_DAYS_COUNT}`);
+      console.error(error);
     }
   });
 
-  store.on("@changed", state => {
-    if (!state.recordsDate) return;
+  store.on("@init", ({ recordsDate }) => {
+    const cachedMonthRecords = statisticGetMonthRecordsFromCache({ date: recordsDate });
+    const cachedDaysCount = statisticGetMonthDaysCount({ records: cachedMonthRecords });
 
-    const currentMonth = format(state.recordsDate, "LL-yyyy");
+    return {
+      monthDaysCount: cachedDaysCount || {},
+      monthRecords: cachedMonthRecords || [],
+    };
+  });
+
+  store.on("@changed", ({ recordsDate, user }) => {
+    if (!recordsDate || !user.isSignedIn) return;
+    const currentMonth = format(recordsDate, "LL-yyyy");
 
     if (previousMonth !== currentMonth) {
       store.dispatch(STATISTIC_CALC_MONTH_DAYS_COUNT);

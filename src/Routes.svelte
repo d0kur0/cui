@@ -4,7 +4,7 @@ import Clients from "./pages/Clients.svelte";
 import ClientCreate from "./pages/ClientCreate.svelte";
 import SignIn from "./pages/SignIn.svelte";
 import wrap from "svelte-spa-router/wrap";
-import { location, push, replace } from "svelte-spa-router";
+import { location, push } from "svelte-spa-router";
 import { auth } from "./firebase";
 import { useStoreon } from "@storeon/svelte";
 import { USER_CLEAR_DATA, USER_SET_DATA, USER_SET_IS_SIGNED } from "./stores/user";
@@ -18,19 +18,35 @@ import PageContainer from "./components/PageContainer.svelte";
 import Statistic from "./pages/Statistic.svelte";
 import RecordCreate from "./pages/RecordCreate.svelte";
 import RecordView from "./pages/RecordView.svelte";
+import { CLIENTS_FETCH } from "./stores/clients";
+import { SERVICES_FETCH } from "./stores/services";
+import { RECORDS_FETCH } from "./stores/records";
 
 const { user, dispatch } = useStoreon("user");
 
+$: if ($user.isSignedIn) {
+  dispatch(CLIENTS_FETCH);
+  dispatch(SERVICES_FETCH);
+  dispatch(RECORDS_FETCH);
+}
+
+let isTick = false;
+
 auth.onAuthStateChanged(state => {
   const isSignedIn = Boolean(state);
-  dispatch(USER_SET_IS_SIGNED, isSignedIn);
 
   if ($location === "/signIn" && isSignedIn) push("/");
   if ($location !== "/signIn" && !isSignedIn) push("/signIn");
 
-  if (!isSignedIn) return dispatch(USER_CLEAR_DATA);
-  const { displayName, email, uid, photoURL } = state;
-  dispatch(USER_SET_DATA, { name: displayName, email, id: uid, picture: photoURL });
+  if (state) {
+    const { displayName, email, uid, photoURL } = state;
+    dispatch(USER_SET_DATA, { name: displayName, email, id: uid, picture: photoURL });
+  }
+
+  dispatch(USER_SET_IS_SIGNED, isSignedIn);
+  isSignedIn || dispatch(USER_CLEAR_DATA);
+
+  isTick = true;
 });
 
 const signedInWrapper = component =>
@@ -70,5 +86,9 @@ const routes = {
 </script>
 
 <PageContainer title="Авторизация" hideTabBar="{!$user.isSignedIn}">
-  <Router restoreScrollState="{true}" routes="{routes}" />
+  {#if isTick}
+    <Router restoreScrollState="{true}" routes="{routes}" />
+  {:else}
+    load
+  {/if}
 </PageContainer>
