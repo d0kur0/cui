@@ -45,22 +45,16 @@
 </style>
 
 <script>
-import { useStoreon } from "@storeon/svelte";
-
 import DateSelecter from "../components/DateSelecter.svelte";
 import List from "../components/List.svelte";
 import Title from "../components/Title.svelte";
-import { link } from "svelte-spa-router";
 import EmptyMessage from "../components/EmptyMessage.svelte";
-import { format } from "date-fns";
 import Avatar from "../components/Avatar.svelte";
+import { format } from "date-fns";
+import { useStoreon } from "@storeon/svelte";
+import { link } from "svelte-spa-router";
 
-const { records, clients, services } = useStoreon(
-  "records",
-  "recordsDate",
-  "clients",
-  "services"
-);
+const { records, clients, services } = useStoreon("records", "clients", "services");
 
 $: recordForList = $records.map(record => {
   const servicesList = $services.filter(({ id }) => record.serviceIds.includes(id));

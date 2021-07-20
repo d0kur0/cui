@@ -10,36 +10,34 @@ export const USER_SIGN_OUT = "user/signOut";
 const emptyUserStruct = { id: "", name: "", email: "", picture: "" };
 
 export let user = store => {
-  store.on("@init", () => ({
-    user: {
-      isSignedIn: false,
-      ...emptyUserStruct,
-    },
-  }));
+  store.on("@init", () => {
+    return {
+      user: {
+        isSignedIn: false,
+        ...emptyUserStruct,
+      },
+    };
+  });
 
-  store.on(USER_SET_IS_SIGNED, (state, isSignedIn) => ({
-    user: {
-      ...state.user,
-      isSignedIn,
-    },
-  }));
+  store.on(USER_SET_IS_SIGNED, ({ user }, isSignedIn) => {
+    return { user: { ...user, isSignedIn } };
+  });
 
-  store.on(USER_CLEAR_DATA, state => ({
-    user: {
-      ...state.user,
-      ...emptyUserStruct,
-    },
-  }));
+  store.on(USER_CLEAR_DATA, ({ user }) => {
+    return { user: { ...user, ...emptyUserStruct } };
+  });
 
-  store.on(USER_SET_DATA, (state, { id, name, email, picture }) => ({
-    user: {
-      ...state.user,
-      id,
-      name,
-      email,
-      picture,
-    },
-  }));
+  store.on(USER_SET_DATA, ({ user }, { id, name, email, picture }) => {
+    return {
+      user: {
+        ...user,
+        id,
+        name,
+        email,
+        picture,
+      },
+    };
+  });
 
   store.on(USER_SIGN_IN, async () => {
     store.dispatch(SET_PENDING, true);
@@ -49,7 +47,7 @@ export let user = store => {
     } catch (error) {
       store.dispatch(SET_ERROR_MESSAGE, "Ошибка авторизации");
       console.warn("error on signIn");
-      console.log(error);
+      console.error(error);
     }
 
     store.dispatch(SET_PENDING, false);
@@ -63,7 +61,7 @@ export let user = store => {
     } catch (error) {
       store.dispatch(SET_ERROR_MESSAGE, "Ошибка выхода из аккаунта");
       console.warn("error on signOut");
-      console.log(error);
+      console.error(error);
     }
 
     store.dispatch(SET_PENDING, false);
