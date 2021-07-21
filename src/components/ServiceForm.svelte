@@ -15,7 +15,7 @@ const handleInput = ({ target }) => (service[target.name] = target.value);
 <form on:submit|preventDefault="{handleSubmit}">
   <FormItem>
     <Input
-      on:input="{handleInput}"
+      on:change="{handleInput}"
       required="{true}"
       value="{service.name}"
       placeholder="Опил жопы"
@@ -26,7 +26,7 @@ const handleInput = ({ target }) => (service[target.name] = target.value);
 
   <FormItem>
     <Input
-      on:input="{handleInput}"
+      on:change="{handleInput}"
       required="{true}"
       value="{service.price}"
       placeholder="1000"

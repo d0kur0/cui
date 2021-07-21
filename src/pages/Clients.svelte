@@ -22,7 +22,7 @@ const handleSearchInput = event => {
 </script>
 
 <Title title="Мои клиенты" />
-<SearchBar on:input="{handleSearchInput}" />
+<SearchBar on:change="{handleSearchInput}" />
 {#if filteredClients.length}
   <List items="{filteredClients}" let:item>
     <li>

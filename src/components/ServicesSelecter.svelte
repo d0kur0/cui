@@ -202,7 +202,7 @@ const handleSearchInput = event => {
       </button>
     </div>
     <Title title="Выбор услуг" />
-    <SearchBar on:input="{handleSearchInput}" />
+    <SearchBar on:change="{handleSearchInput}" />
     {#if filteredServices.length}
       <List items="{filteredServices}" let:item>
         <li>

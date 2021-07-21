@@ -79,7 +79,7 @@ const handleClearInput = () => {
     </div>
 
     <input
-      on:input
+      on:change
       bind:this="{searchInput}"
       bind:value="{searchValue}"
       placeholder="Поиск"

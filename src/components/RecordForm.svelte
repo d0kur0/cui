@@ -67,7 +67,7 @@ const handleInputDescription = ({ target }) => {
 
   <FormItem>
     <Input
-      on:input="{handleInputDate}"
+      on:change="{handleInputDate}"
       required="{true}"
       value="{recordDate}"
       placeholder="Выберите дату"
@@ -78,7 +78,7 @@ const handleInputDescription = ({ target }) => {
 
   <FormItem>
     <Input
-      on:input="{handleInputDescription}"
+      on:change="{handleInputDescription}"
       value="{record.description}"
       placeholder="Нужен топ без липкого слоя"
       type="text"
