@@ -22,6 +22,7 @@ import { CLIENTS_FETCH } from "./stores/clients";
 import { SERVICES_FETCH } from "./stores/services";
 import { RECORDS_FETCH } from "./stores/records";
 import Loading from "./components/Loading.svelte";
+import { STATISTIC_CALC_MONTH_DAYS_COUNT } from "./stores/statistic";
 
 const { user, dispatch } = useStoreon("user");
 
@@ -29,6 +30,7 @@ $: if ($user.isSignedIn) {
   dispatch(CLIENTS_FETCH);
   dispatch(SERVICES_FETCH);
   dispatch(RECORDS_FETCH);
+  dispatch(STATISTIC_CALC_MONTH_DAYS_COUNT);
 }
 
 let isTick = false;

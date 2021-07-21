@@ -16,13 +16,13 @@ $: filteredClients = $clients.filter(
     description.toLowerCase().includes(searchQuery)
 );
 
-const handleSearchInput = event => {
-  searchQuery = event.target.value;
+const handleSearchInput = ({ detail }) => {
+  searchQuery = detail.value;
 };
 </script>
 
 <Title title="Мои клиенты" />
-<SearchBar on:change="{handleSearchInput}" />
+<SearchBar on:input="{handleSearchInput}" />
 {#if filteredClients.length}
   <List items="{filteredClients}" let:item>
     <li>

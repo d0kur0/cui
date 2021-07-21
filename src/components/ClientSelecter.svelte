@@ -111,8 +111,8 @@ $: filteredClients = $clients.filter(
     description.toLowerCase().includes(searchQuery)
 );
 
-const handleSearchInput = event => {
-  searchQuery = event.target.value;
+const handleSearchInput = ({ detail }) => {
+  searchQuery = detail.value;
 };
 </script>
 

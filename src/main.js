@@ -1,6 +1,13 @@
 import { Workbox } from "workbox-window";
 import App from "./App.svelte";
 
+// @TODO
+function createUIPrompt(opts) {
+  if (confirm("Доступна новая версия приложения, обновить?")) {
+    opts.onAccept();
+  }
+}
+
 if ("serviceWorker" in navigator) {
   const wb = new Workbox("/service-worker.js");
 

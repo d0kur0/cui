@@ -15,13 +15,13 @@ $: filteredServices = $services.filter(
     name.toLowerCase().includes(searchQuery) || price.toString().includes(searchQuery)
 );
 
-const handleSearchInput = event => {
-  searchQuery = event.target.value;
+const handleSearchInput = ({ detail }) => {
+  searchQuery = detail.value;
 };
 </script>
 
 <Title title="Мои услуги" />
-<SearchBar on:change="{handleSearchInput}" on:change="{handleSearchInput}" />
+<SearchBar on:input="{handleSearchInput}" on:change="{handleSearchInput}" />
 {#if filteredServices.length}
   <List items="{filteredServices}" let:item>
     <li>

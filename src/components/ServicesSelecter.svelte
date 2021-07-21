@@ -164,8 +164,8 @@ $: filteredServices = $services.filter(
     name.toLowerCase().includes(searchQuery) || price.toString().includes(searchQuery)
 );
 
-const handleSearchInput = event => {
-  searchQuery = event.target.value;
+const handleSearchInput = ({ detail }) => {
+  searchQuery = detail.value;
 };
 </script>
 
@@ -202,7 +202,7 @@ const handleSearchInput = event => {
       </button>
     </div>
     <Title title="Выбор услуг" />
-    <SearchBar on:change="{handleSearchInput}" />
+    <SearchBar on:input="{handleSearchInput}" />
     {#if filteredServices.length}
       <List items="{filteredServices}" let:item>
         <li>

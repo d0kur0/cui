@@ -57,9 +57,12 @@
 <script>
 import IoMdSearch from "svelte-icons/io/IoMdSearch.svelte";
 import CloseFilled20 from "carbon-icons-svelte/lib/CloseFilled16";
+import { createEventDispatcher } from "svelte";
 
 let searchValue;
 let searchInput;
+
+const emmit = createEventDispatcher();
 
 const handleClearInput = () => {
   searchValue = "";
@@ -67,8 +70,12 @@ const handleClearInput = () => {
   if (searchInput) {
     searchInput.focus();
     searchInput.value = "";
-    searchInput.dispatchEvent(new Event("input"));
+    emmit("input", { value: "" });
   }
+};
+
+const handleInputValue = ({ target }) => {
+  emmit("input", { value: target.value });
 };
 </script>
 
@@ -79,7 +86,8 @@ const handleClearInput = () => {
     </div>
 
     <input
-      on:change
+      on:change="{handleInputValue}"
+      on:input="{handleInputValue}"
       bind:this="{searchInput}"
       bind:value="{searchValue}"
       placeholder="Поиск"
