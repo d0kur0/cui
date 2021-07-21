@@ -43,7 +43,7 @@ export let value = "";
 
   <input
     on:blur
-    on:input
+    on:change
     class="input__input"
     placeholder="{placeholder}"
     required="{required}"

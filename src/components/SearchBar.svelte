@@ -59,14 +59,11 @@ import IoMdSearch from "svelte-icons/io/IoMdSearch.svelte";
 import CloseFilled20 from "carbon-icons-svelte/lib/CloseFilled16";
 import { createEventDispatcher } from "svelte";
 
-let searchValue;
 let searchInput;
 
 const emmit = createEventDispatcher();
 
 const handleClearInput = () => {
-  searchValue = "";
-
   if (searchInput) {
     searchInput.focus();
     searchInput.value = "";
@@ -89,14 +86,13 @@ const handleInputValue = ({ target }) => {
       on:change="{handleInputValue}"
       on:input="{handleInputValue}"
       bind:this="{searchInput}"
-      bind:value="{searchValue}"
       placeholder="Поиск"
       class="searchbar__input" />
 
     <div
       on:click="{handleClearInput}"
       class="searchbar__clear-button"
-      class:searchbar__clear-button--active="{searchValue?.length}">
+      class:searchbar__clear-button--active="{searchInput?.value?.length}">
       <CloseFilled20 style="width: 20px; height: 20px" />
     </div>
   </div>

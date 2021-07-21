@@ -15,7 +15,7 @@ const handleInput = ({ target }) => (client[target.name] = target.value);
 <form on:submit|preventDefault="{handleSubmit}">
   <FormItem>
     <Input
-      on:input="{handleInput}"
+      on:change="{handleInput}"
       required="{true}"
       value="{client.name}"
       placeholder="Воняева Марина"
@@ -26,7 +26,7 @@ const handleInput = ({ target }) => (client[target.name] = target.value);
 
   <FormItem>
     <Input
-      on:input="{handleInput}"
+      on:change="{handleInput}"
       value="{client.description}"
       placeholder="Воняет тухлым сыром"
       type="text"
