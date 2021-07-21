@@ -4,6 +4,8 @@ body {
   --ancent-color: rgb(18, 124, 230);
   --ancent-color-light: rgb(32, 138, 243);
   --ancent-color-dark: rgb(19, 105, 190);
+  padding: env(safe-area-inset-top, 20px) env(safe-area-inset-right, 20px)
+    env(safe-area-inset-bottom, 20px) env(safe-area-inset-left, 20px);
 }
 
 body {

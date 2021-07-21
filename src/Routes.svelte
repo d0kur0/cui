@@ -21,6 +21,7 @@ import RecordView from "./pages/RecordView.svelte";
 import { CLIENTS_FETCH } from "./stores/clients";
 import { SERVICES_FETCH } from "./stores/services";
 import { RECORDS_FETCH } from "./stores/records";
+import Loading from "./components/Loading.svelte";
 
 const { user, dispatch } = useStoreon("user");
 
@@ -89,6 +90,6 @@ const routes = {
   {#if isTick}
     <Router restoreScrollState="{true}" routes="{routes}" />
   {:else}
-    load
+    <Loading />
   {/if}
 </PageContainer>

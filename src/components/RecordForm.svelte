@@ -56,6 +56,16 @@ const handleInputDescription = ({ target }) => {
 
 <form on:submit|preventDefault="{handleSubmit}">
   <FormItem>
+    <ClientSelecter selectedClient="{recordClient}" on:input="{handleSelectClient}" />
+  </FormItem>
+
+  <FormItem>
+    <ServicesSelecter
+      selectedServices="{recordServices}"
+      on:input="{handleSelectServices}" />
+  </FormItem>
+
+  <FormItem>
     <Input
       on:input="{handleInputDate}"
       required="{true}"
@@ -72,18 +82,8 @@ const handleInputDescription = ({ target }) => {
       value="{record.description}"
       placeholder="Нужен топ без липкого слоя"
       type="text"
-      label="Примечание к записи"
+      label="Примечание к клиенту"
       name="description" />
-  </FormItem>
-
-  <FormItem>
-    <ClientSelecter selectedClient="{recordClient}" on:input="{handleSelectClient}" />
-  </FormItem>
-
-  <FormItem>
-    <ServicesSelecter
-      selectedServices="{recordServices}"
-      on:input="{handleSelectServices}" />
   </FormItem>
 
   <FormItem>

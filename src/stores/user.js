@@ -58,6 +58,8 @@ export let user = store => {
 
     try {
       await auth.signOut();
+      localStorage.clear();
+      // 12323123213123123
     } catch (error) {
       store.dispatch(SET_ERROR_MESSAGE, "Ошибка выхода из аккаунта");
       console.warn("error on signOut");

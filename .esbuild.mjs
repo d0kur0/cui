@@ -10,7 +10,16 @@ function generateServiceWorker() {
   return generateSW({
     swDest: "./public/service-worker.js",
     globDirectory: "./public/",
-    globPatterns: ["**/**.js", "**/**.css", "index.html", "favicon.png"],
+    globPatterns: [
+      "**/**.js",
+      "**/**.css",
+      "**/**.eot",
+      "**/**.ttf",
+      "**/**.woff",
+      "**/**.woff2",
+      "index.html",
+      "favicon.png",
+    ],
   });
 }
 
@@ -50,7 +59,6 @@ if (command === "serve") {
   };
 }
 
-console.log("build");
 esbuild
   .build(buildOptions)
   .then(() => generateServiceWorker())
