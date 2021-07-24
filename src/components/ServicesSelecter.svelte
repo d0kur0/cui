@@ -161,7 +161,8 @@ const handleSelectService = ({ event, service }) => {
 const { services } = useStoreon("services");
 $: filteredServices = $services.filter(
   ({ name, price }) =>
-    name.toLowerCase().includes(searchQuery) || price.toString().includes(searchQuery)
+    name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    price.toString().includes(searchQuery.toLowerCase())
 );
 
 const handleSearchInput = ({ detail }) => {

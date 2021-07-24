@@ -12,7 +12,8 @@ const { services } = useStoreon("services");
 let searchQuery = "";
 $: filteredServices = $services.filter(
   ({ name, price }) =>
-    name.toLowerCase().includes(searchQuery) || price.toString().includes(searchQuery)
+    name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    price.toString().includes(searchQuery.toLowerCase())
 );
 
 const handleSearchInput = ({ detail }) => {

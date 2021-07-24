@@ -9,11 +9,12 @@ import { useStoreon } from "@storeon/svelte";
 import Title from "../components/Title.svelte";
 
 const { clients } = useStoreon("clients");
+
 let searchQuery = "";
 $: filteredClients = $clients.filter(
   ({ name, description }) =>
-    name.toLowerCase().includes(searchQuery) ||
-    description.toLowerCase().includes(searchQuery)
+    name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    description.toLowerCase().includes(searchQuery.toLowerCase())
 );
 
 const handleSearchInput = ({ detail }) => {
