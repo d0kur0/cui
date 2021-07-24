@@ -9,11 +9,15 @@ import { SET_ERROR_MESSAGE } from "../stores/common";
 import { useStoreon } from "@storeon/svelte";
 import { format } from "date-fns";
 
-export let record = { description: "", clientId: "", serviceIds: [], date: "" };
-export let buttonText = "Создать";
-
 const dispatchEvent = createEventDispatcher();
-const { dispatch, clients, services } = useStoreon("clients", "services");
+const { dispatch, clients, services, recordsDate } = useStoreon(
+  "clients",
+  "services",
+  "recordsDate"
+);
+
+export let record = { description: "", clientId: "", serviceIds: [], date: $recordsDate };
+export let buttonText = "Создать";
 
 $: recordClient = $clients.find(({ id }) => id === record.clientId);
 $: recordServices = $services.filter(({ id }) => record.serviceIds.includes(id));

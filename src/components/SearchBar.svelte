@@ -60,6 +60,7 @@ import CloseFilled20 from "carbon-icons-svelte/lib/CloseFilled16";
 import { createEventDispatcher } from "svelte";
 
 let searchInput;
+let searchValue;
 
 const emmit = createEventDispatcher();
 
@@ -83,6 +84,8 @@ const handleInputValue = ({ target }) => {
     </div>
 
     <input
+      type="text"
+      bind:value="{searchValue}"
       on:change="{handleInputValue}"
       on:input="{handleInputValue}"
       bind:this="{searchInput}"
@@ -92,7 +95,7 @@ const handleInputValue = ({ target }) => {
     <div
       on:click="{handleClearInput}"
       class="searchbar__clear-button"
-      class:searchbar__clear-button--active="{searchInput?.value?.length}">
+      class:searchbar__clear-button--active="{searchValue?.length}">
       <CloseFilled20 style="width: 20px; height: 20px" />
     </div>
   </div>

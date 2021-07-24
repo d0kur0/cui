@@ -24,6 +24,7 @@ function generateServiceWorker() {
 }
 
 let buildOptions = {
+  //entryNames: "[dir]/[name]-[hash]",
   target: "esnext",
   bundle: true,
   format: "iife",
