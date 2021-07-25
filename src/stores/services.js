@@ -1,4 +1,10 @@
-import { SET_ERROR_MESSAGE, SET_PENDING, SET_SUCCESS_MESSAGE } from "./common";
+import {
+  SET_ERROR_MESSAGE,
+  SET_PENDING,
+  SET_SERVICES_LOADED,
+  SET_SUCCESS_MESSAGE,
+} from "./common";
+
 import {
   serviceCreate,
   serviceDelete,
@@ -23,6 +29,7 @@ export let services = store => {
   });
 
   store.on(SERVICES_SET, (_, services) => {
+    store.dispatch(SET_SERVICES_LOADED);
     return { services };
   });
 

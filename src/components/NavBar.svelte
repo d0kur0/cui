@@ -29,6 +29,7 @@
 
 :global(.navbar__back-button > svg) {
   width: 25px;
+  margin-right: 5px;
 }
 
 .navbar__add-button {
@@ -67,7 +68,7 @@ const allowedLocations = ["/clients", "/services", "/records"];
 
 <div class="navbar">
   <button on:click="{() => pop()}" class="navbar__back-button">
-    <IoIosArrowBack />
+    <IoIosArrowBack /> Назад
   </button>
 
   {#if allowedLocations.includes($location)}

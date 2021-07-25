@@ -53,6 +53,10 @@
   color: rgb(156, 156, 156);
 }
 
+:global(.list__item-end > svg) {
+  width: 32px;
+}
+
 :global(.list__event-button) {
   position: absolute;
   width: 100%;

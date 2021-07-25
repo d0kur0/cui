@@ -153,7 +153,8 @@
 <script>
 import { RECORDS_SET_DATE } from "./../stores/records.js";
 import { useStoreon } from "@storeon/svelte";
-import { ChevronLeft32, ChevronRight32 } from "carbon-icons-svelte";
+import IoIosArrowBack from "svelte-icons/io/IoIosArrowBack.svelte";
+import IoIosArrowForward from "svelte-icons/io/IoIosArrowForward.svelte";
 import { addMonths, format, getDate, isEqual, startOfMonth, subMonths } from "date-fns";
 import { getWeekDays } from "../helpers/getWeekDays";
 import IoMdCalendar from "svelte-icons/io/IoMdCalendar.svelte";
@@ -198,13 +199,13 @@ const handleSelectDay = dayAsDate => {
     </button>
     <div class="picker__toolbar-arrows">
       <button class="picker__toolbar-button" on:click="{handleMinusMonth}">
-        <ChevronLeft32 />
+        <IoIosArrowBack />
       </button>
       <button class="picker__toolbar-button" on:click="{handleSelectToday}">
         Сегодня
       </button>
       <button class="picker__toolbar-button" on:click="{handlePlusMonth}">
-        <ChevronRight32 />
+        <IoIosArrowForward />
       </button>
     </div>
   </div>

@@ -13,11 +13,11 @@ const getPersistentKey = date => {
   }
 };
 
-export const statisticGetMonthRecords = async ({ userId, date }) => {
+export const statisticGetMonthRecords = async ({ userId, date, endDateAsToday }) => {
   const startDate = startOfMonth(date);
   startDate.setHours(0, 0, 0);
 
-  const endDate = endOfMonth(date);
+  const endDate = endDateAsToday ? new Date() : endOfMonth(date);
   endDate.setHours(23, 59, 59);
 
   const resource = await db
@@ -45,6 +45,21 @@ export const statisticGetMonthDaysCount = ({ records }) => {
   }, {});
 
   return monthDaysCount;
+};
+
+export const statisticGetCounters = ({ records, services }) => {
+  if (!records) return;
+
+  return {
+    records: records.length,
+    money: records.reduce((acc, record) => {
+      const recordServices = services.filter(service =>
+        record.serviceIds.includes(service.id)
+      );
+
+      return acc + recordServices.reduce((acc, { price }) => acc + +price, 0);
+    }, 0),
+  };
 };
 
 export const statisticGetMonthRecordsFromCache = ({ date }) => {

@@ -23,7 +23,7 @@
 </style>
 
 <script>
-import Add32 from "carbon-icons-svelte/lib/Add32";
+import TiPlus from "svelte-icons/ti/TiPlus.svelte";
 import { link } from "svelte-spa-router";
 
 export let href;
@@ -31,10 +31,10 @@ export let href;
 
 {#if href}
   <a on:click href="{href}" use:link class="fab-button">
-    <Add32 />
+    <TiPlus />
   </a>
 {:else}
   <button on:click class="fab-button">
-    <Add32 />
+    <TiPlus />
   </button>
 {/if}

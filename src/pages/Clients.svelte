@@ -2,7 +2,7 @@
 import Avatar from "../components/Avatar.svelte";
 import List from "../components/List.svelte";
 import SearchBar from "../components/SearchBar.svelte";
-import ChevronRight32 from "carbon-icons-svelte/lib/ChevronRight32";
+import IoIosArrowForward from "svelte-icons/io/IoIosArrowForward.svelte";
 import { link } from "svelte-spa-router";
 import EmptyMessage from "../components/EmptyMessage.svelte";
 import { useStoreon } from "@storeon/svelte";
@@ -40,7 +40,7 @@ const handleSearchInput = ({ detail }) => {
           <h3>{item.description}</h3>
         </div>
         <div class="list__item-end">
-          <ChevronRight32 />
+          <IoIosArrowForward />
         </div>
       </div>
     </li>

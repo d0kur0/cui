@@ -35,7 +35,8 @@
   padding: 2px 10px;
 }
 
-:global(.searchbar__leading-icon > svg) {
+:global(.searchbar__leading-icon > svg),
+:global(.searchbar__clear-button > svg) {
   width: 25px;
 }
 
@@ -45,10 +46,16 @@
   pointer-events: none;
   display: flex;
   align-items: center;
+  justify-content: center;
+  background-color: #717171;
+  color: #fff;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  margin-right: 5px;
 }
 
 .searchbar__clear-button--active {
-  padding: 2px 10px;
   opacity: 1;
   pointer-events: all;
 }
@@ -56,7 +63,7 @@
 
 <script>
 import IoMdSearch from "svelte-icons/io/IoMdSearch.svelte";
-import CloseFilled20 from "carbon-icons-svelte/lib/CloseFilled16";
+import IoIosClose from "svelte-icons/io/IoIosClose.svelte";
 import { createEventDispatcher } from "svelte";
 
 let searchInput;
@@ -66,6 +73,7 @@ const emmit = createEventDispatcher();
 
 const handleClearInput = () => {
   if (searchInput) {
+    searchValue = "";
     searchInput.focus();
     searchInput.value = "";
     emmit("input", { value: "" });
@@ -96,7 +104,7 @@ const handleInputValue = ({ target }) => {
       on:click="{handleClearInput}"
       class="searchbar__clear-button"
       class:searchbar__clear-button--active="{searchValue?.length}">
-      <CloseFilled20 style="width: 20px; height: 20px" />
+      <IoIosClose />
     </div>
   </div>
 </div>

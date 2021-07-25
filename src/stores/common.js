@@ -6,6 +6,7 @@ import {
 export const SET_ERROR_MESSAGE = "common/setErrorMessage";
 export const SET_SUCCESS_MESSAGE = "common/setSucessMessage";
 export const SET_PENDING = "common/setPending";
+export const SET_SERVICES_LOADED = "common/setServicesLoaded";
 
 let successTimer;
 let errorTimer;
@@ -16,11 +17,16 @@ export let common = store => {
       errorMessage: null,
       successMessage: null,
       isPending: false,
+      isServicesLoaded: false,
     };
   });
 
   store.on(SET_PENDING, (_, isPending) => {
     return { isPending };
+  });
+
+  store.on(SET_SERVICES_LOADED, () => {
+    return { isServicesLoaded: true };
   });
 
   store.on(SET_ERROR_MESSAGE, (_, errorMessage) => {

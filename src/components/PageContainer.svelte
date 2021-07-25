@@ -47,7 +47,6 @@ import Notifications from "./Notifications.svelte";
 import Spinner from "./Spinner.svelte";
 import TabBar from "./TabBar.svelte";
 
-export let title;
 export let hideTabBar = false;
 
 const { isPending } = useStoreon("isPending");
@@ -61,7 +60,7 @@ const { isPending } = useStoreon("isPending");
 
 <main class="page-container" class:page-container--with-out-tabbar="{hideTabBar}">
   <div class="page-container__navbar">
-    <NavBar title="{title}" />
+    <NavBar />
   </div>
 
   <div class="page-container__content"><slot /></div>

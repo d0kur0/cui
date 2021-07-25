@@ -106,6 +106,7 @@ export let records = store => {
     try {
       const records = await recordGetAll({ userId: user.id, date: recordsDate });
       store.dispatch(RECORDS_SET, records);
+      store.dispatch(STATISTIC_CALC_MONTH_DAYS_COUNT);
     } catch (error) {
       store.dispatch(SET_ERROR_MESSAGE, "Не удалось загрузить записи");
       console.warn(`error on ${RECORDS_FETCH}`);

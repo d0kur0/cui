@@ -26,14 +26,14 @@ import { STATISTIC_CALC_MONTH_DAYS_COUNT } from "./stores/statistic";
 
 const { user, dispatch } = useStoreon("user");
 
+let isTick = false;
+
 $: if ($user.isSignedIn) {
   dispatch(CLIENTS_FETCH);
   dispatch(SERVICES_FETCH);
   dispatch(RECORDS_FETCH);
   dispatch(STATISTIC_CALC_MONTH_DAYS_COUNT);
 }
-
-let isTick = false;
 
 auth.onAuthStateChanged(state => {
   const isSignedIn = Boolean(state);
@@ -88,7 +88,7 @@ const routes = {
 };
 </script>
 
-<PageContainer title="Авторизация" hideTabBar="{!$user.isSignedIn}">
+<PageContainer hideTabBar="{!$user.isSignedIn}">
   {#if isTick}
     <Router restoreScrollState="{true}" routes="{routes}" />
   {:else}

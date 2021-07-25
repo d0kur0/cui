@@ -36,7 +36,7 @@ const handleExit = () => {
 
 <Title title="Аккаунт" />
 <div class="user">
-  <div class="user__avatar"><Avatar initials="{$user.name}" /></div>
+  <div class="user__avatar"><Avatar src="{$user.picture}" /></div>
   <div class="user__info">
     <div class="user__name">{$user.name}</div>
     <div class="user__exit">
