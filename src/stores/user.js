@@ -46,7 +46,7 @@ export let user = store => {
       await auth.signInWithPopup(googleProvider);
     } catch (error) {
       store.dispatch(SET_ERROR_MESSAGE, "Ошибка авторизации");
-      console.warn("error on signIn");
+      console.warn(`error on ${USER_SIGN_IN}`);
       console.error(error);
     }
 
@@ -59,10 +59,9 @@ export let user = store => {
     try {
       await auth.signOut();
       localStorage.clear();
-      // 12323123213123123
     } catch (error) {
       store.dispatch(SET_ERROR_MESSAGE, "Ошибка выхода из аккаунта");
-      console.warn("error on signOut");
+      console.warn(`error on ${USER_SIGN_OUT}`);
       console.error(error);
     }
 
