@@ -143,7 +143,6 @@ const handleOpenList = event => {
 const handleCloseList = event => {
   event.preventDefault();
   isModalOpen = false;
-  selectedServices = [];
 };
 
 const handleSelectServices = event => {
