@@ -27,10 +27,12 @@ import { useStoreon } from "@storeon/svelte";
 import { USER_SIGN_OUT } from "../stores/user";
 import Avatar from "../components/Avatar.svelte";
 import Title from "../components/Title.svelte";
+import { push } from "svelte-spa-router";
 
 const { user, dispatch } = useStoreon("user");
 const handleExit = () => {
   dispatch(USER_SIGN_OUT);
+  push("/signIn");
 };
 </script>
 

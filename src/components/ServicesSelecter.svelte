@@ -13,6 +13,11 @@
   color: rgb(48, 48, 48);
   border-radius: 5px;
   font: inherit;
+  cursor: pointer;
+}
+
+.input__input--bottom-margin {
+  margin-bottom: 5px;
 }
 
 .modal {
@@ -34,6 +39,7 @@
   border: none;
   background-color: transparent;
   margin: 0;
+  cursor: pointer;
   padding: 0;
 }
 
@@ -50,6 +56,7 @@
   opacity: 1;
   pointer-events: unset;
   transition: 0.3s;
+  cursor: pointer;
 }
 
 .modal__select-button--hidden {
@@ -91,6 +98,7 @@
   align-items: center;
   justify-content: center;
   border-radius: 50%;
+  cursor: pointer;
 }
 
 :global(.services__cancel-button > svg) {
@@ -172,6 +180,14 @@ const handleSearchInput = ({ detail }) => {
 
 <div class="input">
   <div class="input__label">Выберите услуги</div>
+
+  <button
+    on:click="{handleOpenList}"
+    class:input__input--bottom-margin="{selectedServices.length}"
+    class="input__input">
+    {selectedServices.length ? "Изменить выбор" : "Не выбраны"}
+  </button>
+
   {#if selectedServices.length}
     <div class="services">
       {#each selectedServices as service}
@@ -185,8 +201,6 @@ const handleSearchInput = ({ detail }) => {
         </div>
       {/each}
     </div>
-  {:else}
-    <button on:click="{handleOpenList}" class="input__input">Не выбраны</button>
   {/if}
 </div>
 

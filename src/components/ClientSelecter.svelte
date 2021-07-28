@@ -13,6 +13,7 @@
   color: rgb(48, 48, 48);
   border-radius: 5px;
   font: inherit;
+  cursor: pointer;
 }
 
 .modal {
@@ -35,6 +36,7 @@
   background-color: transparent;
   margin: 0;
   padding: 0;
+  cursor: pointer;
 }
 
 :global(.modal__close-button > svg) {
@@ -59,6 +61,7 @@
   font-size: 0.9em;
   color: rgb(53, 53, 53);
   background-color: #ffd6fc;
+  cursor: pointer;
 }
 </style>
 
