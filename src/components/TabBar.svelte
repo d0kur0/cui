@@ -47,6 +47,24 @@
 :global(.tabbar__link > svg) {
   width: 25px;
 }
+
+@media (min-width: 1024px) {
+  .tabbar {
+    flex-direction: column;
+    height: 100vh;
+    border-radius: 0;
+    justify-content: start;
+  }
+
+  .tabbar__item {
+    flex-grow: unset;
+    height: 80px;
+  }
+
+  :global(.tabbar__link > svg) {
+    width: 35px;
+  }
+}
 </style>
 
 <script>

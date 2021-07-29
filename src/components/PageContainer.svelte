@@ -37,6 +37,34 @@
   justify-content: center;
   z-index: 2;
 }
+
+@media (min-width: 1024px) {
+  :global(body) {
+    max-width: 100%;
+  }
+
+  .page-container {
+    display: grid;
+    grid-template-columns: 80px 1fr 1.3fr 1fr;
+    grid-template-rows: 0.2fr 1.8fr;
+    gap: 0px 0px;
+    grid-template-areas:
+      "tabbar navbar navbar navbar"
+      "tabbar . content .";
+  }
+
+  .page-container__navbar {
+    grid-area: navbar;
+  }
+
+  .page-container__tabbar {
+    grid-area: tabbar;
+  }
+
+  .page-container__content {
+    grid-area: content;
+  }
+}
 </style>
 
 <script>
