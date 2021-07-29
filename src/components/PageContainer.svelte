@@ -2,8 +2,8 @@
 .page-container {
   position: relative;
   background-color: #fff;
-  --navbar-height: 80px;
-  --tabbar-height: 50px;
+  --navbar-height: calc(80px + var(--safe-area-inset-top));
+  --tabbar-height: calc(50px + var(--safe-area-inset-bottom));
 }
 
 .page-container--with-out-tabbar {
