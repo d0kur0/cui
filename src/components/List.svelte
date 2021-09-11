@@ -47,6 +47,8 @@
   padding: 0;
   font-size: 0.9em;
   font-weight: normal;
+  margin-top: 6px;
+  color: #afafaf;
 }
 
 :global(.list__item-end) {
@@ -54,7 +56,7 @@
 }
 
 :global(.list__item-end > svg) {
-  width: 32px;
+  width: 25px;
 }
 
 :global(.list__event-button) {
