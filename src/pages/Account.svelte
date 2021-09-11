@@ -20,6 +20,31 @@
   background-color: transparent;
   cursor: pointer;
 }
+
+.statistic {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  padding: 0 15px;
+}
+
+.statistic__item {
+  color: #868686;
+  font-weight: 500;
+  font-size: 1.2em;
+  display: flex;
+  padding: 7px 0;
+  border-bottom: 5px dashed #dadada;
+  margin-top: 15px;
+}
+
+.statistic__item:first-child {
+  margin-top: 0;
+}
+
+.statistic__item-counter {
+  margin-left: auto;
+}
 </style>
 
 <script>
@@ -29,14 +54,29 @@ import Avatar from "../components/Avatar.svelte";
 import Title from "../components/Title.svelte";
 import { push } from "svelte-spa-router";
 
-const { user, dispatch } = useStoreon("user");
+const { user, clients, services, dispatch } = useStoreon("user", "clients", "services");
+
+console.log($clients);
+
 const handleExit = () => {
   dispatch(USER_SIGN_OUT);
   push("/signIn");
 };
+
+$: counters = [
+  {
+    title: "Клиентов",
+    amount: $clients.length,
+  },
+  {
+    title: "Услуг",
+    amount: $services.length,
+  },
+];
 </script>
 
 <Title title="Аккаунт" />
+
 <div class="user">
   <div class="user__avatar"><Avatar src="{$user.picture}" /></div>
   <div class="user__info">
@@ -46,3 +86,14 @@ const handleExit = () => {
     </div>
   </div>
 </div>
+
+<Title title="Статистика" />
+
+<ul class="statistic">
+  {#each counters as { title, amount }}
+    <li class="statistic__item">
+      {title}
+      <div class="statistic__item-counter">{amount}</div>
+    </li>
+  {/each}
+</ul>
