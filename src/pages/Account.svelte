@@ -26,6 +26,7 @@
   margin: 0;
   padding: 0;
   padding: 0 15px;
+  margin-top: 15px;
 }
 
 .statistic__item {
@@ -33,9 +34,10 @@
   font-weight: 500;
   font-size: 1.2em;
   display: flex;
-  padding: 7px 0;
-  border-bottom: 5px dashed #dadada;
-  margin-top: 15px;
+  border-radius: 8px;
+  background-color: #f5f5f5;
+  margin-top: 10px;
+  padding: 15px;
 }
 
 .statistic__item:first-child {
@@ -86,8 +88,6 @@ $: counters = [
     </div>
   </div>
 </div>
-
-<Title title="Статистика" />
 
 <ul class="statistic">
   {#each counters as { title, amount }}

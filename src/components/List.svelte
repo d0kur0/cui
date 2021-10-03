@@ -8,8 +8,8 @@
 }
 
 :global(.list > li) {
-  margin: 0;
-  padding: 0px 15px;
+  padding: 0;
+  margin: 0px 15px;
   display: flex;
   align-items: center;
   position: relative;

@@ -60,7 +60,7 @@ import IoIosArrowForward from "svelte-icons/io/IoIosArrowForward.svelte";
 import Title from "../components/Title.svelte";
 import ruLocale from "date-fns/locale/ru";
 import { STATISTIC_CALC_MONTH_COUNTS } from "../stores/statistic";
-import TextBox from "../components/TextBox.svelte";
+import ImportantMessage from "../components/ImportantMessage.svelte";
 
 const { dispatch, recordsDate, isServicesLoaded, monthCounts } = useStoreon(
   "recordsDate",
@@ -86,6 +86,12 @@ const setPreviuosMonth = () => {
 </script>
 
 <Title title="Статистика" />
+
+<ImportantMessage style="info">
+  Статистика расчитывается с первого до последнего для месяца, если открыт текущий месяц,
+  то расчет идет от первого числа до текущего календарного дня.
+</ImportantMessage>
+
 <div class="date">
   <button on:click="{setPreviuosMonth}" class="date__slide-button">
     <IoIosArrowBack />

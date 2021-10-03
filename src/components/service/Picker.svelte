@@ -116,65 +116,65 @@
 </style>
 
 <script>
-import TiTimes from "svelte-icons/ti/TiTimes.svelte";
-import IoIosClose from "svelte-icons/io/IoIosClose.svelte";
-import IoIosCheckmark from "svelte-icons/io/IoIosCheckmark.svelte";
-import SearchBar from "./SearchBar.svelte";
-import Title from "./Title.svelte";
 import { fade } from "svelte/transition";
 import { useStoreon } from "@storeon/svelte";
-import List from "../components/List.svelte";
-import EmptyMessage from "../components/EmptyMessage.svelte";
-
 import { createEventDispatcher } from "svelte";
 
+import List from "../List.svelte";
+import Title from "../Title.svelte";
+import TiTimes from "svelte-icons/ti/TiTimes.svelte";
+import SearchBar from "../SearchBar.svelte";
+import IoIosClose from "svelte-icons/io/IoIosClose.svelte";
+import EmptyMessage from "../EmptyMessage.svelte";
+import IoIosCheckmark from "svelte-icons/io/IoIosCheckmark.svelte";
+
 const dispatch = createEventDispatcher();
+const { services } = useStoreon("services");
+
+export let selectedServices = [];
 
 let isModalOpen = false;
 let searchQuery = "";
 
-export let selectedServices = [];
-
-const handleOpenList = event => {
-  event.preventDefault();
-  isModalOpen = true;
-};
-
-const handleCloseList = event => {
-  event.preventDefault();
-  isModalOpen = false;
-};
-
-const handleSelectServices = event => {
-  event.preventDefault();
-  isModalOpen = false;
-  dispatch("input", { serviceIds: selectedServices.map(s => s.id) });
-};
-
-const handleCancelService = ({ event, serviceId }) => {
-  event.preventDefault();
-  selectedServices = selectedServices.filter(s => s.id !== serviceId);
-  dispatch("input", { serviceIds: selectedServices.map(s => s.id) });
-};
-
-const handleSelectService = ({ event, service }) => {
-  event.preventDefault();
-  const selected = selectedServices.some(s => s.id === service.id);
-  selectedServices = selected
-    ? selectedServices.filter(s => s.id !== service.id)
-    : [...selectedServices, service];
-};
-
-const { services } = useStoreon("services");
 $: filteredServices = $services.filter(
   ({ name, price }) =>
     name.toLowerCase().includes(searchQuery.toLowerCase()) ||
     price.toString().includes(searchQuery.toLowerCase())
 );
 
-const handleSearchInput = ({ detail }) => {
+function handleSearchInput({ detail }) {
   searchQuery = detail.value;
-};
+}
+
+function handleOpenList(event) {
+  event.preventDefault();
+  isModalOpen = true;
+}
+
+function handleCloseList(event) {
+  event.preventDefault();
+  isModalOpen = false;
+}
+
+function handleSelectServices(event) {
+  event.preventDefault();
+  isModalOpen = false;
+  dispatch("input", { serviceIds: selectedServices.map(({ id }) => id) });
+}
+
+function handleCancelService({ event, serviceId }) {
+  event.preventDefault();
+  selectedServices = selectedServices.filter(({ id }) => id !== serviceId);
+  dispatch("input", { serviceIds: selectedServices.map(({ id }) => id) });
+}
+
+function handleSelectService({ event, service }) {
+  event.preventDefault();
+  const selected = selectedServices.some(({ id }) => id === service.id);
+  selectedServices = selected
+    ? selectedServices.filter(({ id }) => id !== service.id)
+    : [...selectedServices, service];
+}
 </script>
 
 <div class="input">
@@ -215,8 +215,10 @@ const handleSearchInput = ({ detail }) => {
         <IoIosClose />
       </button>
     </div>
+
     <Title title="Выбор услуг" />
     <SearchBar on:input="{handleSearchInput}" />
+
     {#if filteredServices.length}
       <List items="{filteredServices}" let:item>
         <li>

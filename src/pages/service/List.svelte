@@ -1,11 +1,11 @@
 <script>
-import List from "../components/List.svelte";
-import SearchBar from "../components/SearchBar.svelte";
+import List from "../../components/List.svelte";
+import SearchBar from "../../components/SearchBar.svelte";
 import IoIosArrowForward from "svelte-icons/io/IoIosArrowForward.svelte";
 import { link } from "svelte-spa-router";
-import EmptyMessage from "../components/EmptyMessage.svelte";
+import EmptyMessage from "../../components/EmptyMessage.svelte";
 import { useStoreon } from "@storeon/svelte";
-import Title from "../components/Title.svelte";
+import Title from "../../components/Title.svelte";
 
 const { services } = useStoreon("services");
 

@@ -63,6 +63,7 @@
 
   .page-container__content {
     grid-area: content;
+    position: relative;
   }
 }
 </style>

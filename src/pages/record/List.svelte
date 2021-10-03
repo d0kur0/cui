@@ -59,14 +59,15 @@
 </style>
 
 <script>
-import DateSelecter from "../components/DateSelecter.svelte";
-import List from "../components/List.svelte";
-import Title from "../components/Title.svelte";
-import EmptyMessage from "../components/EmptyMessage.svelte";
-import Avatar from "../components/Avatar.svelte";
+import { link } from "svelte-spa-router";
 import { format } from "date-fns";
 import { useStoreon } from "@storeon/svelte";
-import { link } from "svelte-spa-router";
+
+import List from "../../components/List.svelte";
+import Title from "../../components/Title.svelte";
+import Avatar from "../../components/Avatar.svelte";
+import DatePicker from "../../components/DatePicker.svelte";
+import EmptyMessage from "../../components/EmptyMessage.svelte";
 
 const { records, clients, services } = useStoreon("records", "clients", "services");
 
@@ -83,7 +84,8 @@ $: recordForList = $records.map(record => {
 </script>
 
 <Title title="Мои записи" />
-<DateSelecter />
+<DatePicker />
+
 {#if recordForList.length}
   <div class="margin-container">
     <div class="summ-of-records">

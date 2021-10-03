@@ -151,15 +151,17 @@
 </style>
 
 <script>
-import { RECORDS_SET_DATE } from "./../stores/records.js";
-import { useStoreon } from "@storeon/svelte";
-import IoIosArrowBack from "svelte-icons/io/IoIosArrowBack.svelte";
-import IoIosArrowForward from "svelte-icons/io/IoIosArrowForward.svelte";
 import { addMonths, format, getDate, isEqual, startOfMonth, subMonths } from "date-fns";
 import { getWeekDays } from "../helpers/getWeekDays";
-import IoMdCalendar from "svelte-icons/io/IoMdCalendar.svelte";
-import ruLocale from "date-fns/locale/ru";
+
+import { RECORDS_SET_DATE } from "./../stores/records.js";
+import { useStoreon } from "@storeon/svelte";
 import { STATISTIC_SET_MONTH_DAYS_COUNT } from "../stores/statistic.js";
+
+import ruLocale from "date-fns/locale/ru";
+import IoMdCalendar from "svelte-icons/io/IoMdCalendar.svelte";
+import IoIosArrowBack from "svelte-icons/io/IoIosArrowBack.svelte";
+import IoIosArrowForward from "svelte-icons/io/IoIosArrowForward.svelte";
 
 const dayNames = ["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"];
 
@@ -167,29 +169,30 @@ const { recordsDate, monthDaysCount, dispatch } = useStoreon(
   "recordsDate",
   "monthDaysCount"
 );
+
 $: weekDays = getWeekDays($recordsDate).map(day => {
   const dayOfMonth = getDate(day.date);
   const counter = $monthDaysCount?.[dayOfMonth] || 0;
   return { ...day, counter };
 });
 
-const handlePlusMonth = () => {
+function handlePlusMonth() {
   dispatch(STATISTIC_SET_MONTH_DAYS_COUNT, {});
   dispatch(RECORDS_SET_DATE, startOfMonth(addMonths($recordsDate, 1)));
-};
+}
 
-const handleMinusMonth = () => {
+function handleMinusMonth() {
   dispatch(STATISTIC_SET_MONTH_DAYS_COUNT, {});
   dispatch(RECORDS_SET_DATE, startOfMonth(subMonths($recordsDate, 1)));
-};
+}
 
-const handleSelectToday = () => {
+function handleSelectToday() {
   dispatch(RECORDS_SET_DATE, new Date());
-};
+}
 
-const handleSelectDay = dayAsDate => {
+function handleSelectDay(dayAsDate) {
   dispatch(RECORDS_SET_DATE, dayAsDate);
-};
+}
 </script>
 
 <div class="picker">

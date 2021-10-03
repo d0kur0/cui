@@ -1,13 +1,15 @@
 <script>
-import Button from "../components/Button.svelte";
-import FormItem from "../components/FormItem.svelte";
-import Input from "../components/Input.svelte";
-import { createEventDispatcher } from "svelte";
-import ClientSelecter from "./ClientSelecter.svelte";
-import ServicesSelecter from "./ServicesSelecter.svelte";
-import { SET_ERROR_MESSAGE } from "../stores/common";
+import { SET_ERROR_MESSAGE } from "../../stores/common";
 import { useStoreon } from "@storeon/svelte";
 import { format } from "date-fns";
+import { createEventDispatcher } from "svelte";
+
+import Input from "../Input.svelte";
+import Button from "../Button.svelte";
+import FormItem from "../FormItem.svelte";
+import ClientPicker from "../client/Picker.svelte";
+import ServicesSelecter from "../service/Picker.svelte";
+import ImportantMessage from "../ImportantMessage.svelte";
 
 const dispatchEvent = createEventDispatcher();
 const { dispatch, clients, services, recordsDate } = useStoreon(
@@ -27,40 +29,50 @@ $: recordDate =
     format(record.date, "yyyy-MM-dd'T'HH:mm")) ||
   "";
 
-const handleSubmit = () => {
+function handleSubmit() {
   if (!record.serviceIds.length) {
-    dispatch(SET_ERROR_MESSAGE, "Выберите услуги");
-    return;
+    return dispatch(SET_ERROR_MESSAGE, "Выберите услуги");
   }
 
   if (!record.clientId) {
-    dispatch(SET_ERROR_MESSAGE, "Выберите клиента");
-    return;
+    return dispatch(SET_ERROR_MESSAGE, "Выберите клиента");
   }
 
   dispatchEvent("submit", { record });
-};
+}
 
-const handleInputDate = ({ target }) => {
+function handleInputDate({ target }) {
   record.date = new Date(target.value);
-};
+}
 
-const handleSelectClient = ({ detail }) => {
+function handleSelectClient({ detail }) {
   record.clientId = detail.clientId;
-};
+}
 
-const handleSelectServices = ({ detail }) => {
+function handleSelectServices({ detail }) {
   record.serviceIds = detail.serviceIds;
-};
+}
 
-const handleInputDescription = ({ target }) => {
+function handleInputDescription({ target }) {
   record.description = target.value;
-};
+}
 </script>
+
+{#if !$clients?.length}
+  <ImportantMessage>
+    У вас не создано ни одного клиента, для создания записи создайте хотя бы одного.
+  </ImportantMessage>
+{/if}
+
+{#if !$services?.length}
+  <ImportantMessage>
+    У вас не создано ни одной услуги, для создания записи создайте хотя бы одну.
+  </ImportantMessage>
+{/if}
 
 <form on:submit|preventDefault="{handleSubmit}">
   <FormItem>
-    <ClientSelecter selectedClient="{recordClient}" on:input="{handleSelectClient}" />
+    <ClientPicker selectedClient="{recordClient}" on:input="{handleSelectClient}" />
   </FormItem>
 
   <FormItem>

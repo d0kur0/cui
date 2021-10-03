@@ -66,57 +66,57 @@
 </style>
 
 <script>
-import IoIosClose from "svelte-icons/io/IoIosClose.svelte";
-import SearchBar from "./SearchBar.svelte";
-import Title from "./Title.svelte";
 import { fade } from "svelte/transition";
 import { useStoreon } from "@storeon/svelte";
-import Avatar from "../components/Avatar.svelte";
-import List from "../components/List.svelte";
-import EmptyMessage from "../components/EmptyMessage.svelte";
-
 import { createEventDispatcher } from "svelte";
 
-const dispatch = createEventDispatcher();
+import List from "../List.svelte";
+import Title from "../Title.svelte";
+import Avatar from "../Avatar.svelte";
+import SearchBar from "../SearchBar.svelte";
+import IoIosClose from "svelte-icons/io/IoIosClose.svelte";
+import EmptyMessage from "../EmptyMessage.svelte";
+
+export let selectedClient;
 
 let isModalOpen = false;
 let searchQuery = "";
 
-export let selectedClient;
-
-const handleOpenList = event => {
-  event.preventDefault();
-  isModalOpen = true;
-};
-
-const handleCloseList = event => {
-  event.preventDefault();
-  isModalOpen = false;
-};
-
-const handleSelectClient = ({ event, client }) => {
-  event.preventDefault();
-  selectedClient = client;
-  isModalOpen = false;
-  dispatch("input", { clientId: client.id });
-};
-
-const handleCancelClient = event => {
-  event.preventDefault();
-  selectedClient = undefined;
-  dispatch("input", { clientId: undefined });
-};
-
+const dispatch = createEventDispatcher();
 const { clients } = useStoreon("clients");
+
 $: filteredClients = $clients.filter(
   ({ name, description }) =>
     name.toLowerCase().includes(searchQuery.toLowerCase()) ||
     description.toLowerCase().includes(searchQuery.toLowerCase())
 );
 
-const handleSearchInput = ({ detail }) => {
+function handleSearchInput({ detail }) {
   searchQuery = detail.value;
-};
+}
+
+function handleOpenList(event) {
+  event.preventDefault();
+  isModalOpen = true;
+}
+
+function handleCloseList(event) {
+  event.preventDefault();
+  isModalOpen = false;
+}
+
+function handleSelectClient({ event, client }) {
+  event.preventDefault();
+  selectedClient = client;
+  isModalOpen = false;
+  dispatch("input", { clientId: client.id });
+}
+
+function handleCancelClient(event) {
+  event.preventDefault();
+  selectedClient = undefined;
+  dispatch("input", { clientId: undefined });
+}
 </script>
 
 <div class="input">

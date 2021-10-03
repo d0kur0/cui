@@ -1,12 +1,13 @@
 <script>
 import { useStoreon } from "@storeon/svelte";
-import EmptyMessage from "../components/EmptyMessage.svelte";
-import ClientForm from "../components/ClientForm.svelte";
-import { CLIENTS_DELETE, CLIENTS_UPDATE } from "../stores/clients";
-import Button from "../components/Button.svelte";
-import FormItem from "../components/FormItem.svelte";
+import { CLIENTS_DELETE, CLIENTS_UPDATE } from "../../stores/clients";
 import { push } from "svelte-spa-router";
-import Title from "../components/Title.svelte";
+
+import Form from "../../components/client/Form.svelte";
+import Title from "../../components/Title.svelte";
+import Button from "../../components/Button.svelte";
+import FormItem from "../../components/FormItem.svelte";
+import EmptyMessage from "../../components/EmptyMessage.svelte";
 
 export let params = {};
 
@@ -27,7 +28,7 @@ const handleDelete = () => {
 
 <Title title="Ред. клиента" />
 {#if client}
-  <ClientForm on:submit="{handleSubmit}" buttonText="Изменить" client="{client}" />
+  <Form on:submit="{handleSubmit}" buttonText="Изменить" client="{client}" />
   <FormItem>
     <Button
       on:click="{handleDelete}"

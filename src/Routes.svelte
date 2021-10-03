@@ -1,28 +1,33 @@
 <script>
-import Records from "./pages/Records.svelte";
-import Clients from "./pages/Clients.svelte";
-import ClientCreate from "./pages/ClientCreate.svelte";
-import SignIn from "./pages/SignIn.svelte";
-import wrap from "svelte-spa-router/wrap";
-import { location, push } from "svelte-spa-router";
 import { auth } from "./firebase";
 import { useStoreon } from "@storeon/svelte";
-import { USER_CLEAR_DATA, USER_SET_DATA, USER_SET_IS_SIGNED } from "./stores/user";
-import Router from "svelte-spa-router";
-import ClientView from "./pages/ClientView.svelte";
-import Services from "./pages/Services.svelte";
-import ServiceCreate from "./pages/ServiceCreate.svelte";
-import ServiceView from "./pages/ServiceView.svelte";
-import Account from "./pages/Account.svelte";
-import PageContainer from "./components/PageContainer.svelte";
-import Statistic from "./pages/Statistic.svelte";
-import RecordCreate from "./pages/RecordCreate.svelte";
-import RecordView from "./pages/RecordView.svelte";
 import { CLIENTS_FETCH } from "./stores/clients";
-import { SERVICES_FETCH } from "./stores/services";
 import { RECORDS_FETCH } from "./stores/records";
-import Loading from "./components/Loading.svelte";
+import { SERVICES_FETCH } from "./stores/services";
+import { location, push } from "svelte-spa-router";
 import { STATISTIC_CALC_MONTH_DAYS_COUNT } from "./stores/statistic";
+import { USER_CLEAR_DATA, USER_SET_DATA, USER_SET_IS_SIGNED } from "./stores/user";
+
+import wrap from "svelte-spa-router/wrap";
+import Router from "svelte-spa-router";
+import Loading from "./components/Loading.svelte";
+import PageContainer from "./components/PageContainer.svelte";
+
+import ClientList from "./pages/client/List.svelte";
+import ClientView from "./pages/client/View.svelte";
+import ClientCreate from "./pages/client/Create.svelte";
+
+import ServiceList from "./pages/service/List.svelte";
+import ServiceView from "./pages/service/View.svelte";
+import ServiceCreate from "./pages/service/Create.svelte";
+
+import RecordList from "./pages/record/List.svelte";
+import RecordView from "./pages/record/View.svelte";
+import RecordCreate from "./pages/record/Create.svelte";
+
+import SignIn from "./pages/SignIn.svelte";
+import Account from "./pages/Account.svelte";
+import Statistic from "./pages/Statistic.svelte";
 
 const { user, dispatch } = useStoreon("user");
 
@@ -65,17 +70,17 @@ const signedInWrapper = component =>
 
 const routes = {
   "/": wrap({ component: async () => {}, conditions: [() => push("/records")] }),
-  "/records": signedInWrapper(Records),
+  "/records": signedInWrapper(RecordList),
   "/records/create": signedInWrapper(RecordCreate),
   "/records/:id": signedInWrapper(RecordView),
 
   // Clients
-  "/clients": signedInWrapper(Clients),
+  "/clients": signedInWrapper(ClientList),
   "/clients/create": signedInWrapper(ClientCreate),
   "/clients/:id": signedInWrapper(ClientView),
 
   // Services
-  "/services": signedInWrapper(Services),
+  "/services": signedInWrapper(ServiceList),
   "/services/create": signedInWrapper(ServiceCreate),
   "/services/:id": signedInWrapper(ServiceView),
 

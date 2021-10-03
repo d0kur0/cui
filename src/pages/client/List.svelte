@@ -1,12 +1,14 @@
 <script>
-import Avatar from "../components/Avatar.svelte";
-import List from "../components/List.svelte";
-import SearchBar from "../components/SearchBar.svelte";
-import IoIosArrowForward from "svelte-icons/io/IoIosArrowForward.svelte";
-import { link } from "svelte-spa-router";
-import EmptyMessage from "../components/EmptyMessage.svelte";
 import { useStoreon } from "@storeon/svelte";
-import Title from "../components/Title.svelte";
+import { link } from "svelte-spa-router";
+
+import IoIosArrowForward from "svelte-icons/io/IoIosArrowForward.svelte";
+
+import List from "../../components/List.svelte";
+import Title from "../../components/Title.svelte";
+import Avatar from "../../components/Avatar.svelte";
+import SearchBar from "../../components/SearchBar.svelte";
+import EmptyMessage from "../../components/EmptyMessage.svelte";
 
 const { clients } = useStoreon("clients");
 
@@ -24,6 +26,7 @@ const handleSearchInput = ({ detail }) => {
 
 <Title title="Мои клиенты" />
 <SearchBar on:input="{handleSearchInput}" />
+
 {#if filteredClients.length}
   <List items="{filteredClients}" let:item>
     <li>

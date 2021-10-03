@@ -40,3 +40,22 @@ textarea {
   border: 1px solid #ccc;
   border-radius: 2px;
 }
+
+* {
+  scrollbar-width: auto;
+  scrollbar-color: #ccdff7 #ffffff;
+}
+
+*::-webkit-scrollbar {
+  width: 14px;
+}
+
+*::-webkit-scrollbar-track {
+  background: #ffffff;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #ccdff7;
+  border-radius: 10px;
+  border: 3px solid #ffffff;
+}
