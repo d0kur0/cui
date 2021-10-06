@@ -1,0 +1,64 @@
+.input__label {
+	padding-bottom: 5px;
+	font-size: 0.9em;
+	color: rgb(65, 65, 65);
+}
+
+.input__input {
+	border: none;
+	background-color: #ffd6fc;
+	padding: 5px 15px;
+	margin: 0;
+	color: rgb(48, 48, 48);
+	border-radius: 5px;
+	font: inherit;
+	cursor: pointer;
+}
+
+.modal {
+	width: 100%;
+	height: calc(var(--vh) * 100);
+	background-color: #fff;
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+.modal__close-button-wrapper {
+	padding: 15px;
+	display: flex;
+	justify-content: flex-end;
+}
+
+.modal__close-button {
+	border: none;
+	background-color: transparent;
+	margin: 0;
+	padding: 0;
+	cursor: pointer;
+}
+
+:global(.modal__close-button > svg) {
+	width: 32px;
+}
+
+.client {
+	display: flex;
+	align-items: center;
+}
+
+.client__info {
+	padding: 0 10px;
+	display: flex;
+	flex-direction: column;
+}
+
+.client__cancel-button {
+	border: none;
+	border-radius: 8px;
+	padding: 3px 8px;
+	font-size: 0.9em;
+	color: rgb(53, 53, 53);
+	background-color: #ffd6fc;
+	cursor: pointer;
+}

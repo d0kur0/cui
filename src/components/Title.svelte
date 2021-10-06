@@ -1,12 +1,4 @@
-<style>
-.title {
-  color: #cecece;
-  font-weight: 500;
-  padding: 8px 15px;
-  margin: 0;
-  font-size: 1.7em;
-}
-</style>
+<style src="./Title.css"></style>
 
 <script>
 export let title = "Title of page";

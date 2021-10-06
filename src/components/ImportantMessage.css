@@ -1,0 +1,17 @@
+.important-message {
+	margin: 10px 15px;
+	border-radius: 5px;
+	color: #ad5000;
+	background-color: #ffc8aa;
+	padding: 10px 15px;
+}
+
+:global(.important-message > svg) {
+	width: 24px;
+	vertical-align: sub;
+}
+
+.important-message--info {
+	color: #065bb1;
+	background-color: #b9d8ff;
+}

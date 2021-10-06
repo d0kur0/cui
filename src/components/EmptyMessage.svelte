@@ -1,10 +1,4 @@
-<style>
-.empty-message {
-  padding: 20px;
-  padding-top: 50px;
-  text-align: center;
-}
-</style>
+<style src="./EmptyMessage.css"></style>
 
 <script>
 export let message = "Нет данных";

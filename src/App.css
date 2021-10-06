@@ -1,0 +1,61 @@
+html,
+body {
+	margin: auto;
+	--ancent-color: rgb(18, 124, 230);
+	--ancent-color-light: rgb(32, 138, 243);
+	--ancent-color-dark: rgb(19, 105, 190);
+	--safe-area-inset-top: env(safe-area-inset-top);
+	--safe-area-inset-bottom: env(safe-area-inset-bottom);
+}
+
+body {
+	color: #333;
+	margin: auto;
+	box-sizing: border-box;
+	font-family: "Circe Rounded";
+	max-width: 550px;
+	background-color: rgb(255, 255, 255);
+}
+
+* {
+	box-sizing: border-box;
+}
+
+a {
+	color: var(--ancent-color);
+	text-decoration: none;
+}
+
+label {
+	display: block;
+}
+
+input,
+button,
+select,
+textarea {
+	font: inherit;
+	font-size: inherit;
+	box-sizing: border-box;
+	border: 1px solid #ccc;
+	border-radius: 2px;
+}
+
+* {
+	scrollbar-width: auto;
+	scrollbar-color: #ccdff7 #ffffff;
+}
+
+*::-webkit-scrollbar {
+	width: 14px;
+}
+
+*::-webkit-scrollbar-track {
+	background: #ffffff;
+}
+
+*::-webkit-scrollbar-thumb {
+	background-color: #ccdff7;
+	border-radius: 10px;
+	border: 3px solid #ffffff;
+}

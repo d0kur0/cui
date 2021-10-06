@@ -54,13 +54,14 @@
 
 <script>
 import { useStoreon } from "@storeon/svelte";
+import { STATISTIC_CALC_MONTH_COUNTS } from "../stores/statistic";
 import { addMonths, format, startOfMonth, subMonths } from "date-fns";
-import IoIosArrowBack from "svelte-icons/io/IoIosArrowBack.svelte";
-import IoIosArrowForward from "svelte-icons/io/IoIosArrowForward.svelte";
+
 import Title from "../components/Title.svelte";
 import ruLocale from "date-fns/locale/ru";
-import { STATISTIC_CALC_MONTH_COUNTS } from "../stores/statistic";
+import IoIosArrowBack from "svelte-icons/io/IoIosArrowBack.svelte";
 import ImportantMessage from "../components/ImportantMessage.svelte";
+import IoIosArrowForward from "svelte-icons/io/IoIosArrowForward.svelte";
 
 const { dispatch, recordsDate, isServicesLoaded, monthCounts } = useStoreon(
 	"recordsDate",
@@ -74,15 +75,15 @@ $: if ($isServicesLoaded) {
 	dispatch(STATISTIC_CALC_MONTH_COUNTS, statisticDate);
 }
 
-const setNextMonth = () => {
+function setNextMonth() {
 	statisticDate = startOfMonth(addMonths(statisticDate, 1));
 	dispatch(STATISTIC_CALC_MONTH_COUNTS, statisticDate);
-};
+}
 
-const setPreviuosMonth = () => {
+function setPreviuosMonth() {
 	statisticDate = startOfMonth(subMonths(statisticDate, 1));
 	dispatch(STATISTIC_CALC_MONTH_COUNTS, statisticDate);
-};
+}
 </script>
 
 <Title title="Статистика" />

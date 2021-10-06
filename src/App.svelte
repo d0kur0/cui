@@ -1,3 +1,5 @@
+<style src="./App.css" global></style>
+
 <script>
 import calculateHeightUnit from "./helpers/calculateHeightUnit";
 import { provideStoreon } from "@storeon/svelte";

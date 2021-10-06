@@ -1,9 +1,5 @@
-<style>
-.form-item {
-  padding: 10px 15px;
-}
-</style>
+<style src="./FormItem.css"></style>
 
 <div class="form-item">
-  <slot />
+	<slot />
 </div>

@@ -1,0 +1,114 @@
+.input__label {
+	padding-bottom: 5px;
+	font-size: 0.9em;
+	color: rgb(65, 65, 65);
+}
+
+.input__input {
+	border: none;
+	background-color: #ffd6fc;
+	padding: 5px 15px;
+	margin: 0;
+	color: rgb(48, 48, 48);
+	border-radius: 5px;
+	font: inherit;
+	cursor: pointer;
+}
+
+.input__input--bottom-margin {
+	margin-bottom: 5px;
+}
+
+.modal {
+	width: 100%;
+	height: calc(var(--vh) * 100);
+	background-color: #fff;
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+.modal__close-button-wrapper {
+	padding: 15px;
+	display: flex;
+	justify-content: space-between;
+}
+
+.modal__close-button {
+	border: none;
+	background-color: transparent;
+	margin: 0;
+	cursor: pointer;
+	padding: 0;
+}
+
+:global(.modal__close-button > svg) {
+	width: 32px;
+}
+
+.modal__select-button {
+	background-color: #ffd6fc;
+	border: none;
+	border-radius: 5px;
+	padding: 3px 12px;
+	margin: 0;
+	opacity: 1;
+	pointer-events: unset;
+	transition: 0.3s;
+	cursor: pointer;
+}
+
+.modal__select-button--hidden {
+	transition: 0.3s;
+	opacity: 0;
+	pointer-events: none;
+}
+
+.checkmark {
+	width: 28px;
+	height: 28px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border-radius: 50%;
+	border: 2px solid #80b8ff;
+}
+
+.checkmark--active {
+	background-color: #9ec9ff;
+	color: #fff;
+}
+
+.services {
+	display: flex;
+	flex-wrap: wrap;
+	margin: 0 -5px;
+}
+
+.services__cancel-button {
+	margin-left: 5px;
+	background-color: #ffd6fc;
+	color: rgb(43, 43, 43);
+	border: none;
+	width: 20px;
+	height: 20px;
+	padding: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border-radius: 50%;
+	cursor: pointer;
+}
+
+:global(.services__cancel-button > svg) {
+	width: 16px;
+}
+
+.services__service {
+	margin: 4px 5px;
+	background-color: #80b8ff;
+	color: #fff;
+	padding: 3px 8px;
+	border-radius: 23px;
+	display: flex;
+}
