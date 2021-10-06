@@ -38,7 +38,7 @@
 }
 
 @media (min-width: 1024px) {
-	:global(body) {
+	:global(html > body) {
 		max-width: 100%;
 	}
 

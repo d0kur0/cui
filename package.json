@@ -20,6 +20,7 @@
     "@storeon/svelte": "^1.0.0",
     "date-fns": "^2.22.1",
     "firebase": "^8.6.7",
+    "postcss": "^8.3.9",
     "pug": "^3.0.2",
     "storeon": "^3.1.4",
     "svelte-icons": "^2.1.0",
