@@ -54,3 +54,9 @@
 	width: 22px;
 	padding-right: 5px;
 }
+
+@media (min-width: 1024px) {
+	.navbar {
+		align-items: center;
+	}
+}

@@ -14,13 +14,13 @@ const { clients } = useStoreon("clients");
 
 let searchQuery = "";
 $: filteredClients = $clients.filter(
-  ({ name, description }) =>
-    name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    description.toLowerCase().includes(searchQuery.toLowerCase())
+	({ name, description }) =>
+		name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+		description.toLowerCase().includes(searchQuery.toLowerCase())
 );
 
 const handleSearchInput = ({ detail }) => {
-  searchQuery = detail.value;
+	searchQuery = detail.value;
 };
 </script>
 
@@ -28,26 +28,30 @@ const handleSearchInput = ({ detail }) => {
 <SearchBar on:input="{handleSearchInput}" />
 
 {#if filteredClients.length}
-  <List items="{filteredClients}" let:item>
-    <li>
-      <a href="{`/clients/${item.id}`}" use:link class="list__event-button">
-        Open client
-      </a>
+	<List items="{filteredClients}" let:item>
+		<li>
+			<a
+				title="Открыть клиента"
+				href="{`/clients/${item.id}`}"
+				use:link
+				class="list__event-button">
+				Открыть клиента
+			</a>
 
-      <div class="list__item-avatar">
-        <Avatar initials="{item.name}" />
-      </div>
-      <div class="list__item">
-        <div class="list__item-content">
-          <h2>{item.name}</h2>
-          <h3>{item.description}</h3>
-        </div>
-        <div class="list__item-end">
-          <IoIosArrowForward />
-        </div>
-      </div>
-    </li>
-  </List>
+			<div class="list__item-avatar">
+				<Avatar initials="{item.name}" />
+			</div>
+			<div class="list__item">
+				<div class="list__item-content">
+					<h2>{item.name}</h2>
+					<h3>{item.description}</h3>
+				</div>
+				<div class="list__item-end">
+					<IoIosArrowForward />
+				</div>
+			</div>
+		</li>
+	</List>
 {:else}
-  <EmptyMessage />
+	<EmptyMessage />
 {/if}

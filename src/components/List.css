@@ -15,9 +15,13 @@
 	transition: 0.3s;
 }
 
-:global(.list > li:hover),
-:global(.list > li:focus-within) {
-	background-color: #fff7fe;
+:global(.list svg) {
+	transition: 0.4s;
+}
+
+:global(.list > li:hover svg),
+:global(.list > li:focus-within svg) {
+	color: #000;
 }
 
 :global(.list__item) {

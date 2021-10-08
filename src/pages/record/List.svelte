@@ -95,8 +95,12 @@ $: recordForList = $records.map(record => {
 
 		<List items="{recordForList}" let:item>
 			<li>
-				<a href="{`/records/${item.id}`}" use:link class="list__event-button">
-					Open record
+				<a
+					title="Открыть запись"
+					href="{`/records/${item.id}`}"
+					use:link
+					class="list__event-button">
+					Открыть запись
 				</a>
 
 				<div class="list__item">

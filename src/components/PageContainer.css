@@ -44,9 +44,10 @@
 
 	.page-container {
 		display: grid;
-		grid-template-columns: 80px 1fr 1.3fr 1fr;
-		grid-template-rows: 0.2fr 1.8fr;
-		gap: 0px 0px;
+		min-height: 100vh;
+		grid-template-rows: 80px 1fr;
+		grid-template-columns: 80px 1fr 600px 1fr;
+		gap: 0 0;
 		grid-template-areas:
 			"tabbar navbar navbar navbar"
 			"tabbar . content .";
@@ -57,11 +58,14 @@
 	}
 
 	.page-container__tabbar {
+		position: fixed;
+		width: 70px;
 		grid-area: tabbar;
 	}
 
 	.page-container__content {
 		grid-area: content;
 		position: relative;
+		height: auto;
 	}
 }
