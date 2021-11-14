@@ -11,5 +11,5 @@ npm run build
 
 Запустить dev-режим:
 ```bash
-npm run build
+npm run dev
 ```
