@@ -23,10 +23,8 @@
 
 .statistic {
 	list-style: none;
-	margin: 0;
-	padding: 0;
 	padding: 0 15px;
-	margin-top: 15px;
+	margin: 15px 0 0;
 }
 
 .statistic__item {

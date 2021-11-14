@@ -12,7 +12,7 @@ body {
 	color: #333;
 	margin: auto;
 	box-sizing: border-box;
-	font-family: "Circe Rounded";
+	font-family: "Circe Rounded", sans-serif;
 	max-width: 550px;
 	background-color: rgb(255, 255, 255);
 }
@@ -58,4 +58,32 @@ textarea {
 	background-color: #ccdff7;
 	border-radius: 10px;
 	border: 3px solid #ffffff;
+}
+
+.fadeInRightAnimation {
+	animation: fadeInRight 0.3s ease-in-out;
+}
+
+.fadeInLeftAnimation {
+	animation: fadeInLeft 0.3s ease-in-out;
+}
+
+@keyframes fadeInRight {
+	from {
+		opacity: 0;
+		transform: translateX(300px);
+	}
+	to {
+		opacity: 1;
+	}
+}
+
+@keyframes fadeInLeft {
+	from {
+		opacity: 0;
+		transform: translateX(-300px);
+	}
+	to {
+		opacity: 1;
+	}
 }

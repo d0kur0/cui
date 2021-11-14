@@ -77,6 +77,7 @@ import Avatar from "../../components/Avatar.svelte";
 import DatePicker from "../../components/DatePicker.svelte";
 import EmptyMessage from "../../components/EmptyMessage.svelte";
 import { RECORDS_SET_DATE } from "../../stores/records";
+import { swipeRecords } from "../../helpers/swipeRecords";
 
 const { records, clients, services, recordsDate, dispatch } = useStoreon(
 	"records",
@@ -96,45 +97,20 @@ $: recordForList = $records.map(record => {
 	};
 });
 
-function swipe(e) {
-	const maxDiff = 70;
-	const minDiff = 30;
+function handleSwipeRight() {
+	dispatch(RECORDS_SET_DATE, addDays($recordsDate, 1));
+}
 
-	let startPosition = 0;
-	let diff = 0;
-
-	e.addEventListener("touchmove", event => {
-		diff = startPosition - event.changedTouches[0].pageX;
-		if (Math.abs(diff) < minDiff) return;
-
-		e.style.right = `${
-			diff > maxDiff
-				? maxDiff
-				: diff < Math.abs(maxDiff) * -1
-				? Math.abs(maxDiff) * -1
-				: diff
-		}px`;
-	});
-
-	e.addEventListener("touchstart", event => {
-		startPosition = event.changedTouches[0].pageX;
-	});
-
-	e.addEventListener("touchend", () => {
-		startPosition = 0;
-		e.style.right = "0px";
-
-		if (Math.abs(diff) >= maxDiff) {
-			dispatch(
-				RECORDS_SET_DATE,
-				diff > 0 ? addDays($recordsDate, 1) : subDays($recordsDate, 1)
-			);
-		}
-	});
+function handleSwipeLeft() {
+	dispatch(RECORDS_SET_DATE, subDays($recordsDate, 1));
 }
 </script>
 
-<div class="swipe" use:swipe>
+<div
+	class="swipe"
+	use:swipeRecords
+	on:swipeRight="{handleSwipeRight}"
+	on:swipeLeft="{handleSwipeLeft}">
 	<Title title="Мои записи" />
 	<DatePicker />
 
