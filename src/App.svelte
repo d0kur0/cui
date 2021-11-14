@@ -5,6 +5,7 @@ import calculateHeightUnit from "./helpers/calculateHeightUnit";
 import { provideStoreon } from "@storeon/svelte";
 import { store } from "./stores";
 import Routes from "./Routes.svelte";
+
 provideStoreon(store);
 </script>
 

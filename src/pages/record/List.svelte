@@ -43,7 +43,7 @@
 	font-size: 0.9em;
 }
 
-.summ-of-records {
+.sum-of-records {
 	padding: 5px;
 	text-align: center;
 	font-size: 0.9em;
@@ -56,11 +56,19 @@
 .margin-container {
 	margin: 0 10px;
 }
+
+.swipe {
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 100%;
+	transition: 0.3s;
+}
 </style>
 
 <script>
 import { link } from "svelte-spa-router";
-import { format } from "date-fns";
+import { addDays, format, subDays } from "date-fns";
 import { useStoreon } from "@storeon/svelte";
 
 import List from "../../components/List.svelte";
@@ -68,8 +76,14 @@ import Title from "../../components/Title.svelte";
 import Avatar from "../../components/Avatar.svelte";
 import DatePicker from "../../components/DatePicker.svelte";
 import EmptyMessage from "../../components/EmptyMessage.svelte";
+import { RECORDS_SET_DATE } from "../../stores/records";
 
-const { records, clients, services } = useStoreon("records", "clients", "services");
+const { records, clients, services, recordsDate, dispatch } = useStoreon(
+	"records",
+	"clients",
+	"services",
+	"recordsDate"
+);
 
 $: recordForList = $records.map(record => {
 	const servicesList = $services.filter(({ id }) => record.serviceIds.includes(id));
@@ -78,63 +92,102 @@ $: recordForList = $records.map(record => {
 		...record,
 		client: $clients.find(({ id }) => id === record.clientId),
 		services: servicesList.map(({ name }) => name),
-		summPriceOfServices: servicesList.reduce((acc, { price }) => acc + +price, 0),
+		sumPriceOfServices: servicesList.reduce((acc, { price }) => acc + +price, 0),
 	};
 });
+
+function swipe(e) {
+	const maxDiff = 70;
+	const minDiff = 30;
+
+	let startPosition = 0;
+	let diff = 0;
+
+	e.addEventListener("touchmove", event => {
+		diff = startPosition - event.changedTouches[0].pageX;
+		if (Math.abs(diff) < minDiff) return;
+
+		e.style.right = `${
+			diff > maxDiff
+				? maxDiff
+				: diff < Math.abs(maxDiff) * -1
+				? Math.abs(maxDiff) * -1
+				: diff
+		}px`;
+	});
+
+	e.addEventListener("touchstart", event => {
+		startPosition = event.changedTouches[0].pageX;
+	});
+
+	e.addEventListener("touchend", () => {
+		startPosition = 0;
+		e.style.right = "0px";
+
+		if (Math.abs(diff) >= maxDiff) {
+			dispatch(
+				RECORDS_SET_DATE,
+				diff > 0 ? addDays($recordsDate, 1) : subDays($recordsDate, 1)
+			);
+		}
+	});
+}
 </script>
 
-<Title title="Мои записи" />
-<DatePicker />
+<div class="swipe" use:swipe>
+	<Title title="Мои записи" />
+	<DatePicker />
 
-{#if recordForList.length}
-	<div class="margin-container">
-		<div class="summ-of-records">
-			Потенциальный доход -
-			{recordForList.reduce((acc, record) => acc + record.summPriceOfServices, 0)}₽
-		</div>
+	{#if recordForList.length}
+		<div class="margin-container">
+			<div class="sum-of-records">
+				Потенциальный доход -
+				{recordForList.reduce((acc, record) => acc + record.sumPriceOfServices, 0)}₽
+			</div>
 
-		<List items="{recordForList}" let:item>
-			<li>
-				<a
-					title="Открыть запись"
-					href="{`/records/${item.id}`}"
-					use:link
-					class="list__event-button">
-					Открыть запись
-				</a>
+			<List items="{recordForList}" let:item>
+				<li>
+					<a
+						title="Открыть запись"
+						href="{`/records/${item.id}`}"
+						use:link
+						class="list__event-button">
+						Открыть запись
+					</a>
 
-				<div class="list__item">
-					<div class="list__item-content">
-						<div class="client">
-							<div class="client__avatar">
-								<Avatar initials="{item.client?.name || 'Deleted'}" />
-							</div>
-							<div class="client__info">
-								<div class="client__info-name">
-									{item.client?.name || "Deleted"}
-									{item.client?.description || ""}
+					<div class="list__item">
+						<div class="list__item-content">
+							<div class="client">
+								<div class="client__avatar">
+									<Avatar initials="{item.client?.name || 'Deleted'}" />
 								</div>
-								<div class="client__info-time">
-									{format(item.date, "HH:mm")}
+								<div class="client__info">
+									<div class="client__info-name">
+										{item.client?.name || "Deleted"}
+										{item.client?.description || ""}
+									</div>
+									<div class="client__info-time">
+										{format(item.date, "HH:mm")}
+									</div>
+								</div>
+								<div class="client__price">
+									{item.sumPriceOfServices}₽
 								</div>
 							</div>
-							<div class="client__price">
-								{item.summPriceOfServices}₽
+							<div class="services">
+								{#each item.services as service}
+									<div class="services__service">{service}</div>
+								{/each}
 							</div>
+							{#if item.description}
+								<div class="description">Примечание: {item.description}</div>
+							{/if}
 						</div>
-						<div class="services">
-							{#each item.services as service}
-								<div class="services__service">{service}</div>
-							{/each}
-						</div>
-						{#if item.description}
-							<div class="description">Примечание: {item.description}</div>
-						{/if}
 					</div>
-				</div>
-			</li>
-		</List>
-	</div>
-{:else}
-	<EmptyMessage />
-{/if}
+				</li>
+			</List>
+		</div>
+	{:else}
+		<EmptyMessage />
+	{/if}
+</div>
