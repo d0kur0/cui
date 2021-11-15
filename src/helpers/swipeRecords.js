@@ -1,5 +1,5 @@
 export function swipeRecords(root) {
-	const maxDiff = 100;
+	const maxDiff = 40;
 	const minDiff = 30;
 
 	let startPosition = 0;
