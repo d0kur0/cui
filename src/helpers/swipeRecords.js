@@ -23,19 +23,21 @@ export function swipeRecords(root) {
 	});
 
 	root.addEventListener("touchend", () => {
-		startPosition = 0;
 		root.style.right = "0px";
+
+		root.addEventListener("animationend", () =>
+			root.classList.remove("fadeInRightAnimation", "fadeInLeftAnimation")
+		);
 
 		if (Math.abs(diff) >= maxDiff) {
 			const direction = diff > 0 ? "swipeRight" : "swipeLeft";
 			root.dispatchEvent(new CustomEvent(direction));
 
-			root.addEventListener("animationend", () =>
-				root.classList.remove("fadeInRightAnimation", "fadeInLeftAnimation")
-			);
-
 			direction === "swipeRight" && root.classList.add("fadeInRightAnimation");
 			direction === "swipeLeft" && root.classList.add("fadeInLeftAnimation");
 		}
+
+		startPosition = 0;
+		diff = 0;
 	});
 }

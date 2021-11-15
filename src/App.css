@@ -35,7 +35,6 @@ button,
 select,
 textarea {
 	font: inherit;
-	font-size: inherit;
 	box-sizing: border-box;
 	border: 1px solid #ccc;
 	border-radius: 2px;
@@ -70,7 +69,7 @@ textarea {
 
 @keyframes fadeInRight {
 	from {
-		opacity: 0;
+		opacity: 0.5;
 		transform: translateX(300px);
 	}
 	to {
@@ -80,7 +79,7 @@ textarea {
 
 @keyframes fadeInLeft {
 	from {
-		opacity: 0;
+		opacity: 0.5;
 		transform: translateX(-300px);
 	}
 	to {
