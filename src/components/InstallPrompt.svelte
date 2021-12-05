@@ -62,10 +62,12 @@ function onReject() {
 }
 </script>
 
-<div class="install-prompt">
-	<div class="install-message">Установить как приложение?</div>
-	<div>
-		<Button on:click="{onAccept}" small="{true}">Установить</Button>
-		<Button on:click="{onReject}" small="{true}" outline="{true}">Скрыть</Button>
+{#if $showInstallPrompt}
+	<div class="install-prompt">
+		<div class="install-message">Установить как приложение?</div>
+		<div>
+			<Button on:click="{onAccept}" small="{true}">Установить</Button>
+			<Button on:click="{onReject}" small="{true}" outline="{true}">Скрыть</Button>
+		</div>
 	</div>
-</div>
+{/if}
