@@ -7,6 +7,7 @@ export let small = false;
 export let large = false;
 export let danger = false;
 export let onlyBorder = false;
+export let outline = false;
 </script>
 
 <button
@@ -17,6 +18,7 @@ export let onlyBorder = false;
 	class:button--small="{small}"
 	class:button--danger="{danger}"
 	class:button--only-border="{onlyBorder}"
+	class:button--outline="{outline}"
 	class="button"
 	on:click>
 	<slot />

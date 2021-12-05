@@ -22,6 +22,20 @@
 	border-radius: 5px;
 }
 
+.button--small {
+	padding: 3px 8px;
+}
+
+.button--outline {
+	color: #78acf0;
+	background-color: transparent;
+}
+
+.button--outline:hover {
+	background-color: transparent;
+	color: #659adf;
+}
+
 .button--danger {
 	color: #fff;
 	border: 1px solid rgb(255, 126, 126);
