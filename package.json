@@ -7,7 +7,7 @@
     "dev": "cross-env NODE_ENV=development node .esbuild.mjs serve"
   },
   "devDependencies": {
-    "browser-sync": "^2.26.14",
+    "browser-sync": "^0.9.1",
     "cross-env": "^7.0.3",
     "esbuild": "^0.12.9",
     "esbuild-svelte": "^0.5.1",
