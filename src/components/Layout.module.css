@@ -1,0 +1,26 @@
+.root {
+	--navBar-height: 80px;
+	--title-height: 70px;
+
+	display: flex;
+	flex-direction: column;
+	height: calc(100 * var(--vh));
+}
+
+.body {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	flex: 1 1 0;
+}
+
+.bodyWrapper {
+	padding: 0 15px;
+	height: 100%;
+}
+
+.navBar {
+}
+
+.title {
+}

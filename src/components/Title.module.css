@@ -1,0 +1,28 @@
+.root {
+	display: flex;
+	height: var(--title-height);
+	align-items: center;
+	padding: 0 15px;
+	position: relative;
+}
+
+.root button {
+	background-color: var(--accent-color);
+	color: var(--accent-color-revert);
+	font-weight: 600;
+	font-size: 0.9em;
+}
+
+.optionalElements {
+	flex: 1 1 0;
+}
+
+.optionalElementsRight {
+	display: flex;
+	justify-content: flex-end;
+}
+
+.title {
+	font-size: 1.2em;
+	font-weight: 500;
+}

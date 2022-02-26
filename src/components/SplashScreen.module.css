@@ -1,0 +1,32 @@
+.root {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: calc(var(--vh) * 100);
+	display: flex;
+	z-index: 10;
+}
+
+.body {
+	flex: 1 1 0;
+	background: var(--page-background-light);
+	box-shadow: var(--shadow);
+	border-radius: 10px;
+	padding: 15px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+}
+
+.logo {
+	font-size: 2em;
+	flex: 1 1 0;
+	display: flex;
+	align-items: center;
+}
+
+.logo img {
+	max-width: 100%;
+}

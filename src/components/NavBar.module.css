@@ -1,0 +1,52 @@
+.root {
+	height: var(--navBar-height);
+}
+
+.list {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	display: flex;
+	height: 80%;
+	background-color: var(--page-background-light);
+	margin: 0 15px;
+	border-radius: 15px;
+	color: var(--text-color-light);
+	box-shadow: var(--shadow);
+}
+
+.button {
+	height: 100%;
+	display: flex;
+	align-items: center;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	cursor: pointer;
+	border: none;
+	font: inherit;
+	background-color: transparent;
+	color: inherit;
+	flex: 1 1 0;
+}
+
+.buttonActive {
+	color: var(--accent-color);
+}
+
+.link {
+	display: flex;
+	justify-content: center;
+	flex: 1 1 0;
+	height: 100%;
+}
+
+.linkName {
+	font-size: 0.6em;
+	font-weight: 600;
+}
+
+.linkIcon {
+	font-size: 1.6em;
+	line-height: 0;
+}

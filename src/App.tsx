@@ -1,26 +1,48 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Match, onMount, Switch } from "solid-js";
+import { Router, Routes, Route } from "solid-app-router";
+import Events from "./pages/Events";
+import useHeightUnit from "./hooks/useHeightUnit";
+import { useUserStore } from "./stores/user";
+import Guest from "./pages/Guest";
+import SplashScreen from "./components/SplashScreen";
+
+function AppForUsers() {
+	return (
+		<Router>
+			<Routes>
+				<Route path="/" element={<Events />} />
+			</Routes>
+		</Router>
+	);
+}
+
+function AppForGuests() {
+	return <Guest />;
+}
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+	onMount(() => {
+		useHeightUnit();
+	});
+
+	const { user } = useUserStore();
+
+	return (
+		<>
+			<SplashScreen />
+
+			{user.isTick && (
+				<Switch>
+					<Match when={user.isAuth}>
+						<AppForUsers />
+					</Match>
+					<Match when={!user.isAuth}>
+						<AppForGuests />
+					</Match>
+				</Switch>
+			)}
+		</>
+	);
 }
 
 export default App;
