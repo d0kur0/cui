@@ -5,21 +5,19 @@
 .list {
 	list-style: none;
 	padding: 0;
-	margin: 0;
 	display: flex;
 	height: 80%;
 	background-color: var(--page-background-light);
 	margin: 0 15px;
 	border-radius: 15px;
 	color: var(--text-color-light);
-	box-shadow: var(--shadow);
+	box-shadow: var(--shadow-light);
 }
 
 .button {
 	height: 100%;
 	display: flex;
 	align-items: center;
-	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	cursor: pointer;
@@ -42,11 +40,11 @@
 }
 
 .linkName {
-	font-size: 0.6em;
-	font-weight: 600;
+	font-size: 0.7em;
+	font-weight: 500;
 }
 
 .linkIcon {
-	font-size: 1.6em;
+	font-size: 1.7em;
 	line-height: 0;
 }

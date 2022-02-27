@@ -60,12 +60,12 @@
 	border-radius: 50%;
 	font-size: 0.9em;
 	color: var(--text-color);
-	background-color: var(--page-background);
+	background-color: var(--secondary-color);
 	position: relative;
 }
 
 .day button:disabled {
 	color: var(--text-color);
-	background-color: var(--page-background);
+	background-color: var(--page-background-light);
 	opacity: 0.4;
 }
