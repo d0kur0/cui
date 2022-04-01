@@ -5,12 +5,14 @@ import useHeightUnit from "./hooks/useHeightUnit";
 import { useUserStore } from "./stores/user";
 import Guest from "./pages/Guest";
 import SplashScreen from "./components/SplashScreen";
+import Clients from "./pages/Clients";
 
 function AppForUsers() {
 	return (
 		<Router>
 			<Routes>
 				<Route path="/" element={<Events />} />
+				<Route path="/clients" element={<Clients />} />
 			</Routes>
 		</Router>
 	);

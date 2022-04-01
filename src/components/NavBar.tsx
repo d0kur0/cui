@@ -6,54 +6,53 @@ import {
 	TiChartLine,
 	TiEquals,
 } from "solid-icons/ti";
+import { Link, useLocation } from "solid-app-router";
+import { JSX } from "solid-js/jsx-runtime";
+
+type LinkExtendedProps = {
+	to: string;
+	icon: JSX.Element;
+	title: string;
+};
+
+function LinkExtended(props: LinkExtendedProps) {
+	const location = useLocation();
+
+	return (
+		<Link
+			href={props.to}
+			classList={{
+				[styles.button]: true,
+				[styles.buttonActive]: location.pathname === props.to,
+			}}>
+			<span className={styles.linkIcon}>{props.icon}</span>
+			<span className={styles.linkName}>{props.title}</span>
+		</Link>
+	);
+}
 
 function NavBar() {
 	return (
 		<nav className={styles.root}>
 			<ul className={styles.list}>
 				<li className={styles.link}>
-					<a className={`${styles.button} ${styles.buttonActive}`}>
-						<span className={styles.linkIcon}>
-							<TiCalendar />
-						</span>
-						<span className={styles.linkName}>Записи</span>
-					</a>
+					<LinkExtended to="/" icon={<TiCalendar />} title="Записи" />
 				</li>
 
 				<li className={styles.link}>
-					<a className={styles.button}>
-						<span className={styles.linkIcon}>
-							<TiBusinessCard />
-						</span>
-						<span className={styles.linkName}>Клиенты</span>
-					</a>
+					<LinkExtended to="/clients" icon={<TiBusinessCard />} title="Клиенты" />
 				</li>
 
 				<li className={styles.link}>
-					<a className={styles.button}>
-						<span className={styles.linkIcon}>
-							<TiBriefcase />
-						</span>
-						<span className={styles.linkName}>Услуги</span>
-					</a>
+					<LinkExtended to="/services" icon={<TiBriefcase />} title="Услуги" />
 				</li>
 
 				<li className={styles.link}>
-					<a className={styles.button}>
-						<span className={styles.linkIcon}>
-							<TiChartLine />
-						</span>
-						<span className={styles.linkName}>Статистика</span>
-					</a>
+					<LinkExtended to="/stats" icon={<TiChartLine />} title="Статистика" />
 				</li>
 
 				<li className={styles.link}>
-					<a className={styles.button}>
-						<span className={styles.linkIcon}>
-							<TiEquals />
-						</span>
-						<span className={styles.linkName}>Аккаунт</span>
-					</a>
+					<LinkExtended to="/me" icon={<TiEquals />} title="Аккаунт" />
 				</li>
 			</ul>
 		</nav>
