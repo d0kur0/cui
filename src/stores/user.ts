@@ -9,6 +9,7 @@ export type UserStore = {
 	image: string;
 	email: string;
 	name: string;
+	id: string;
 };
 
 const initialValue: UserStore = {
@@ -17,19 +18,21 @@ const initialValue: UserStore = {
 	image: "",
 	email: "",
 	name: "",
+	id: "",
 };
 
-function getUserFromGoogleProvider(user: User) {
+function getUserFromGoogleProvider(user: User): UserStore {
 	return {
 		isTick: true,
 		isAuth: true,
 		email: user.email || "",
 		image: user.photoURL || "",
 		name: user.displayName || "",
+		id: user.uid || "",
 	};
 }
 
-export function useUserStore() {
+export function createUserStore() {
 	const [user, setUser] = createStore<UserStore>(initialValue);
 
 	auth.onAuthStateChanged(user => {
@@ -61,3 +64,5 @@ export function useUserStore() {
 		signOut,
 	};
 }
+
+export const userStore = createUserStore();

@@ -1,0 +1,17 @@
+.paper {
+	display: flex;
+	flex-direction: column;
+	height: calc((var(--vh) * 100) - (var(--navBar-height) + var(--title-height)));
+}
+
+.fixedContent {
+	padding-bottom: 15px;
+}
+
+.content {
+	background-color: var(--page-background-light);
+	padding: 0 15px;
+	border-radius: 7px;
+	box-shadow: var(--shadow-light);
+	overflow: auto;
+}

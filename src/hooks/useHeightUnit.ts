@@ -1,12 +1,12 @@
 function useHeightUnit() {
-	const setCustomPropery = () => {
+	const setCustomProperty = () => {
 		let vh = window.innerHeight * 0.01;
 		document.documentElement.style.setProperty("--vh", `${vh}px`);
 	};
 
-	setCustomPropery();
-	window.addEventListener("resize", setCustomPropery);
-	window.addEventListener("orientationchange", setCustomPropery);
+	setCustomProperty();
+	window.addEventListener("resize", setCustomProperty);
+	window.addEventListener("orientationchange", setCustomProperty);
 }
 
 export default useHeightUnit;

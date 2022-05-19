@@ -1,7 +1,6 @@
 import styles from "./SplashScreen.module.css";
 import { Transition } from "solid-transition-group";
-import { useUserStore } from "../stores/user";
-import { ImSpinner10 } from "solid-icons/im";
+import { userStore } from "../stores/user";
 import Loader from "./Loader";
 
 function SplashScreenBody() {
@@ -18,8 +17,12 @@ function SplashScreenBody() {
 	);
 }
 
+function SplashPlug() {
+	return <div style={{ position: "absolute" }}></div>;
+}
+
 function SplashScreen() {
-	const { user } = useUserStore();
+	const { user } = userStore;
 
 	return (
 		<Transition
@@ -32,7 +35,7 @@ function SplashScreen() {
 				const a = el.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 1000 });
 				a.finished.then(done);
 			}}>
-			{user.isTick || <SplashScreenBody />}
+			{user.isTick ? <SplashPlug /> : <SplashScreenBody />}
 		</Transition>
 	);
 }

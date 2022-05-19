@@ -1,5 +1,5 @@
 .root {
-	--navBar-height: 80px;
+	--navBar-height: 90px;
 	--title-height: 70px;
 
 	display: flex;
@@ -12,6 +12,8 @@
 	display: flex;
 	flex-direction: column;
 	flex: 1 1 0;
+	height: calc((var(--vh) * 100) - (var(--navBar-height) + var(--title-height)));
+	overflow-y: auto;
 }
 
 .bodyWrapper {

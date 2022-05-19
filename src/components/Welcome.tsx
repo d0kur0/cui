@@ -1,8 +1,8 @@
 import styles from "./Welcome.module.css";
-import { useUserStore } from "../stores/user";
+import { userStore } from "../stores/user";
 
 function Welcome() {
-	const { signIn } = useUserStore();
+	const { signIn } = userStore;
 
 	return (
 		<div className={styles.root}>

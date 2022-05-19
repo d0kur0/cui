@@ -2,10 +2,10 @@ import { Match, onMount, Switch } from "solid-js";
 import { Router, Routes, Route } from "solid-app-router";
 import Events from "./pages/Events";
 import useHeightUnit from "./hooks/useHeightUnit";
-import { useUserStore } from "./stores/user";
 import Guest from "./pages/Guest";
 import SplashScreen from "./components/SplashScreen";
 import Clients from "./pages/Clients";
+import { userStore } from "./stores/user";
 
 function AppForUsers() {
 	return (
@@ -27,7 +27,7 @@ function App() {
 		useHeightUnit();
 	});
 
-	const { user } = useUserStore();
+	const { user } = userStore;
 
 	return (
 		<>

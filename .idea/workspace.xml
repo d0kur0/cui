@@ -5,13 +5,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b48184e0-8e78-47c9-af66-cf669f907e48" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Calendar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Calendar.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Layout.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Layout.module.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Layout.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/NavBar.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/NavBar.module.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/NavBar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/NavBar.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/SearchBar.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/SearchBar.module.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/SearchBar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/SearchBar.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/SplashScreen.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/SplashScreen.module.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/SplashScreen.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/SplashScreen.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Welcome.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Welcome.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/firebase.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/firebase.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hooks/useHeightUnit.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/hooks/useHeightUnit.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/Clients.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Clients.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/stores/user.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/stores/user.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,22 +41,18 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">
-    <property name="ASKED_MARK_IGNORED_FILES_AS_EXCLUDED" value="true" />
-    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
-    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/assets" />
-    <property name="node.js.detected.package.eslint" value="true" />
-    <property name="node.js.detected.package.tslint" value="true" />
-    <property name="node.js.selected.package.eslint" value="(autodetect)" />
-    <property name="node.js.selected.package.tslint" value="(autodetect)" />
-    <property name="nodejs_package_manager_path" value="npm" />
-    <property name="prettierjs.PrettierConfiguration.Package" value="$PROJECT_DIR$/node_modules/prettier" />
-    <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
-    <property name="ts.external.directory.path" value="$PROJECT_DIR$/node_modules/typescript/lib" />
-    <property name="vue.rearranger.settings.migration" value="true" />
-  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "nodejs_package_manager_path": "npm",
+    "prettierjs.PrettierConfiguration.Package": "C:\\Users\\d0kur0\\WebstormProjects\\cui\\node_modules\\prettier",
+    "settings.editor.selected.configurable": "preferences.lookFeel",
+    "ts.external.directory.path": "C:\\Users\\d0kur0\\WebstormProjects\\cui\\node_modules\\typescript\\lib",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/assets" />
@@ -70,6 +75,7 @@
       <workItem from="1645800480990" duration="12938000" />
       <workItem from="1645889948398" duration="4368000" />
       <workItem from="1645930821400" duration="3182000" />
+      <workItem from="1652979465286" duration="3465000" />
     </task>
     <servers />
   </component>

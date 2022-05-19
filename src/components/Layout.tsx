@@ -9,6 +9,7 @@ type LayoutProps = {
 
 function Layout({ navBar, title, children }: LayoutProps) {
 	const inlineStyles: JSX.CSSProperties = {};
+
 	if (!navBar) inlineStyles["--navBar-height"] = "0px";
 	if (!title) inlineStyles["--title-height"] = "0px";
 

@@ -1,6 +1,6 @@
 import styles from "./Calendar.module.css";
 
-import { TiCalendar, TiChevronRight, TiChevronLeft } from "solid-icons/ti";
+import { TiChevronRight, TiChevronLeft } from "solid-icons/ti";
 import useMonthDays from "../hooks/useMonthDays";
 import { For } from "solid-js";
 import { getDate } from "date-fns";

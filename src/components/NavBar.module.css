@@ -1,12 +1,15 @@
 .root {
 	height: var(--navBar-height);
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
 }
 
 .list {
 	list-style: none;
 	padding: 0;
 	display: flex;
-	height: 80%;
+	height: 70%;
 	background-color: var(--page-background-light);
 	margin: 0 15px;
 	border-radius: 15px;

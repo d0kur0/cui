@@ -30,3 +30,8 @@
 .logo img {
 	max-width: 100%;
 }
+
+.plug {
+	position: absolute;
+	visibility: hidden;
+}
