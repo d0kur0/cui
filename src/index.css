@@ -60,3 +60,21 @@ button {
 	background-color: rgba(141, 141, 141, 0.82);
 	border-radius: 8px;
 }
+
+@keyframes gradient {
+	0% {
+		background-position: 0 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0 50%;
+	}
+}
+
+.plug {
+	background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+	background-size: 500% 500%;
+	animation: gradient 4s ease infinite;
+}

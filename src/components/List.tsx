@@ -1,16 +1,19 @@
 import styles from "./List.module.css";
 import { JSX } from "solid-js";
+import { Link } from "solid-app-router";
 
 type ListItemProps = {
-	title?: string;
-	content: string;
+	title?: string | JSX.Element;
+	content: string | JSX.Element;
 	avatar?: JSX.Element;
 	rightButtons?: JSX.Element;
+	href?: string;
 };
 
 export function ListItem(props: ListItemProps) {
 	return (
 		<div className={styles.item}>
+			{props.href && <Link className={styles.itemLink} href={props.href} />}
 			{props.avatar && <div className={styles.itemAvatar}>{props.avatar}</div>}
 			<div className={styles.itemContentWrapper}>
 				{props.title && <div className={styles.itemTitle}>{props.title}</div>}
@@ -32,34 +35,5 @@ export function List(props: ListProps) {
 			{props.title && <div className={styles.listTitle}>{props.title}</div>}
 			{props.children}
 		</div>
-	);
-}
-
-type ListPlugProps = {
-	itemsCount: number;
-};
-
-export function ListPlug(props: ListPlugProps) {
-	return (
-		<List title="Список клиентов" margin="5px 0">
-			{Array(props.itemsCount)
-				.fill(0)
-				.map(() => (
-					<div className={styles.item}>
-						<div className={styles.itemAvatar}>
-							<div className={styles.plugAvatar}></div>
-						</div>
-
-						<div className={styles.itemContentWrapper}>
-							<div className={styles.itemTitle}>
-								<span className={styles.itemTitlePlug} />
-							</div>
-							<div className={styles.itemContent}>
-								<span className={styles.itemContentPlug} />
-							</div>
-						</div>
-					</div>
-				))}
-		</List>
 	);
 }

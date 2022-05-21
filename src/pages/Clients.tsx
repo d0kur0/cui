@@ -4,16 +4,32 @@ import Title from "../components/Title";
 import { FiPlusSquare } from "solid-icons/fi";
 import SearchBar from "../components/SearchBar";
 import { createMemo, createSignal } from "solid-js";
-import { List, ListItem, ListPlug } from "../components/List";
-import { useClientsStore } from "../stores/clients";
-import { userStore } from "../stores/user";
+import { List, ListItem } from "../components/List";
 import Paper from "../components/Paper";
 import { Transition } from "solid-transition-group";
+import { clientsStore } from "../stores/clients";
+import { Avatar } from "../components/Avatar";
+import { PlugText } from "../components/Plugs";
+
+function ListPlug() {
+	return (
+		<List title="Список клиентов" margin="5px 0">
+			{Array(10)
+				.fill(0)
+				.map(() => (
+					<ListItem
+						avatar={<Avatar isPlug={true} />}
+						title={<PlugText size={80} />}
+						content={<PlugText size={160} />}
+					/>
+				))}
+		</List>
+	);
+}
 
 function Clients() {
 	const [searchQuery, setSearchQuery] = createSignal("");
-	const { user } = userStore;
-	const { clients } = useClientsStore(user.id);
+	const { clients } = clientsStore;
 
 	const filteredClients = createMemo(() => {
 		if (!searchQuery()) return clients.list;
@@ -29,15 +45,8 @@ function Clients() {
 			<List title="Список клиентов" margin="5px 0">
 				{filteredClients().map(client => (
 					<ListItem
-						avatar={
-							<div
-								style={{
-									width: "40px",
-									height: "40px",
-									background: "var(--plug-color)",
-									"border-radius": "50%",
-								}}></div>
-						}
+						href={`/client/${client.id}`}
+						avatar={<Avatar name={client.name} />}
 						title={client.name}
 						content={client.description.trim() ? client.description : "empty description"}
 					/>
@@ -72,7 +81,7 @@ function Clients() {
 							const a = el.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 500 });
 							a.finished.then(done);
 						}}>
-						{clients.isLoading ? <ListPlug itemsCount={15} /> : <RenderList />}
+						{clients.isLoading ? <ListPlug /> : <RenderList />}
 					</Transition>
 				}
 			/>

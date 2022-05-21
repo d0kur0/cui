@@ -6,13 +6,18 @@ import Guest from "./pages/Guest";
 import SplashScreen from "./components/SplashScreen";
 import Clients from "./pages/Clients";
 import { userStore } from "./stores/user";
+import { Client } from "./pages/Client";
+import { clientsStore } from "./stores/clients";
 
 function AppForUsers() {
+	clientsStore.fetch();
+
 	return (
 		<Router>
 			<Routes>
 				<Route path="/" element={<Events />} />
 				<Route path="/clients" element={<Clients />} />
+				<Route path="/client/:id" element={<Client />} />
 			</Routes>
 		</Router>
 	);

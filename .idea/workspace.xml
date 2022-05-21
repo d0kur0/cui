@@ -7,20 +7,13 @@
     <list default="true" id="b48184e0-8e78-47c9-af66-cf669f907e48" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Calendar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Calendar.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Layout.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Layout.module.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Layout.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/NavBar.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/NavBar.module.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/SearchBar.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/SearchBar.module.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/SearchBar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/SearchBar.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/SplashScreen.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/SplashScreen.module.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/SplashScreen.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/SplashScreen.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Welcome.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Welcome.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/firebase.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/firebase.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/hooks/useHeightUnit.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/hooks/useHeightUnit.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/List.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/List.module.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/List.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/List.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/NavBar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/NavBar.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Paper.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Paper.module.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/Clients.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Clients.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/stores/user.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/stores/user.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/stores/clients.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/stores/clients.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -75,7 +68,7 @@
       <workItem from="1645800480990" duration="12938000" />
       <workItem from="1645889948398" duration="4368000" />
       <workItem from="1645930821400" duration="3182000" />
-      <workItem from="1652979465286" duration="3465000" />
+      <workItem from="1652979465286" duration="17576000" />
     </task>
     <servers />
   </component>
