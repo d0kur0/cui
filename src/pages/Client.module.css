@@ -1,0 +1,45 @@
+.card {
+	display: flex;
+	align-items: center;
+	padding: 10px 0;
+}
+
+.cardAvatar {
+	margin-right: 15px;
+}
+
+.cardInfoDescription {
+	color: var(--text-color-light);
+}
+
+.statistic {
+	margin-top: 5px;
+	border-top: 2px dashed var(--separator-color);
+	padding-top: 10px;
+}
+
+.statisticItem {
+	display: flex;
+	margin: 5px 0;
+	justify-content: space-between;
+}
+
+.actions {
+	margin-top: 15px;
+	gap: 10px;
+	display: flex;
+	flex-direction: column;
+}
+
+.actionButton {
+	border-radius: 5px;
+	padding: 10px;
+	color: var(--accent-color-revert);
+	background-color: var(--accent-color);
+}
+
+.actionButtonRemove {
+	background-color: transparent;
+	color: var(--danger-color);
+	border: 2px dashed var(--danger-color);
+}

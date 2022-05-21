@@ -11,7 +11,7 @@ import { clientsStore } from "../stores/clients";
 import { Avatar } from "../components/Avatar";
 import { PlugText } from "../components/Plugs";
 
-function ListPlug() {
+function ClientListPlug() {
 	return (
 		<List title="Список клиентов" margin="5px 0">
 			{Array(10)
@@ -19,7 +19,7 @@ function ListPlug() {
 				.map(() => (
 					<ListItem
 						avatar={<Avatar isPlug={true} />}
-						title={<PlugText size={80} />}
+						title={<PlugText size={80} height={"0.7em"} />}
 						content={<PlugText size={160} />}
 					/>
 				))}
@@ -40,7 +40,7 @@ function Clients() {
 		);
 	});
 
-	const RenderList = () => {
+	const ClientList = () => {
 		return (
 			<List title="Список клиентов" margin="5px 0">
 				{filteredClients().map(client => (
@@ -68,23 +68,20 @@ function Clients() {
 				/>
 			}
 			navBar={<NavBar />}>
-			<Paper
-				fixedContent={<SearchBar onInput={value => setSearchQuery(value)} />}
-				content={
-					<Transition
-						mode="outin"
-						onEnter={(el, done) => {
-							const a = el.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 500 });
-							a.finished.then(done);
-						}}
-						onExit={(el, done) => {
-							const a = el.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 500 });
-							a.finished.then(done);
-						}}>
-						{clients.isLoading ? <ListPlug /> : <RenderList />}
-					</Transition>
-				}
-			/>
+			<Paper fixedContent={<SearchBar onInput={value => setSearchQuery(value)} />}>
+				<Transition
+					mode="outin"
+					onEnter={(el, done) => {
+						const a = el.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 500 });
+						a.finished.then(done);
+					}}
+					onExit={(el, done) => {
+						const a = el.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 500 });
+						a.finished.then(done);
+					}}>
+					{clients.isLoading ? <ClientListPlug /> : <ClientList />}
+				</Transition>
+			</Paper>
 		</Layout>
 	);
 }
