@@ -6,13 +6,15 @@
   <component name="ChangeListManager">
     <list default="true" id="b48184e0-8e78-47c9-af66-cf669f907e48" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Avatar.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Avatar.module.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Paper.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Paper.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Plugs.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Plugs.module.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Plugs.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Plugs.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Title.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Title.module.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/Client.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Client.module.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/Client.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Client.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/Clients.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Clients.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/stores/clients.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/stores/clients.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/stores/user.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/stores/user.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,6 +26,9 @@
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="ProjectErrors" />
   </component>
   <component name="ProjectId" id="25be2P2kjph7E5RbzjtFbOE7TEM" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
@@ -40,7 +45,7 @@
     "WebServerToolWindowFactoryState": "false",
     "nodejs_package_manager_path": "npm",
     "prettierjs.PrettierConfiguration.Package": "C:\\Users\\d0kur0\\WebstormProjects\\cui\\node_modules\\prettier",
-    "settings.editor.selected.configurable": "preferences.lookFeel",
+    "settings.editor.selected.configurable": "configurable.group.editor",
     "ts.external.directory.path": "C:\\Users\\d0kur0\\WebstormProjects\\cui\\node_modules\\typescript\\lib",
     "vue.rearranger.settings.migration": "true"
   }
@@ -67,7 +72,10 @@
       <workItem from="1645800480990" duration="12938000" />
       <workItem from="1645889948398" duration="4368000" />
       <workItem from="1645930821400" duration="3182000" />
-      <workItem from="1652979465286" duration="21296000" />
+      <workItem from="1652979465286" duration="23427000" />
+      <workItem from="1653230945708" duration="6189000" />
+      <workItem from="1653346493852" duration="24969000" />
+      <workItem from="1653575332382" duration="1290000" />
     </task>
     <servers />
   </component>

@@ -10,6 +10,8 @@ import styles from "./Client.module.css";
 import { Avatar } from "../components/Avatar";
 import { PlugText } from "../components/Plugs";
 import { Transition } from "solid-transition-group";
+import { formatRelative } from "../helpers/date";
+import { Button } from "../components/Form";
 
 function ClientPlug() {
 	return (
@@ -39,9 +41,10 @@ function ClientPlug() {
 
 export function Client() {
 	const { id } = useParams();
-	const { clients } = clientsStore;
+	const { clients, fetchClientInfo } = clientsStore;
 
 	const client = createMemo(() => clients.list.find(client => client.id === id));
+	const clientInfo = fetchClientInfo(id);
 
 	const ClientCard = () => {
 		return (
@@ -59,13 +62,15 @@ export function Client() {
 				</div>
 				<div className={styles.statistic}>
 					<div className={styles.statisticItem}>
-						<div>Дата создания</div> <div>14 марта 1991</div>
+						<div>Дата создания</div>{" "}
+						<div>{formatRelative(client()?.createdAt.toDate())}</div>
 					</div>
 					<div className={styles.statisticItem}>
-						<div>Всего посещений</div> <div>31</div>
+						<div>Всего посещений</div> <div>{clientInfo.countRecords}</div>
 					</div>
 					<div className={styles.statisticItem}>
-						<div>Последняя запись</div> <div>2 мая 2020</div>
+						<div>Последняя запись</div>
+						<div>{formatRelative(clientInfo.latestRecord?.toDate())}</div>
 					</div>
 				</div>
 			</div>
@@ -96,18 +101,16 @@ export function Client() {
 						const a = el.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 500 });
 						a.finished.then(done);
 					}}>
-					{clients.isLoading ? <ClientPlug /> : <ClientCard />}
+					{clients.isLoading || clientInfo.isLoading ? <ClientPlug /> : <ClientCard />}
 				</Transition>
 			</Paper>
 
 			<div className={styles.actions}>
-				<button className={styles.actionButton}>Создать запись</button>
-
-				<button className={styles.actionButton}>Редактировать</button>
-
-				<button className={`${styles.actionButton} ${styles.actionButtonRemove}`}>
+				<Button fullWidth={true}>Создать запись</Button>
+				<Button fullWidth={true}>Редактировать</Button>
+				<Button fullWidth={true} type="danger">
 					Архивировать
-				</button>
+				</Button>
 			</div>
 		</Layout>
 	);

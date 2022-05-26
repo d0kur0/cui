@@ -31,3 +31,7 @@
 	background-color: transparent;
 	color: var(--text-color);
 }
+
+.optionalElements a:visited {
+	color: var(--text-color);
+}

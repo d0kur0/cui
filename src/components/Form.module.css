@@ -1,0 +1,55 @@
+.form {
+}
+
+.form .textInputWrapper {
+	margin: 10px 0;
+}
+
+.textInputLabel {
+	color: var(--text-color);
+	width: 150px;
+}
+
+.textInputWrapper {
+	display: flex;
+	align-items: center;
+	border-bottom: 2px solid transparent;
+}
+
+.textInputWrapper:focus-within {
+	border-color: var(--accent-color);
+}
+
+.textInput {
+	box-sizing: border-box;
+	width: 100%;
+	max-width: 100%;
+	font: inherit;
+	border-radius: 5px;
+	padding: 5px;
+	border: none;
+	outline: none;
+}
+
+.textInput::placeholder {
+	color: var(--text-color-light);
+}
+
+.button {
+	border-radius: 5px;
+	padding: 5px 10px;
+	color: var(--accent-color-revert);
+	background-color: var(--accent-color);
+}
+
+.buttonFullwidth {
+	width: 100%;
+	display: block;
+	padding: 10px;
+}
+
+.buttonDanger {
+	background-color: transparent;
+	color: var(--danger-color);
+	border: 2px dashed var(--danger-color);
+}

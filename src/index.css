@@ -9,6 +9,7 @@ body {
 	color: var(--text-color);
 	max-width: 600px;
 	margin: auto;
+	position: relative;
 }
 
 code {
@@ -49,6 +50,8 @@ button {
 	--shadow-light: 0px 0px 3px 2px #bebebe1f;
 
 	--danger-color: #ff8787;
+	--success-color: #00d396;
+	--warning-color: #ffa82e;
 }
 
 *::-webkit-scrollbar {

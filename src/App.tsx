@@ -8,15 +8,19 @@ import Clients from "./pages/Clients";
 import { userStore } from "./stores/user";
 import { Client } from "./pages/Client";
 import { clientsStore } from "./stores/clients";
+import { ClientForm } from "./pages/ClientForm";
+import { Notifications } from "./components/Notifications";
 
 function AppForUsers() {
-	clientsStore.fetch();
+	clientsStore.fetchAll();
 
 	return (
 		<Router>
 			<Routes>
 				<Route path="/" element={<Events />} />
 				<Route path="/clients" element={<Clients />} />
+				<Route path="/client/create" element={<ClientForm />} />
+				<Route path="/client/edit/:id" element={<ClientForm />} />
 				<Route path="/client/:id" element={<Client />} />
 			</Routes>
 		</Router>
@@ -37,6 +41,7 @@ function App() {
 	return (
 		<>
 			<SplashScreen />
+			<Notifications />
 
 			{user.isTick && (
 				<Switch>

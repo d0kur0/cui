@@ -10,6 +10,7 @@ import { Transition } from "solid-transition-group";
 import { clientsStore } from "../stores/clients";
 import { Avatar } from "../components/Avatar";
 import { PlugText } from "../components/Plugs";
+import { Link } from "solid-app-router";
 
 function ClientListPlug() {
 	return (
@@ -51,6 +52,8 @@ function Clients() {
 						content={client.description.trim() ? client.description : "empty description"}
 					/>
 				))}
+
+				{filteredClients().length ? <></> : <ListItem content="Список пуст"></ListItem>}
 			</List>
 		);
 	};
@@ -60,9 +63,9 @@ function Clients() {
 			title={
 				<Title
 					rightChildren={
-						<button>
+						<Link href="/client/create">
 							<FiPlusSquare size={28} />
-						</button>
+						</Link>
 					}
 					title="Клиенты"
 				/>
