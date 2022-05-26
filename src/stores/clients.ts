@@ -1,133 +1,66 @@
 import { createStore } from "solid-js/store";
-import { db } from "../firebase";
+
 import {
-	collection,
-	query,
-	where,
-	getDocs,
-	orderBy,
-	setDoc,
-	doc,
-} from "firebase/firestore";
-import { Timestamp } from "firebase/firestore";
-import { userStore } from "./user";
+	Client,
+	ClientAdditionalInfo,
+	CreateProps,
+	clientStorage,
+} from "../storage/client";
 import { StaticStoreProps } from "./index";
 import { notificationsStore } from "./notifications";
+import { userStore } from "./user";
 
-export type Client = {
-	id: string;
-	name: string;
-	userId: string;
-	createdAt: Timestamp;
-	description: string;
-};
+type Store = { list: Client[] } & StaticStoreProps;
 
-export type ClientInfo = {
-	latestRecord: Timestamp | null;
-	countRecords: number;
-};
-
-export type ClientsStore = {
-	isLoading: boolean;
-	list: Client[];
-};
-
-export type ClientCreateProps = {
-	name: string;
-	description: string;
-	avatar: File;
-};
+const { pushError, pushSuccess } = notificationsStore;
 
 export function createClientsStore() {
-	const [clients, setClients] = createStore<ClientsStore>({
+	const [store, setStore] = createStore<Store>({
 		isLoading: true,
 		list: [],
 	});
 
-	const fetchAll = () => {
-		const clientsQuery = query(
-			collection(db, "clients"),
-			where("userId", "==", userStore.user.id)
-		);
-
-		getDocs(clientsQuery).then(
-			querySnapshot => {
-				const clientsList = querySnapshot.docs.map(
-					doc => ({ id: doc.id, ...doc.data() } as Client)
-				);
-				setClients({ ...clients, list: clientsList, isLoading: false });
-			},
-			error => {
-				notificationsStore.pushNotification({
-					type: "error",
-					message: `При загрузке списка клиентов произошла ошибка (${error})`,
-				});
-			}
-		);
+	const fetch = () => {
+		clientStorage
+			.fetchAllOwnedByUser(userStore.user.id)
+			.then(clients =>
+				setStore(currentValue => ({ ...currentValue, list: clients, isLoading: false }))
+			)
+			.catch(pushError);
 	};
 
-	const fetchClientInfo = (clientId: string) => {
-		const [info, setInfo] = createStore<ClientInfo & StaticStoreProps>({
+	const fetchAdditionalInfo = (clientId: string) => {
+		const [store, setStore] = createStore<ClientAdditionalInfo & StaticStoreProps>({
 			latestRecord: null,
 			countRecords: 0,
 			isLoading: true,
 		});
 
-		const clientRecordsQuery = query(
-			collection(db, "records"),
-			where("clientId", "==", clientId),
-			where("userId", "==", userStore.user.id),
-			orderBy("createdAt", "asc")
-		);
+		clientStorage
+			.fetchAdditionalInfo({ clientId, userId: userStore.user.id })
+			.then(additionalInfo =>
+				setStore(value => ({ ...value, ...additionalInfo, isLoading: false }))
+			);
 
-		getDocs(clientRecordsQuery).then(
-			querySnapshot => {
-				setInfo({
-					...info,
-					countRecords: querySnapshot.docs.length,
-					latestRecord: querySnapshot.docs.pop()?.data()?.createdAt || null,
-					isLoading: false,
-				});
-			},
-			error => {
-				notificationsStore.pushNotification({
-					type: "error",
-					message: `При загрузке информации о клиенте произошла ошибка (${error})`,
-				});
-			}
-		);
-
-		return info;
+		return store;
 	};
 
-	const createClient = ({ name, description }: ClientCreateProps) => {
-		setDoc(doc(collection(db, "clients")), {
-			name,
-			userId: userStore.user.id,
-			avatar: "-",
-			createdAt: Timestamp.now(),
-			description,
-		}).then(
-			() => {
-				notificationsStore.pushNotification({
-					message: "Клиент создан",
-					type: "success",
-				});
-			},
-			error => {
-				notificationsStore.pushNotification({
-					message: `При создании клиента произошла ошибка ${error}`,
-					type: "error",
-				});
-			}
-		);
+	const create = (props: CreateProps, onCreateCallback?: () => void) => {
+		clientStorage
+			.create(props)
+			.then(client => {
+				setStore(value => ({ ...value, list: [client, ...value.list] }));
+				pushSuccess("Клиент создан");
+				onCreateCallback?.();
+			})
+			.catch(pushError);
 	};
 
 	return {
-		clients,
-		fetchAll,
-		fetchClientInfo,
-		createClient,
+		clients: store,
+		fetch,
+		fetchAdditionalInfo,
+		create,
 	};
 }
 

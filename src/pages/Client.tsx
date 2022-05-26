@@ -1,17 +1,18 @@
-import Title from "../components/Title";
+import { useParams } from "solid-app-router";
+import { BsArrowLeft } from "solid-icons/bs";
+import { createMemo } from "solid-js";
+import { Transition } from "solid-transition-group";
+
+import { Avatar } from "../components/Avatar";
+import { Button } from "../components/Form";
+import Layout from "../components/Layout";
 import NavBar from "../components/NavBar";
 import Paper from "../components/Paper";
-import Layout from "../components/Layout";
-import { BsArrowLeft } from "solid-icons/bs";
-import { useParams } from "solid-app-router";
-import { clientsStore } from "../stores/clients";
-import { createMemo } from "solid-js";
-import styles from "./Client.module.css";
-import { Avatar } from "../components/Avatar";
 import { PlugText } from "../components/Plugs";
-import { Transition } from "solid-transition-group";
+import Title from "../components/Title";
 import { formatRelative } from "../helpers/date";
-import { Button } from "../components/Form";
+import { clientsStore } from "../stores/clients";
+import styles from "./Client.module.css";
 
 function ClientPlug() {
 	return (
@@ -41,10 +42,10 @@ function ClientPlug() {
 
 export function Client() {
 	const { id } = useParams();
-	const { clients, fetchClientInfo } = clientsStore;
+	const { clients, fetchAdditionalInfo } = clientsStore;
 
 	const client = createMemo(() => clients.list.find(client => client.id === id));
-	const clientInfo = fetchClientInfo(id);
+	const additionalInfo = fetchAdditionalInfo(id);
 
 	const ClientCard = () => {
 		return (
@@ -62,15 +63,19 @@ export function Client() {
 				</div>
 				<div className={styles.statistic}>
 					<div className={styles.statisticItem}>
-						<div>Дата создания</div>{" "}
+						<div>Дата создания</div>
 						<div>{formatRelative(client()?.createdAt.toDate())}</div>
 					</div>
 					<div className={styles.statisticItem}>
-						<div>Всего посещений</div> <div>{clientInfo.countRecords}</div>
+						<div>Всего посещений</div> <div>{additionalInfo.countRecords}</div>
 					</div>
 					<div className={styles.statisticItem}>
 						<div>Последняя запись</div>
-						<div>{formatRelative(clientInfo.latestRecord?.toDate())}</div>
+						<div>
+							{additionalInfo.latestRecord
+								? formatRelative(additionalInfo.latestRecord?.toDate())
+								: "Нет записей"}
+						</div>
 					</div>
 				</div>
 			</div>
@@ -101,7 +106,11 @@ export function Client() {
 						const a = el.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 500 });
 						a.finished.then(done);
 					}}>
-					{clients.isLoading || clientInfo.isLoading ? <ClientPlug /> : <ClientCard />}
+					{clients.isLoading || additionalInfo.isLoading ? (
+						<ClientPlug />
+					) : (
+						<ClientCard />
+					)}
 				</Transition>
 			</Paper>
 

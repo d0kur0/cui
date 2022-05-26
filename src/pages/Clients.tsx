@@ -1,21 +1,22 @@
-import Layout from "../components/Layout";
-import NavBar from "../components/NavBar";
-import Title from "../components/Title";
-import { FiPlusSquare } from "solid-icons/fi";
-import SearchBar from "../components/SearchBar";
-import { createMemo, createSignal } from "solid-js";
-import { List, ListItem } from "../components/List";
-import Paper from "../components/Paper";
-import { Transition } from "solid-transition-group";
-import { clientsStore } from "../stores/clients";
-import { Avatar } from "../components/Avatar";
-import { PlugText } from "../components/Plugs";
 import { Link } from "solid-app-router";
+import { FiPlusSquare } from "solid-icons/fi";
+import { createMemo, createSignal } from "solid-js";
+import { Transition } from "solid-transition-group";
+
+import { Avatar } from "../components/Avatar";
+import Layout from "../components/Layout";
+import { List, ListItem } from "../components/List";
+import NavBar from "../components/NavBar";
+import Paper from "../components/Paper";
+import { PlugText } from "../components/Plugs";
+import SearchBar from "../components/SearchBar";
+import Title from "../components/Title";
+import { clientsStore } from "../stores/clients";
 
 function ClientListPlug() {
 	return (
 		<List title="Список клиентов" margin="5px 0">
-			{Array(10)
+			{Array(9)
 				.fill(0)
 				.map(() => (
 					<ListItem
@@ -49,7 +50,9 @@ function Clients() {
 						href={`/client/${client.id}`}
 						avatar={<Avatar name={client.name} />}
 						title={client.name}
-						content={client.description.trim() ? client.description : "empty description"}
+						content={
+							client.description.trim() ? client.description : "Описание отсутствует"
+						}
 					/>
 				))}
 

@@ -1,22 +1,18 @@
-import Title from "../components/Title";
+import { useNavigate, useParams } from "solid-app-router";
 import { BsArrowLeft } from "solid-icons/bs";
+
+import { Button, FileInput, Form, TextInput } from "../components/Form";
+import Layout from "../components/Layout";
 import NavBar from "../components/NavBar";
 import Paper from "../components/Paper";
-import Layout from "../components/Layout";
-import { useParams } from "solid-app-router";
-import { Button, FileInput, Form, TextInput } from "../components/Form";
+import Title from "../components/Title";
+import { CreateProps } from "../storage/client";
 import { clientsStore } from "../stores/clients";
-
-type FormFields = {
-	avatar: File;
-	name: string;
-	description: string;
-};
 
 export function ClientForm() {
 	const { id } = useParams();
 	const isCreate = !id;
-	const { createClient } = clientsStore;
+	const navigate = useNavigate();
 
 	const onSubmit = (
 		event: Event & { submitter: HTMLElement } & {
@@ -26,8 +22,11 @@ export function ClientForm() {
 	) => {
 		const formFields = Object.fromEntries([
 			...new FormData(event.currentTarget).entries(),
-		]) as FormFields;
-		createClient(formFields);
+		]) as CreateProps;
+
+		clientsStore.create(formFields, () => {
+			navigate("/clients");
+		});
 	};
 
 	return (

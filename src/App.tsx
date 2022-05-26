@@ -1,18 +1,22 @@
-import { Match, onMount, Switch } from "solid-js";
-import { Router, Routes, Route } from "solid-app-router";
-import Events from "./pages/Events";
-import useHeightUnit from "./hooks/useHeightUnit";
-import Guest from "./pages/Guest";
-import SplashScreen from "./components/SplashScreen";
-import Clients from "./pages/Clients";
-import { userStore } from "./stores/user";
+import { Route, Router, Routes } from "solid-app-router";
+import { Match, Switch, onMount } from "solid-js";
+
 import { Client } from "./pages/Client";
-import { clientsStore } from "./stores/clients";
 import { ClientForm } from "./pages/ClientForm";
+import Clients from "./pages/Clients";
+import Events from "./pages/Events";
+import Guest from "./pages/Guest";
+
 import { Notifications } from "./components/Notifications";
+import SplashScreen from "./components/SplashScreen";
+
+import useHeightUnit from "./hooks/useHeightUnit";
+
+import { clientsStore } from "./stores/clients";
+import { userStore } from "./stores/user";
 
 function AppForUsers() {
-	clientsStore.fetchAll();
+	clientsStore.fetch();
 
 	return (
 		<Router>

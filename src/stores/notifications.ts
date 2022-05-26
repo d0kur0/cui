@@ -1,4 +1,5 @@
 import { createStore } from "solid-js/store";
+
 import { NOTIFICATION_TIMEOUT } from "../configs/notifications";
 
 type NotificationType = "error" | "warning" | "success";
@@ -33,6 +34,18 @@ export function createNotificationsStore() {
 		}));
 	};
 
+	const pushError = (message: string) => {
+		pushNotification({ type: "error", message });
+	};
+
+	const pushSuccess = (message: string) => {
+		pushNotification({ type: "success", message });
+	};
+
+	const pushWarning = (message: string) => {
+		pushNotification({ type: "warning", message });
+	};
+
 	const discardNotification = (notificationId: number) => {
 		setNotifications(notifications => ({
 			list: notifications.list.filter((notification, id) => {
@@ -45,7 +58,9 @@ export function createNotificationsStore() {
 
 	return {
 		notifications,
-		pushNotification,
+		pushError,
+		pushSuccess,
+		pushWarning,
 		discardNotification,
 	};
 }
