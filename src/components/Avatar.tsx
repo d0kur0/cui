@@ -1,3 +1,5 @@
+import { createSignal } from "solid-js";
+
 import styles from "./Avatar.module.css";
 
 type AvatarProps = {
@@ -8,19 +10,20 @@ type AvatarProps = {
 };
 
 export function Avatar(props: AvatarProps) {
+	const [error, setError] = createSignal(false);
+
 	props.size = props.size || "default";
 
-	let className = styles.avatar;
+	const classNames = [styles.avatar];
 
-	props.size === "default" && (className += ` ${styles.sizeDefault}`);
-	props.size === "small" && (className += ` ${styles.sizeSmall}`);
-	props.size === "large" && (className += ` ${styles.sizeLarge}`);
+	props.size === "default" && classNames.push(styles.sizeDefault);
+	props.size === "small" && classNames.push(styles.sizeSmall);
+	props.size === "large" && classNames.push(styles.sizeLarge);
 
-	props.isPlug && (className += ` ${styles.plug} plug`);
+	props.isPlug && classNames.push(styles.plug);
 
 	const Name = () => {
 		const { name } = props;
-
 		if (!name) return;
 
 		const nameSegments = name.split(" ");
@@ -34,13 +37,23 @@ export function Avatar(props: AvatarProps) {
 
 	const Image = () => {
 		const { imageSrc } = props;
-
 		if (!imageSrc) return;
 
-		return <img className={styles.image} src={imageSrc} alt="user avatar" />;
+		return error() ? (
+			<Name />
+		) : (
+			<img
+				onError={() => setError(true)}
+				className={styles.image}
+				src={imageSrc}
+				alt="user avatar"
+			/>
+		);
 	};
 
 	return (
-		<div className={className}>{props.isPlug || props.name ? <Name /> : <Image />}</div>
+		<div className={classNames.join(" ")}>
+			{props.isPlug || (props.imageSrc && !error()) ? <Image /> : <Name />}
+		</div>
 	);
 }

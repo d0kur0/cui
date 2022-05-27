@@ -48,7 +48,7 @@ function Clients() {
 				{filteredClients().map(client => (
 					<ListItem
 						href={`/client/${client.id}`}
-						avatar={<Avatar name={client.name} />}
+						avatar={<Avatar name={client.name} imageSrc={client.avatar} />}
 						title={client.name}
 						content={
 							client.description.trim() ? client.description : "Описание отсутствует"

@@ -1,5 +1,6 @@
 import { useNavigate, useParams } from "solid-app-router";
 import { BsArrowLeft } from "solid-icons/bs";
+import { createSignal } from "solid-js";
 
 import { Button, FileInput, Form, TextInput } from "../components/Form";
 import Layout from "../components/Layout";
@@ -13,6 +14,7 @@ export function ClientForm() {
 	const { id } = useParams();
 	const isCreate = !id;
 	const navigate = useNavigate();
+	const [isLoading, setIsLoading] = createSignal(false);
 
 	const onSubmit = (
 		event: Event & { submitter: HTMLElement } & {
@@ -20,12 +22,15 @@ export function ClientForm() {
 			target: Element;
 		}
 	) => {
+		setIsLoading(true);
+
 		const formFields = Object.fromEntries([
 			...new FormData(event.currentTarget).entries(),
 		]) as CreateProps;
 
 		clientsStore.create(formFields, () => {
 			navigate("/clients");
+			setIsLoading(false);
 		});
 	};
 
@@ -47,7 +52,9 @@ export function ClientForm() {
 					<FileInput accept="image/*" name="avatar" label="Аватар" />
 					<TextInput name="name" required={true} label="Имя*" placeholder="Имя Фамилия" />
 					<TextInput name="description" label="Описание" placeholder="Любит хлеб" />
-					<Button margin="5px 0">Сохранить</Button>
+					<Button fullWidth={true} isLoading={isLoading()} margin="5px 0">
+						Сохранить
+					</Button>
 				</Form>
 			</Paper>
 		</Layout>

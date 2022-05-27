@@ -1,5 +1,7 @@
-import styles from "./Form.module.css";
+import { CgSpinner } from "solid-icons/cg";
 import { JSX } from "solid-js/jsx-runtime";
+
+import styles from "./Form.module.css";
 
 type BaseInputProps = {
 	onInput?: (text: string) => void;
@@ -78,6 +80,8 @@ type ButtonProps = {
 	children: string | JSX.Element;
 	fullWidth?: boolean;
 	margin?: string;
+	isLoading?: boolean;
+	width?: string;
 };
 
 export function Button(props: ButtonProps) {
@@ -87,8 +91,11 @@ export function Button(props: ButtonProps) {
 	props.fullWidth && classes.push(styles.buttonFullwidth);
 
 	return (
-		<button style={{ margin: props.margin }} className={classes.join(" ")}>
-			{props.children}
+		<button
+			disabled={props.isLoading}
+			style={{ margin: props.margin, width: props.width }}
+			className={classes.join(" ")}>
+			{props.isLoading ? <CgSpinner className="rotate" /> : props.children}
 		</button>
 	);
 }

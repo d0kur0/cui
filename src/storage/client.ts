@@ -1,15 +1,23 @@
-import { addDoc, collection, getDocs, orderBy, query, where } from "firebase/firestore";
+import {
+	addDoc,
+	collection,
+	getDocs,
+	orderBy,
+	query,
+	updateDoc,
+	where,
+} from "firebase/firestore";
 import { Timestamp } from "firebase/firestore";
-import { ref } from "firebase/storage";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 
 import { db, storage } from "../firebase";
-import { notificationsStore } from "../stores/notifications";
 import { userStore } from "../stores/user";
 
 export type Client = {
 	id: string;
 	name: string;
 	userId: string;
+	avatar: string;
 	createdAt: Timestamp;
 	description: string;
 };
@@ -51,6 +59,28 @@ async function fetchAdditionalInfo({
 	};
 }
 
+// save avatar
+type SaveClientAvatarProps = {
+	file: File;
+	clientId: string;
+};
+
+async function saveClientAvatar({
+	file,
+	clientId,
+}: SaveClientAvatarProps): Promise<string> {
+	const ALLOWED_TYPES = ["png", "jpeg", "jpg", "gif"];
+	const [, imageType] = file.type.split("/");
+
+	if (!file.size || !file.type.includes("image") || !ALLOWED_TYPES.includes(imageType))
+		return "";
+
+	const avatarRef = ref(storage, `client_avatar_${clientId}`);
+	const avatarSnapshot = await uploadBytes(avatarRef, file);
+
+	return await getDownloadURL(avatarSnapshot.ref);
+}
+
 // create
 export type CreateProps = {
 	name: string;
@@ -68,8 +98,11 @@ async function create({ name, description, avatar }: CreateProps): Promise<Clien
 	};
 
 	const newClient = await addDoc(collection(db, "clients"), clientObject);
+	const avatarUrl = await saveClientAvatar({ clientId: newClient.id, file: avatar });
 
-	return { ...clientObject, id: newClient.id };
+	avatarUrl && (await updateDoc(newClient, { avatar: avatarUrl }));
+
+	return { ...clientObject, id: newClient.id, avatar: avatarUrl };
 }
 
 export const clientStorage = { fetchAllOwnedByUser, fetchAdditionalInfo, create };

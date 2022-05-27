@@ -79,6 +79,16 @@ button {
 	}
 }
 
+@keyframes rotate {
+	100% {
+		transform: rotate(360deg);
+	}
+}
+
+.rotate {
+	animation: rotate 1s linear infinite;
+}
+
 .plug {
 	background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
 	background-size: 500% 500%;
