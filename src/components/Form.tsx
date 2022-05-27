@@ -82,6 +82,7 @@ type ButtonProps = {
 	margin?: string;
 	isLoading?: boolean;
 	width?: string;
+	onClick?: () => void;
 };
 
 export function Button(props: ButtonProps) {
@@ -92,6 +93,7 @@ export function Button(props: ButtonProps) {
 
 	return (
 		<button
+			onClick={() => props.onClick?.()}
 			disabled={props.isLoading}
 			style={{ margin: props.margin, width: props.width }}
 			className={classes.join(" ")}>

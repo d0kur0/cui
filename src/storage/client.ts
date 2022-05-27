@@ -1,6 +1,8 @@
 import {
 	addDoc,
 	collection,
+	doc,
+	getDoc,
 	getDocs,
 	orderBy,
 	query,
@@ -112,4 +114,43 @@ async function create({ name, description, avatar }: CreateProps): Promise<Clien
 	return { ...clientObject, id: newClient.id, avatar: avatarUrl };
 }
 
-export const clientStorage = { fetchAllOwnedByUser, fetchAdditionalInfo, create };
+// update
+export type UpdateProps = {
+	name: string;
+	avatar: File;
+	description: string;
+	clientId: string;
+};
+
+async function update(props: UpdateProps): Promise<Client> {
+	const clientRef = doc(collection(db, "clients"), props.clientId);
+	const clientSnap = await getDoc(clientRef);
+
+	const client = { ...clientSnap.data() } as Client;
+
+	client.name = props.name;
+	client.description = props.description;
+
+	const avatarUrl = await saveClientAvatar({
+		clientId: props.clientId,
+		file: props.avatar,
+	});
+
+	avatarUrl && (client["avatar"] = avatarUrl);
+	await updateDoc(clientRef, client);
+	return { ...client, id: clientSnap.id };
+}
+
+// toArchive
+async function toArchive(clientId: string) {
+	const clientRef = doc(collection(db, "clients"), clientId);
+	await updateDoc(clientRef, { deletedAt: Timestamp.now() });
+}
+
+export const clientStorage = {
+	fetchAllOwnedByUser,
+	fetchAdditionalInfo,
+	toArchive,
+	create,
+	update,
+};

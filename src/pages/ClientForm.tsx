@@ -1,7 +1,8 @@
 import { useNavigate, useParams } from "solid-app-router";
 import { BsArrowLeft } from "solid-icons/bs";
-import { createSignal } from "solid-js";
+import { createMemo, createSignal } from "solid-js";
 
+import { Avatar } from "../components/Avatar";
 import { Button, FileInput, Form, TextInput } from "../components/Form";
 import Layout from "../components/Layout";
 import NavBar from "../components/NavBar";
@@ -15,6 +16,8 @@ export function ClientForm() {
 	const isCreate = !id;
 	const navigate = useNavigate();
 	const [isLoading, setIsLoading] = createSignal(false);
+	const { clients } = clientsStore;
+	const client = createMemo(() => clients.list.find(client => client.id === id));
 
 	const onSubmit = (
 		event: Event & { submitter: HTMLElement } & {
@@ -28,10 +31,14 @@ export function ClientForm() {
 			...new FormData(event.currentTarget).entries(),
 		]) as CreateProps;
 
-		clientsStore.create(formFields, () => {
+		const onDone = () => {
 			navigate("/clients");
 			setIsLoading(false);
-		});
+		};
+
+		isCreate
+			? clientsStore.create(formFields, onDone)
+			: clientsStore.update({ ...formFields, clientId: client()?.id || "" }, onDone);
 	};
 
 	return (
@@ -49,9 +56,27 @@ export function ClientForm() {
 			navBar={<NavBar />}>
 			<Paper autoHeight={true}>
 				<Form onSubmit={onSubmit}>
+					{isCreate || (
+						<Avatar
+							margin="10px 0 0 0"
+							imageSrc={client()?.avatar}
+							name={client()?.name}
+						/>
+					)}
 					<FileInput accept="image/*" name="avatar" label="Аватар" />
-					<TextInput name="name" required={true} label="Имя*" placeholder="Имя Фамилия" />
-					<TextInput name="description" label="Описание" placeholder="Любит хлеб" />
+					<TextInput
+						value={client()?.name}
+						name="name"
+						required={true}
+						label="Имя*"
+						placeholder="Имя Фамилия"
+					/>
+					<TextInput
+						value={client()?.description}
+						name="description"
+						label="Описание"
+						placeholder="Любит хлеб"
+					/>
 					<Button fullWidth={true} isLoading={isLoading()} margin="5px 0">
 						Сохранить
 					</Button>

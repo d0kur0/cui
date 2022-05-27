@@ -1,4 +1,4 @@
-import { useParams } from "solid-app-router";
+import { useNavigate, useParams } from "solid-app-router";
 import { BsArrowLeft } from "solid-icons/bs";
 import { createMemo } from "solid-js";
 import { Transition } from "solid-transition-group";
@@ -43,9 +43,16 @@ function ClientPlug() {
 export function Client() {
 	const { id } = useParams();
 	const { clients, fetchAdditionalInfo } = clientsStore;
+	const navigate = useNavigate();
 
 	const client = createMemo(() => clients.list.find(client => client.id === id));
 	const additionalInfo = fetchAdditionalInfo(id);
+
+	const handleDelete = () => {
+		clientsStore.toArchive(client()?.id || "", () => {
+			navigate("/clients");
+		});
+	};
 
 	const ClientCard = () => {
 		return (
@@ -99,11 +106,11 @@ export function Client() {
 				<Transition
 					mode="outin"
 					onEnter={(el, done) => {
-						const a = el.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 500 });
+						const a = el.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 300 });
 						a.finished.then(done);
 					}}
 					onExit={(el, done) => {
-						const a = el.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 500 });
+						const a = el.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 300 });
 						a.finished.then(done);
 					}}>
 					{clients.isLoading || additionalInfo.isLoading ? (
@@ -116,8 +123,10 @@ export function Client() {
 
 			<div className={styles.actions}>
 				<Button fullWidth={true}>Создать запись</Button>
-				<Button fullWidth={true}>Редактировать</Button>
-				<Button fullWidth={true} type="danger">
+				<Button onClick={() => navigate(`/client/edit/${client()?.id}`)} fullWidth={true}>
+					Редактировать
+				</Button>
+				<Button onClick={handleDelete} fullWidth={true} type="danger">
 					Архивировать
 				</Button>
 			</div>

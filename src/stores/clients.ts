@@ -4,6 +4,7 @@ import {
 	Client,
 	ClientAdditionalInfo,
 	CreateProps,
+	UpdateProps,
 	clientStorage,
 } from "../storage/client";
 import { StaticStoreProps } from "./index";
@@ -56,11 +57,44 @@ export function createClientsStore() {
 			.catch(pushError);
 	};
 
+	const update = (props: UpdateProps, onUpdateCallback?: () => void) => {
+		clientStorage
+			.update(props)
+			.then(updatedClient => {
+				setStore(value => ({
+					...value,
+					list: value.list.map(client =>
+						client.id === props.clientId ? updatedClient : client
+					),
+				}));
+				pushSuccess("Клиент обновлен");
+				onUpdateCallback?.();
+			})
+			.catch(pushError);
+	};
+
+	const toArchive = (clientId: string, onArchiveCallback?: () => void) => {
+		clientStorage
+			.toArchive(clientId)
+			.then(() => {
+				setStore(value => ({
+					...value,
+					list: value.list.filter(client => client.id !== clientId),
+				}));
+
+				onArchiveCallback?.();
+				pushSuccess("Клиент удален");
+			})
+			.catch(pushError);
+	};
+
 	return {
-		clients: store,
 		fetch,
-		fetchAdditionalInfo,
 		create,
+		update,
+		clients: store,
+		toArchive,
+		fetchAdditionalInfo,
 	};
 }
 

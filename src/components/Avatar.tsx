@@ -7,6 +7,7 @@ type AvatarProps = {
 	name?: string;
 	size?: "small" | "default" | "large";
 	isPlug?: boolean;
+	margin?: string;
 };
 
 export function Avatar(props: AvatarProps) {
@@ -52,7 +53,7 @@ export function Avatar(props: AvatarProps) {
 	};
 
 	return (
-		<div className={classNames.join(" ")}>
+		<div style={{ margin: props.margin }} className={classNames.join(" ")}>
 			{props.isPlug || (props.imageSrc && !error()) ? <Image /> : <Name />}
 		</div>
 	);
