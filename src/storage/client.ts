@@ -19,6 +19,7 @@ export type Client = {
 	userId: string;
 	avatar: string;
 	createdAt: Timestamp;
+	deletedAt: Timestamp | null;
 	description: string;
 };
 
@@ -29,7 +30,12 @@ export type ClientAdditionalInfo = {
 
 // fetchAllOwnedByUser
 async function fetchAllOwnedByUser(userId: string): Promise<Client[]> {
-	const _query = query(collection(db, "clients"), where("userId", "==", userId));
+	const _query = query(
+		collection(db, "clients"),
+		where("userId", "==", userId),
+		where("deletedAt", "==", null),
+		orderBy("createdAt", "desc")
+	);
 	const { docs } = await getDocs(_query);
 	return docs.map(doc => ({ id: doc.id, ...doc.data() } as Client));
 }
@@ -94,6 +100,7 @@ async function create({ name, description, avatar }: CreateProps): Promise<Clien
 		userId: userStore.user.id,
 		avatar: "",
 		createdAt: Timestamp.now(),
+		deletedAt: null,
 		description,
 	};
 

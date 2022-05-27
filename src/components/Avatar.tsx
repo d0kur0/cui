@@ -20,7 +20,7 @@ export function Avatar(props: AvatarProps) {
 	props.size === "small" && classNames.push(styles.sizeSmall);
 	props.size === "large" && classNames.push(styles.sizeLarge);
 
-	props.isPlug && classNames.push(styles.plug);
+	props.isPlug && classNames.push("plug");
 
 	const Name = () => {
 		const { name } = props;

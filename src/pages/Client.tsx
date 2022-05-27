@@ -52,7 +52,7 @@ export function Client() {
 			<div>
 				<div className={styles.card}>
 					<div className={styles.cardAvatar}>
-						<Avatar size="large" name={client()?.name} />
+						<Avatar size="large" name={client()?.name} imageSrc={client()?.avatar} />
 					</div>
 					<div className={styles.cardInfo}>
 						<div className={styles.cardInfoName}>{client()?.name}</div>
