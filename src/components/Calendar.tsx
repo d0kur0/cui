@@ -1,9 +1,9 @@
-import styles from "./Calendar.module.css";
-
-import { TiChevronRight, TiChevronLeft } from "solid-icons/ti";
-import useMonthDays from "../hooks/useMonthDays";
-import { For } from "solid-js";
 import { getDate } from "date-fns";
+import { TiChevronLeft, TiChevronRight } from "solid-icons/ti";
+import { For } from "solid-js";
+
+import useMonthDays from "../hooks/useMonthDays";
+import styles from "./Calendar.module.css";
 
 const dayNames = ["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"];
 

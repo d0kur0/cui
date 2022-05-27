@@ -67,9 +67,7 @@ type FormProps = {
 
 export function Form(props: FormProps) {
 	return (
-		<form
-			onSubmit={event => (event.preventDefault(), props.onSubmit?.(event))}
-			className={styles.form}>
+		<form onSubmit={event => (event.preventDefault(), props.onSubmit?.(event))} className={styles.form}>
 			{props.children}
 		</form>
 	);
@@ -96,7 +94,8 @@ export function Button(props: ButtonProps) {
 			onClick={() => props.onClick?.()}
 			disabled={props.isLoading}
 			style={{ margin: props.margin, width: props.width }}
-			className={classes.join(" ")}>
+			className={classes.join(" ")}
+		>
 			{props.isLoading ? <CgSpinner className="rotate" /> : props.children}
 		</button>
 	);

@@ -27,9 +27,7 @@ export function ClientForm() {
 	) => {
 		setIsLoading(true);
 
-		const formFields = Object.fromEntries([
-			...new FormData(event.currentTarget).entries(),
-		]) as CreateProps;
+		const formFields = Object.fromEntries([...new FormData(event.currentTarget).entries()]) as CreateProps;
 
 		const onDone = () => {
 			navigate("/clients");
@@ -53,16 +51,11 @@ export function ClientForm() {
 					title={isCreate ? "Добавление клиента" : "Редактирование клиента"}
 				/>
 			}
-			navBar={<NavBar />}>
+			navBar={<NavBar />}
+		>
 			<Paper autoHeight={true}>
 				<Form onSubmit={onSubmit}>
-					{isCreate || (
-						<Avatar
-							margin="10px 0 0 0"
-							imageSrc={client()?.avatar}
-							name={client()?.name}
-						/>
-					)}
+					{isCreate || <Avatar margin="10px 0 0 0" imageSrc={client()?.avatar} name={client()?.name} />}
 					<FileInput accept="image/*" name="avatar" label="Аватар" />
 					<TextInput
 						value={client()?.name}

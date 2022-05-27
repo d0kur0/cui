@@ -73,15 +73,11 @@ type SaveClientAvatarProps = {
 	clientId: string;
 };
 
-async function saveClientAvatar({
-	file,
-	clientId,
-}: SaveClientAvatarProps): Promise<string> {
+async function saveClientAvatar({ file, clientId }: SaveClientAvatarProps): Promise<string> {
 	const ALLOWED_TYPES = ["png", "jpeg", "jpg", "gif"];
 	const [, imageType] = file.type.split("/");
 
-	if (!file.size || !file.type.includes("image") || !ALLOWED_TYPES.includes(imageType))
-		return "";
+	if (!file.size || !file.type.includes("image") || !ALLOWED_TYPES.includes(imageType)) return "";
 
 	const avatarRef = ref(storage, `client_avatar_${clientId}`);
 	const avatarSnapshot = await uploadBytes(avatarRef, file);
@@ -125,7 +121,6 @@ export type UpdateProps = {
 async function update(props: UpdateProps): Promise<Client> {
 	const clientRef = doc(collection(db, "clients"), props.clientId);
 	const clientSnap = await getDoc(clientRef);
-
 	const client = { ...clientSnap.data() } as Client;
 
 	client.name = props.name;

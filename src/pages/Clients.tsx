@@ -1,6 +1,6 @@
 import { Link } from "solid-app-router";
 import { FiPlusSquare } from "solid-icons/fi";
-import { createMemo, createSignal } from "solid-js";
+import { For, createMemo, createSignal } from "solid-js";
 import { Transition } from "solid-transition-group";
 
 import { Avatar } from "../components/Avatar";
@@ -11,6 +11,7 @@ import Paper from "../components/Paper";
 import { PlugText } from "../components/Plugs";
 import SearchBar from "../components/SearchBar";
 import Title from "../components/Title";
+import { transitionOnEnter, transitionOnExit } from "../helpers/transition";
 import { clientsStore } from "../stores/clients";
 
 function ClientListPlug() {
@@ -45,18 +46,16 @@ function Clients() {
 	const ClientList = () => {
 		return (
 			<List title="Список клиентов" margin="5px 0">
-				{filteredClients().map(client => (
-					<ListItem
-						href={`/client/${client.id}`}
-						avatar={<Avatar name={client.name} imageSrc={client.avatar} />}
-						title={client.name}
-						content={
-							client.description.trim() ? client.description : "Описание отсутствует"
-						}
-					/>
-				))}
-
-				{filteredClients().length ? <></> : <ListItem content="Список пуст"></ListItem>}
+				<For each={filteredClients()} fallback={<ListItem content="Список пуст"></ListItem>}>
+					{client => (
+						<ListItem
+							href={`/client/${client.id}`}
+							avatar={<Avatar name={client.name} imageSrc={client.avatar} />}
+							title={client.name}
+							content={client.description.trim() ? client.description : "Описание отсутствует"}
+						/>
+					)}
+				</For>
 			</List>
 		);
 	};
@@ -75,16 +74,7 @@ function Clients() {
 			}
 			navBar={<NavBar />}>
 			<Paper fixedContent={<SearchBar onInput={value => setSearchQuery(value)} />}>
-				<Transition
-					mode="outin"
-					onEnter={(el, done) => {
-						const a = el.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 500 });
-						a.finished.then(done);
-					}}
-					onExit={(el, done) => {
-						const a = el.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 500 });
-						a.finished.then(done);
-					}}>
+				<Transition mode="outin" onEnter={transitionOnEnter()} onExit={transitionOnExit()}>
 					{clients.isLoading ? <ClientListPlug /> : <ClientList />}
 				</Transition>
 			</Paper>

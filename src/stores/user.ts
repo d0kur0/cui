@@ -1,7 +1,8 @@
-import { createStore } from "solid-js/store";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
-import { auth } from "../firebase";
 import { User } from "firebase/auth";
+import { createStore } from "solid-js/store";
+
+import { auth } from "../firebase";
 import { notificationsStore } from "./notifications";
 
 export type UserStore = {

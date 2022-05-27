@@ -1,6 +1,7 @@
-import styles from "./List.module.css";
-import { JSX } from "solid-js";
 import { Link } from "solid-app-router";
+import { JSX } from "solid-js";
+
+import styles from "./List.module.css";
 
 type ListItemProps = {
 	title?: string | JSX.Element;

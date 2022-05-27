@@ -1,5 +1,6 @@
-import styles from "./SearchBar.module.css";
 import { JSX } from "solid-js";
+
+import styles from "./SearchBar.module.css";
 
 type SearchBarProps = {
 	onInput?: (value: string) => void;
@@ -12,12 +13,7 @@ function SearchBar(props: SearchBarProps) {
 
 	return (
 		<div className={styles.searchBar}>
-			<input
-				onInput={onInput}
-				className={styles.searchBarInput}
-				type="search"
-				placeholder="Поиск"
-			/>
+			<input onInput={onInput} className={styles.searchBarInput} type="search" placeholder="Поиск" />
 		</div>
 	);
 }

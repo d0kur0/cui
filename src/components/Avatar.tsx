@@ -43,12 +43,7 @@ export function Avatar(props: AvatarProps) {
 		return error() ? (
 			<Name />
 		) : (
-			<img
-				onError={() => setError(true)}
-				className={styles.image}
-				src={imageSrc}
-				alt="user avatar"
-			/>
+			<img onError={() => setError(true)} className={styles.image} src={imageSrc} alt="user avatar" />
 		);
 	};
 

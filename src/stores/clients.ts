@@ -1,12 +1,6 @@
 import { createStore } from "solid-js/store";
 
-import {
-	Client,
-	ClientAdditionalInfo,
-	CreateProps,
-	UpdateProps,
-	clientStorage,
-} from "../storage/client";
+import { Client, ClientAdditionalInfo, CreateProps, UpdateProps, clientStorage } from "../storage/client";
 import { StaticStoreProps } from "./index";
 import { notificationsStore } from "./notifications";
 import { userStore } from "./user";
@@ -15,7 +9,7 @@ type Store = { list: Client[] } & StaticStoreProps;
 
 const { pushError, pushSuccess } = notificationsStore;
 
-export function createClientsStore() {
+function createClientsStore() {
 	const [store, setStore] = createStore<Store>({
 		isLoading: true,
 		list: [],
@@ -24,9 +18,7 @@ export function createClientsStore() {
 	const fetch = () => {
 		clientStorage
 			.fetchAllOwnedByUser(userStore.user.id)
-			.then(clients =>
-				setStore(currentValue => ({ ...currentValue, list: clients, isLoading: false }))
-			)
+			.then(clients => setStore(currentValue => ({ ...currentValue, list: clients, isLoading: false })))
 			.catch(pushError);
 	};
 
@@ -39,9 +31,7 @@ export function createClientsStore() {
 
 		clientStorage
 			.fetchAdditionalInfo({ clientId, userId: userStore.user.id })
-			.then(additionalInfo =>
-				setStore(value => ({ ...value, ...additionalInfo, isLoading: false }))
-			);
+			.then(additionalInfo => setStore(value => ({ ...value, ...additionalInfo, isLoading: false })));
 
 		return store;
 	};
@@ -63,9 +53,7 @@ export function createClientsStore() {
 			.then(updatedClient => {
 				setStore(value => ({
 					...value,
-					list: value.list.map(client =>
-						client.id === props.clientId ? updatedClient : client
-					),
+					list: value.list.map(client => (client.id === props.clientId ? updatedClient : client)),
 				}));
 				pushSuccess("Клиент обновлен");
 				onUpdateCallback?.();

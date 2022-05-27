@@ -101,7 +101,8 @@ export function Client() {
 					title="Профиль клиента"
 				/>
 			}
-			navBar={<NavBar />}>
+			navBar={<NavBar />}
+		>
 			<Paper autoHeight={true}>
 				<Transition
 					mode="outin"
@@ -112,12 +113,9 @@ export function Client() {
 					onExit={(el, done) => {
 						const a = el.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 300 });
 						a.finished.then(done);
-					}}>
-					{clients.isLoading || additionalInfo.isLoading ? (
-						<ClientPlug />
-					) : (
-						<ClientCard />
-					)}
+					}}
+				>
+					{clients.isLoading || additionalInfo.isLoading ? <ClientPlug /> : <ClientCard />}
 				</Transition>
 			</Paper>
 

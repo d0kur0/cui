@@ -1,6 +1,7 @@
-import styles from "./Paper.module.css";
 import { JSX } from "solid-js/jsx-runtime";
+
 import { Button } from "./Form";
+import styles from "./Paper.module.css";
 
 type PaperProps = {
 	fixedContent?: JSX.Element;
@@ -18,9 +19,7 @@ export default function Paper(props: PaperProps) {
 
 	return (
 		<div className={styles.paper} style={rootStyles}>
-			{props.fixedContent && (
-				<div className={styles.fixedContent}>{props.fixedContent}</div>
-			)}
+			{props.fixedContent && <div className={styles.fixedContent}>{props.fixedContent}</div>}
 			<div style={contentStyles} className={styles.content}>
 				{props.children}
 			</div>

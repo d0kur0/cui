@@ -1,5 +1,5 @@
-import styles from "./Welcome.module.css";
 import { userStore } from "../stores/user";
+import styles from "./Welcome.module.css";
 
 function Welcome() {
 	const { signIn } = userStore;

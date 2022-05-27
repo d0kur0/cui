@@ -6,6 +6,7 @@ import { ClientForm } from "./pages/ClientForm";
 import Clients from "./pages/Clients";
 import Events from "./pages/Events";
 import Guest from "./pages/Guest";
+import Services from "./pages/Services";
 
 import { Notifications } from "./components/Notifications";
 import SplashScreen from "./components/SplashScreen";
@@ -13,10 +14,14 @@ import SplashScreen from "./components/SplashScreen";
 import useHeightUnit from "./hooks/useHeightUnit";
 
 import { clientsStore } from "./stores/clients";
+import { servicesStore } from "./stores/services";
 import { userStore } from "./stores/user";
 
 function AppForUsers() {
-	clientsStore.fetch();
+	onMount(() => {
+		clientsStore.fetch();
+		servicesStore.fetch();
+	});
 
 	return (
 		<Router>
@@ -26,6 +31,7 @@ function AppForUsers() {
 				<Route path="/client/create" element={<ClientForm />} />
 				<Route path="/client/edit/:id" element={<ClientForm />} />
 				<Route path="/client/:id" element={<Client />} />
+				<Route path="/services" element={<Services />} />
 			</Routes>
 		</Router>
 	);

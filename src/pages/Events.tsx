@@ -1,8 +1,9 @@
+import { FiPlusSquare } from "solid-icons/fi";
+
+import Calendar from "../components/Calendar";
 import Layout from "../components/Layout";
 import NavBar from "../components/NavBar";
 import Title from "../components/Title";
-import Calendar from "../components/Calendar";
-import { FiPlusSquare } from "solid-icons/fi";
 
 function Events() {
 	return (
@@ -17,7 +18,8 @@ function Events() {
 					title="Записи"
 				/>
 			}
-			navBar={<NavBar />}>
+			navBar={<NavBar />}
+		>
 			<Calendar />
 		</Layout>
 	);

@@ -1,4 +1,5 @@
 import { JSX } from "solid-js";
+
 import styles from "./Title.module.css";
 
 type TitleProps = {
@@ -12,9 +13,7 @@ function Title({ leftChildren, rightChildren, title }: TitleProps) {
 		<div className={styles.root}>
 			<div className={styles.optionalElements}>{leftChildren}</div>
 			<div className={styles.title}>{title}</div>
-			<div className={`${styles.optionalElements} ${styles.optionalElementsRight}`}>
-				{rightChildren}
-			</div>
+			<div className={`${styles.optionalElements} ${styles.optionalElementsRight}`}>{rightChildren}</div>
 		</div>
 	);
 }

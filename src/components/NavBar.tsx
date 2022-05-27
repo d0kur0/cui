@@ -1,13 +1,8 @@
-import styles from "./NavBar.module.css";
-import {
-	TiCalendar,
-	TiBusinessCard,
-	TiBriefcase,
-	TiChartLine,
-	TiEquals,
-} from "solid-icons/ti";
 import { Link, useLocation } from "solid-app-router";
+import { TiBriefcase, TiBusinessCard, TiCalendar, TiChartLine, TiEquals } from "solid-icons/ti";
 import { JSX } from "solid-js/jsx-runtime";
+
+import styles from "./NavBar.module.css";
 
 type LinkExtendedProps = {
 	to: string;
@@ -24,7 +19,8 @@ function LinkExtended(props: LinkExtendedProps) {
 			classList={{
 				[styles.button]: true,
 				[styles.buttonActive]: location.pathname === props.to,
-			}}>
+			}}
+		>
 			<span className={styles.linkIcon}>{props.icon}</span>
 			<span className={styles.linkName}>{props.title}</span>
 		</Link>
