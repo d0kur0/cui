@@ -1,25 +1,39 @@
 import { Link } from "solid-app-router";
 import { FiPlusSquare } from "solid-icons/fi";
-import { createMemo, createSignal } from "solid-js";
+import { HiSolidHashtag } from "solid-icons/hi";
+import { For, createMemo, createSignal } from "solid-js";
 import { Transition } from "solid-transition-group";
 
+import { Avatar } from "../components/Avatar";
 import Layout from "../components/Layout";
-import { List, ListItem } from "../components/List";
+import { List, ListItem, ListItemBetweenContent } from "../components/List";
 import NavBar from "../components/NavBar";
 import Paper from "../components/Paper";
 import { PlugText } from "../components/Plugs";
 import SearchBar from "../components/SearchBar";
 import Title from "../components/Title";
+import { transitionOnEnter, transitionOnExit } from "../helpers/transition";
 import { servicesStore } from "../stores/services";
 
 function ServicesListPlug() {
 	return (
 		<List title="Список услуг" margin="5px 0">
-			{Array(9)
-				.fill(0)
-				.map(() => (
-					<ListItem title={<PlugText size={80} height={"0.7em"} />} content={<PlugText size={160} />} />
-				))}
+			<For each={Array(15).fill(0)}>
+				{_ => (
+					<ListItem
+						content={
+							<ListItemBetweenContent
+								leftContent={
+									<>
+										<HiSolidHashtag /> <PlugText size={200} />
+									</>
+								}
+								rightContent={<PlugText size={30} />}
+							/>
+						}
+					/>
+				)}
+			</For>
 		</List>
 	);
 }
@@ -36,11 +50,23 @@ function Services() {
 	const ServiceList = () => {
 		return (
 			<List title="Список услуг" margin="5px 0">
-				{filteredServices().map(service => (
-					<ListItem href={`/service/${service.id}`} title={service.name} content={`${service.price} руб.`} />
-				))}
-
-				{filteredServices().length ? <></> : <ListItem content="Список пуст"></ListItem>}
+				<For each={filteredServices()} fallback={<ListItem content="Список пуст"></ListItem>}>
+					{({ id, name, price }) => (
+						<ListItem
+							href={`/service/${id}`}
+							content={
+								<ListItemBetweenContent
+									leftContent={
+										<>
+											<HiSolidHashtag /> {name}
+										</>
+									}
+									rightContent={`${price} руб.`}
+								/>
+							}
+						/>
+					)}
+				</For>
 			</List>
 		);
 	};
@@ -57,20 +83,9 @@ function Services() {
 					title="Услуги"
 				/>
 			}
-			navBar={<NavBar />}
-		>
+			navBar={<NavBar />}>
 			<Paper fixedContent={<SearchBar onInput={value => setSearchQuery(value)} />}>
-				<Transition
-					mode="outin"
-					onEnter={(el, done) => {
-						const a = el.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 500 });
-						a.finished.then(done);
-					}}
-					onExit={(el, done) => {
-						const a = el.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 500 });
-						a.finished.then(done);
-					}}
-				>
+				<Transition mode="outin" onEnter={transitionOnEnter()} onExit={transitionOnExit()}>
 					{services.isLoading ? <ServicesListPlug /> : <ServiceList />}
 				</Transition>
 			</Paper>

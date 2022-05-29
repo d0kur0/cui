@@ -11,6 +11,7 @@ import Paper from "../components/Paper";
 import { PlugText } from "../components/Plugs";
 import Title from "../components/Title";
 import { formatRelative } from "../helpers/date";
+import { transitionOnEnter, transitionOnExit } from "../helpers/transition";
 import { clientsStore } from "../stores/clients";
 import styles from "./Client.module.css";
 
@@ -101,20 +102,9 @@ export function Client() {
 					title="Профиль клиента"
 				/>
 			}
-			navBar={<NavBar />}
-		>
+			navBar={<NavBar />}>
 			<Paper autoHeight={true}>
-				<Transition
-					mode="outin"
-					onEnter={(el, done) => {
-						const a = el.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 300 });
-						a.finished.then(done);
-					}}
-					onExit={(el, done) => {
-						const a = el.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 300 });
-						a.finished.then(done);
-					}}
-				>
+				<Transition mode="outin" onEnter={transitionOnEnter(300)} onExit={transitionOnExit(300)}>
 					{clients.isLoading || additionalInfo.isLoading ? <ClientPlug /> : <ClientCard />}
 				</Transition>
 			</Paper>

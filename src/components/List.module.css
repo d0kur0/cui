@@ -11,15 +11,32 @@
 	position: relative;
 }
 
+.itemBetweenContent {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	color: var(--text-color);
+}
+
+.itemBetweenContent > div {
+	display: flex;
+	align-items: center;
+}
+
+.itemBetweenContentRigth {
+	color: var(--text-color-light) !important;
+}
+
+.itemBetweenContentLeft svg {
+	margin-right: 10px;
+}
+
 .itemLink {
 	position: absolute;
 	top: 0;
 	left: 0;
 	width: 100%;
 	height: 100%;
-}
-
-.itemTitle {
 }
 
 .itemAvatar {

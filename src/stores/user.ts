@@ -42,17 +42,9 @@ export function createUserStore() {
 	});
 
 	function signIn() {
-		signInWithPopup(auth, new GoogleAuthProvider()).then(
-			({ user }) => {
-				setUser(getUserFromGoogleProvider(user));
-			},
-			error => {
-				notificationsStore.pushNotification({
-					type: "error",
-					message: `При загрузке списка клиентов произошла ошибка (${error})`,
-				});
-			}
-		);
+		signInWithPopup(auth, new GoogleAuthProvider()).then(({ user }) => {
+			setUser(getUserFromGoogleProvider(user));
+		}, notificationsStore.pushError);
 	}
 
 	function signOut() {}

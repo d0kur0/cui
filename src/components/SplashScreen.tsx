@@ -18,6 +18,7 @@ function SplashScreenBody() {
 	);
 }
 
+// For fix error of Transition component, needed real html element, not <></>
 function SplashPlug() {
 	return <div style={{ position: "absolute" }}></div>;
 }
@@ -35,8 +36,7 @@ function SplashScreen() {
 			onExit={(el, done) => {
 				const a = el.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 1000 });
 				a.finished.then(done);
-			}}
-		>
+			}}>
 			{user.isTick ? <SplashPlug /> : <SplashScreenBody />}
 		</Transition>
 	);

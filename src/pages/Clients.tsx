@@ -17,15 +17,15 @@ import { clientsStore } from "../stores/clients";
 function ClientListPlug() {
 	return (
 		<List title="Список клиентов" margin="5px 0">
-			{Array(9)
-				.fill(0)
-				.map(() => (
+			<For each={Array(9).fill(0)}>
+				{_ => (
 					<ListItem
 						avatar={<Avatar isPlug={true} />}
 						title={<PlugText size={80} height={"0.7em"} />}
 						content={<PlugText size={160} />}
 					/>
-				))}
+				)}
+			</For>
 		</List>
 	);
 }
@@ -45,14 +45,14 @@ function Clients() {
 
 	const ClientList = () => {
 		return (
-			<List title="Список клиентов" margin="5px 0">
+			<List title={`Список клиентов (${filteredClients().length})`} margin="5px 0">
 				<For each={filteredClients()} fallback={<ListItem content="Список пуст"></ListItem>}>
-					{client => (
+					{({ id, name, avatar, description }) => (
 						<ListItem
-							href={`/client/${client.id}`}
-							avatar={<Avatar name={client.name} imageSrc={client.avatar} />}
-							title={client.name}
-							content={client.description.trim() ? client.description : "Описание отсутствует"}
+							href={`/client/${id}`}
+							avatar={<Avatar name={name} imageSrc={avatar} />}
+							title={name}
+							content={description.trim() ? description : "Описание отсутствует"}
 						/>
 					)}
 				</For>

@@ -24,6 +24,20 @@ export function ListItem(props: ListItemProps) {
 	);
 }
 
+type ListItemBetweenContentProps = {
+	leftContent: string | JSX.Element;
+	rightContent: string | JSX.Element;
+};
+
+export function ListItemBetweenContent({ leftContent, rightContent }: ListItemBetweenContentProps) {
+	return (
+		<div className={styles.itemBetweenContent}>
+			<div className={styles.itemBetweenContentLeft}>{leftContent}</div>
+			<div className={styles.itemBetweenContentRigth}>{rightContent}</div>
+		</div>
+	);
+}
+
 type ListProps = {
 	children: JSX.Element;
 	margin?: string;

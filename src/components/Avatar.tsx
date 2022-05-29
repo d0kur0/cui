@@ -1,4 +1,4 @@
-import { createSignal } from "solid-js";
+import { JSXElement, createSignal } from "solid-js";
 
 import styles from "./Avatar.module.css";
 
@@ -8,48 +8,76 @@ type AvatarProps = {
 	size?: "small" | "default" | "large";
 	isPlug?: boolean;
 	margin?: string;
+	children?: JSXElement;
 };
 
-export function Avatar(props: AvatarProps) {
+type NameProps = { name: string };
+
+function Name({ name }: NameProps) {
+	const nameSegments = name.split(" ");
+	const initials =
+		nameSegments.length > 1
+			? `${nameSegments[0].charAt(0)}${nameSegments[1].charAt(0)}`
+			: name.substring(0, 2);
+
+	return <div className={styles.initials}>{initials}</div>;
+}
+
+type ImageProps = {
+	imageSrc: string;
+	name: string;
+	onLoad: () => void;
+	onError: () => void;
+};
+
+function Image({ imageSrc, name, onLoad, onError }: ImageProps) {
 	const [error, setError] = createSignal(false);
+
+	return error() ? (
+		<Name name={name} />
+	) : (
+		<img
+			src={imageSrc}
+			alt="user avatar image"
+			onLoad={onLoad}
+			onError={() => (setError(true), onError())}
+			className={styles.image}
+		/>
+	);
+}
+
+export function Avatar(props: AvatarProps) {
+	const [isLoading, setIsLoading] = createSignal(props.imageSrc || false);
 
 	props.size = props.size || "default";
 
-	const classNames = [styles.avatar];
+	const initialClassNames = [styles.avatar];
 
-	props.size === "default" && classNames.push(styles.sizeDefault);
-	props.size === "small" && classNames.push(styles.sizeSmall);
-	props.size === "large" && classNames.push(styles.sizeLarge);
+	props.size === "small" && initialClassNames.push(styles.sizeSmall);
+	props.size === "large" && initialClassNames.push(styles.sizeLarge);
+	props.size === "default" && initialClassNames.push(styles.sizeDefault);
 
-	props.isPlug && classNames.push("plug");
+	(props.isPlug || isLoading()) && initialClassNames.push("plug");
 
-	const Name = () => {
-		const { name } = props;
-		if (!name) return;
+	const [classNames, setClassNames] = createSignal(initialClassNames);
 
-		const nameSegments = name.split(" ");
-		const initials =
-			nameSegments.length > 1
-				? `${nameSegments[0].charAt(0)}${nameSegments[1].charAt(0)}`
-				: nameSegments[0].charAt(0);
+	const name = props.name || "";
+	const imageSrc = props.imageSrc || "";
 
-		return <div className={styles.initials}>{initials}</div>;
-	};
-
-	const Image = () => {
-		const { imageSrc } = props;
-		if (!imageSrc) return;
-
-		return error() ? (
-			<Name />
-		) : (
-			<img onError={() => setError(true)} className={styles.image} src={imageSrc} alt="user avatar" />
-		);
+	const onImageLoaded = () => {
+		setIsLoading(false);
+		setClassNames(c => c.filter(c => c !== "plug"));
 	};
 
 	return (
-		<div style={{ margin: props.margin }} className={classNames.join(" ")}>
-			{props.isPlug || (props.imageSrc && !error()) ? <Image /> : <Name />}
+		<div style={{ margin: props.margin }} className={classNames().join(" ")}>
+			{props.children ? (
+				props.children
+			) : props.imageSrc ? (
+				<Image onError={onImageLoaded} onLoad={onImageLoaded} name={name} imageSrc={imageSrc} />
+			) : (
+				<Name name={name} />
+			)}
 		</div>
 	);
 }
