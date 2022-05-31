@@ -16,7 +16,7 @@ function createServicesStore() {
 		serviceStorage
 			.fetchAllOwnedByUser(userStore.user.id)
 			.then(services => setStore(currentValue => ({ ...currentValue, list: services, isLoading: false })))
-			.catch(pushError);
+			.catch(err => notificationsStore.pushError(err.message));
 	};
 
 	const create = (props: CreateProps, onCreateCallback?: () => void) => {
@@ -27,7 +27,7 @@ function createServicesStore() {
 				pushSuccess("Услуга создана");
 				onCreateCallback?.();
 			})
-			.catch(pushError);
+			.catch(err => notificationsStore.pushError(err.message));
 	};
 
 	const update = (props: UpdateProps, onUpdateCallback?: () => void) => {
@@ -41,7 +41,7 @@ function createServicesStore() {
 				pushSuccess("Услуга обновлена");
 				onUpdateCallback?.();
 			})
-			.catch(pushError);
+			.catch(err => notificationsStore.pushError(err.message));
 	};
 
 	const toArchive = (serviceId: string, onArchiveCallback?: () => void) => {
@@ -56,7 +56,7 @@ function createServicesStore() {
 				onArchiveCallback?.();
 				pushSuccess("Услуга удалена");
 			})
-			.catch(pushError);
+			.catch(err => notificationsStore.pushError(err.message));
 	};
 
 	return {

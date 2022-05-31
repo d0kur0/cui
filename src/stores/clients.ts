@@ -19,7 +19,7 @@ function createClientsStore() {
 		clientStorage
 			.fetchAllOwnedByUser(userStore.user.id)
 			.then(clients => setStore(currentValue => ({ ...currentValue, list: clients, isLoading: false })))
-			.catch(pushError);
+			.catch(err => notificationsStore.pushError(err.message));
 	};
 
 	const fetchAdditionalInfo = (clientId: string) => {
@@ -44,7 +44,7 @@ function createClientsStore() {
 				pushSuccess("Клиент создан");
 				onCreateCallback?.();
 			})
-			.catch(pushError);
+			.catch(err => notificationsStore.pushError(err.message));
 	};
 
 	const update = (props: UpdateProps, onUpdateCallback?: () => void) => {
@@ -58,7 +58,7 @@ function createClientsStore() {
 				pushSuccess("Клиент обновлен");
 				onUpdateCallback?.();
 			})
-			.catch(pushError);
+			.catch(err => notificationsStore.pushError(err.message));
 	};
 
 	const toArchive = (clientId: string, onArchiveCallback?: () => void) => {
@@ -73,7 +73,7 @@ function createClientsStore() {
 				onArchiveCallback?.();
 				pushSuccess("Клиент удален");
 			})
-			.catch(pushError);
+			.catch(err => notificationsStore.pushError(err.message));
 	};
 
 	return {

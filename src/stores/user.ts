@@ -42,9 +42,12 @@ export function createUserStore() {
 	});
 
 	function signIn() {
-		signInWithPopup(auth, new GoogleAuthProvider()).then(({ user }) => {
-			setUser(getUserFromGoogleProvider(user));
-		}, notificationsStore.pushError);
+		signInWithPopup(auth, new GoogleAuthProvider()).then(
+			({ user }) => {
+				setUser(getUserFromGoogleProvider(user));
+			},
+			err => notificationsStore.pushError(err.message)
+		);
 	}
 
 	function signOut() {}
