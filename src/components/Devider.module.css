@@ -1,0 +1,4 @@
+.devider {
+	--size: 2px;
+	border-top: var(--size) dashed var(--separator-color);
+}

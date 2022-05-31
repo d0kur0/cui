@@ -1,4 +1,5 @@
 import { CgSpinner } from "solid-icons/cg";
+import { JSXElement } from "solid-js";
 import { JSX } from "solid-js/jsx-runtime";
 
 import styles from "./Form.module.css";
@@ -94,9 +95,16 @@ export function Button(props: ButtonProps) {
 			onClick={() => props.onClick?.()}
 			disabled={props.isLoading}
 			style={{ margin: props.margin, width: props.width }}
-			className={classes.join(" ")}
-		>
+			className={classes.join(" ")}>
 			{props.isLoading ? <CgSpinner className="rotate" /> : props.children}
 		</button>
 	);
+}
+
+type ButtonGroupProps = {
+	children: JSXElement;
+};
+
+export function ButtonGroup({ children }: ButtonGroupProps) {
+	return <div className={styles.buttonGroup}>{children}</div>;
 }

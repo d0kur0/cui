@@ -58,3 +58,10 @@
 	color: var(--danger-color);
 	border: 2px dashed var(--danger-color);
 }
+
+.buttonGroup {
+	margin-top: 15px;
+	gap: 10px;
+	display: flex;
+	flex-direction: column;
+}

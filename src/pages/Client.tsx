@@ -1,10 +1,21 @@
 import { useNavigate, useParams } from "solid-app-router";
 import { BsArrowLeft } from "solid-icons/bs";
-import { createMemo } from "solid-js";
+import { For, createMemo } from "solid-js";
 import { Transition } from "solid-transition-group";
 
 import { Avatar } from "../components/Avatar";
-import { Button } from "../components/Form";
+import {
+	Card,
+	CardAvatar,
+	CardHeader,
+	CardInfo,
+	CardList,
+	CardListItem,
+	CardMainRow,
+	CardSecondRow,
+} from "../components/Card";
+import Devider from "../components/Devider";
+import { Button, ButtonGroup } from "../components/Form";
 import Layout from "../components/Layout";
 import NavBar from "../components/NavBar";
 import Paper from "../components/Paper";
@@ -13,30 +24,29 @@ import Title from "../components/Title";
 import { formatRelative } from "../helpers/date";
 import { transitionOnEnter, transitionOnExit } from "../helpers/transition";
 import { clientsStore } from "../stores/clients";
-import styles from "./Client.module.css";
 
 function ClientPlug() {
 	return (
 		<div>
-			<div className={styles.card}>
-				<div className={styles.cardAvatar}>
-					<Avatar size="large" isPlug={true} />
-				</div>
-				<div className={styles.cardInfo}>
-					<div className={styles.cardInfoName}>
-						<PlugText />
-					</div>
-					<div className={styles.cardInfoDescription}>
-						<PlugText size={100} />
-					</div>
-				</div>
-			</div>
-			<div className={styles.statistic}>
-				<div className={styles.statisticItem}>
-					<PlugText size={160} />
-					<PlugText size={50} />
-				</div>
-			</div>
+			<Card>
+				<CardHeader>
+					<CardAvatar>
+						<Avatar size="large" isPlug={true} />
+					</CardAvatar>
+					<CardInfo>
+						<CardMainRow>
+							<PlugText />
+						</CardMainRow>
+						<CardSecondRow>
+							<PlugText size={100} />
+						</CardSecondRow>
+					</CardInfo>
+				</CardHeader>
+				<Devider margin="5px 0" />
+				<CardList>
+					<CardListItem name={<PlugText size={160} />} value={<PlugText size={50} />} />
+				</CardList>
+			</Card>
 		</div>
 	);
 }
@@ -48,44 +58,48 @@ export function Client() {
 
 	const client = createMemo(() => clients.list.find(client => client.id === id));
 	const additionalInfo = fetchAdditionalInfo(id);
+	const handleDelete = () => clientsStore.toArchive(client()?.id || "", () => navigate("/clients"));
 
-	const handleDelete = () => {
-		clientsStore.toArchive(client()?.id || "", () => {
-			navigate("/clients");
-		});
-	};
+	const additionalInfoList = createMemo(
+		() => [
+			{
+				name: "Дата создания",
+				value: formatRelative(client()?.createdAt.toDate()),
+			},
+			{
+				name: "Всего посещений",
+				value: additionalInfo.countRecords,
+			},
+			{
+				name: "Последняя запись",
+				value: additionalInfo.latestRecord
+					? formatRelative(additionalInfo.latestRecord?.toDate())
+					: "Нет записей",
+			},
+		],
+		[additionalInfo]
+	);
 
 	const ClientCard = () => {
 		return (
 			<div>
-				<div className={styles.card}>
-					<div className={styles.cardAvatar}>
-						<Avatar size="large" name={client()?.name} imageSrc={client()?.avatar} />
-					</div>
-					<div className={styles.cardInfo}>
-						<div className={styles.cardInfoName}>{client()?.name}</div>
-						<div className={styles.cardInfoDescription}>
-							{client()?.description.trim() || "Описание отсутствует"}
-						</div>
-					</div>
-				</div>
-				<div className={styles.statistic}>
-					<div className={styles.statisticItem}>
-						<div>Дата создания</div>
-						<div>{formatRelative(client()?.createdAt.toDate())}</div>
-					</div>
-					<div className={styles.statisticItem}>
-						<div>Всего посещений</div> <div>{additionalInfo.countRecords}</div>
-					</div>
-					<div className={styles.statisticItem}>
-						<div>Последняя запись</div>
-						<div>
-							{additionalInfo.latestRecord
-								? formatRelative(additionalInfo.latestRecord?.toDate())
-								: "Нет записей"}
-						</div>
-					</div>
-				</div>
+				<Card>
+					<CardHeader>
+						<CardAvatar>
+							<Avatar size="large" name={client()?.name} imageSrc={client()?.avatar} />
+						</CardAvatar>
+						<CardInfo>
+							<CardMainRow>{client()?.name}</CardMainRow>
+							<CardSecondRow>{client()?.description.trim() || "Описание отсутствует"}</CardSecondRow>
+						</CardInfo>
+					</CardHeader>
+					<Devider margin="5px 0" />
+					<CardList>
+						<For each={additionalInfoList()}>
+							{({ name, value }) => <CardListItem name={name} value={value} />}
+						</For>
+					</CardList>
+				</Card>
 			</div>
 		);
 	};
@@ -109,7 +123,7 @@ export function Client() {
 				</Transition>
 			</Paper>
 
-			<div className={styles.actions}>
+			<ButtonGroup>
 				<Button fullWidth={true}>Создать запись</Button>
 				<Button onClick={() => navigate(`/client/edit/${client()?.id}`)} fullWidth={true}>
 					Редактировать
@@ -117,7 +131,7 @@ export function Client() {
 				<Button onClick={handleDelete} fullWidth={true} type="danger">
 					Архивировать
 				</Button>
-			</div>
+			</ButtonGroup>
 		</Layout>
 	);
 }

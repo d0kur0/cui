@@ -1,0 +1,30 @@
+.card {
+	display: flex;
+	align-items: center;
+	padding: 10px 0;
+}
+
+.cardAvatar {
+	margin-right: 15px;
+}
+
+.cardInfoDescription {
+	color: var(--text-color-light);
+}
+
+.statistic {
+	padding-top: 5px;
+}
+
+.statisticItem {
+	display: flex;
+	margin: 5px 0;
+	justify-content: space-between;
+}
+
+.actions {
+	margin-top: 15px;
+	gap: 10px;
+	display: flex;
+	flex-direction: column;
+}

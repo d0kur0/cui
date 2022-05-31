@@ -6,6 +6,8 @@ import { ClientForm } from "./pages/ClientForm";
 import Clients from "./pages/Clients";
 import Events from "./pages/Events";
 import Guest from "./pages/Guest";
+import Service from "./pages/Service";
+import ServiceForm from "./pages/ServiceForm";
 import Services from "./pages/Services";
 
 import { Notifications } from "./components/Notifications";
@@ -31,6 +33,9 @@ function AppForUsers() {
 				<Route path="/client/create" element={<ClientForm />} />
 				<Route path="/client/edit/:id" element={<ClientForm />} />
 				<Route path="/client/:id" element={<Client />} />
+				<Route path="/service/create" element={<ServiceForm />} />
+				<Route path="/service/edit/:id" element={<ServiceForm />} />
+				<Route path="/service/:id" element={<Service />} />
 				<Route path="/services" element={<Services />} />
 			</Routes>
 		</Router>

@@ -2,22 +2,21 @@ import { useNavigate, useParams } from "solid-app-router";
 import { BsArrowLeft } from "solid-icons/bs";
 import { createMemo, createSignal } from "solid-js";
 
-import { Avatar } from "../components/Avatar";
 import { Button, FileInput, Form, TextInput } from "../components/Form";
 import Layout from "../components/Layout";
 import NavBar from "../components/NavBar";
 import Paper from "../components/Paper";
 import Title from "../components/Title";
-import { CreateProps } from "../storage/client";
-import { clientsStore } from "../stores/clients";
+import { CreateProps } from "../storage/service";
+import { servicesStore } from "../stores/services";
 
-export function ClientForm() {
+export default function ServiceForm() {
 	const { id } = useParams();
 	const isCreate = !id;
 	const navigate = useNavigate();
 	const [isLoading, setIsLoading] = createSignal(false);
-	const { clients } = clientsStore;
-	const client = createMemo(() => clients.list.find(client => client.id === id));
+	const { services } = servicesStore;
+	const service = createMemo(() => services.list.find(service => service.id === id));
 
 	const onSubmit = (
 		event: Event & { submitter: HTMLElement } & {
@@ -30,13 +29,13 @@ export function ClientForm() {
 		const formFields = Object.fromEntries([...new FormData(event.currentTarget).entries()]) as CreateProps;
 
 		const onDone = () => {
-			navigate("/clients");
+			navigate("/services");
 			setIsLoading(false);
 		};
 
 		isCreate
-			? clientsStore.create(formFields, onDone)
-			: clientsStore.update({ ...formFields, clientId: client()?.id || "" }, onDone);
+			? servicesStore.create(formFields, onDone)
+			: servicesStore.update({ ...formFields, serviceId: service()?.id || "" }, onDone);
 	};
 
 	return (
@@ -48,26 +47,25 @@ export function ClientForm() {
 							<BsArrowLeft size={24} />
 						</button>
 					}
-					title={isCreate ? "Добавление клиента" : "Редактирование клиента"}
+					title={isCreate ? "Добавление услуги" : "Редактирование услуги"}
 				/>
 			}
 			navBar={<NavBar />}>
 			<Paper autoHeight={true}>
 				<Form onSubmit={onSubmit}>
-					{isCreate || <Avatar margin="10px 0 0 0" imageSrc={client()?.avatar} name={client()?.name} />}
-					<FileInput accept="image/*" name="avatar" label="Аватар" />
 					<TextInput
-						value={client()?.name}
+						value={service()?.name}
 						name="name"
 						required={true}
-						label="Имя*"
-						placeholder="Имя Фамилия"
+						label="Название*"
+						placeholder="Опил когтей"
 					/>
 					<TextInput
-						value={client()?.description}
-						name="description"
-						label="Описание"
-						placeholder="Любит хлеб"
+						type="number"
+						value={service()?.price.toString()}
+						name="price"
+						label="Стоимость"
+						placeholder="500"
 					/>
 					<Button fullWidth={true} isLoading={isLoading()} margin="5px 0">
 						Сохранить
