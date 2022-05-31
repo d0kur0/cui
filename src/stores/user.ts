@@ -1,4 +1,4 @@
-import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { GoogleAuthProvider, signInWithPopup, signOut as signOutGoogle } from "firebase/auth";
 import { User } from "firebase/auth";
 import { createStore } from "solid-js/store";
 
@@ -34,23 +34,30 @@ function getUserFromGoogleProvider(user: User): UserStore {
 	};
 }
 
+const { pushError } = notificationsStore;
+
 export function createUserStore() {
 	const [user, setUser] = createStore<UserStore>(initialValue);
 
-	auth.onAuthStateChanged(user => {
-		setUser(user ? getUserFromGoogleProvider(user) : { ...initialValue, isTick: true });
-	});
+	auth.onAuthStateChanged(user =>
+		setUser(user ? getUserFromGoogleProvider(user) : { ...initialValue, isTick: true })
+	);
 
 	function signIn() {
 		signInWithPopup(auth, new GoogleAuthProvider()).then(
-			({ user }) => {
-				setUser(getUserFromGoogleProvider(user));
-			},
-			err => notificationsStore.pushError(err.message)
+			({ user }) => setUser(getUserFromGoogleProvider(user)),
+			err => pushError(err.message)
 		);
 	}
 
-	function signOut() {}
+	function signOut(onSignOut: () => void) {
+		signOutGoogle(auth)
+			.then(() => {
+				setUser(initialValue);
+				onSignOut?.();
+			})
+			.catch(error => pushError(error.message));
+	}
 
 	return {
 		user,

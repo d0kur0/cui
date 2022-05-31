@@ -1,6 +1,7 @@
 import { Route, Router, Routes } from "solid-app-router";
-import { Match, Switch, onMount } from "solid-js";
+import { Match, Switch, createEffect, onMount } from "solid-js";
 
+import Account from "./pages/Account";
 import { Client } from "./pages/Client";
 import { ClientForm } from "./pages/ClientForm";
 import Clients from "./pages/Clients";
@@ -29,6 +30,7 @@ function AppForUsers() {
 		<Router>
 			<Routes>
 				<Route path="/" element={<Events />} />
+				<Route path="/me" element={<Account />} />
 				<Route path="/clients" element={<Clients />} />
 				<Route path="/client/create" element={<ClientForm />} />
 				<Route path="/client/edit/:id" element={<ClientForm />} />
