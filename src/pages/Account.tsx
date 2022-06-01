@@ -22,7 +22,7 @@ function Account() {
 							<BsArrowLeft size={24} />
 						</button>
 					}
-					title="Записи"
+					title="Аккаунт"
 				/>
 			}
 			navBar={<NavBar />}>
