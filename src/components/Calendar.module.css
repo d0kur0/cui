@@ -46,6 +46,7 @@
 	display: flex;
 	justify-content: space-around;
 	gap: 4px;
+	position: relative;
 }
 
 .day {
@@ -73,6 +74,7 @@
 
 .dayCurrent {
 	background-color: var(--secondary-color-dark);
+	color: var(--accent-color-revert);
 }
 
 .day button:disabled {
@@ -88,11 +90,24 @@
 	width: 15px;
 	border-radius: 50%;
 	height: 15px;
-	color: var(--accent-color-revert);
-	background-color: var(--accent-color);
+	color: var(--badge-color);
+	background-color: var(--badge-bg-color);
 	font-size: 0.8em;
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	box-shadow: var(--shadow);
+}
+
+.loading {
+	position: absolute;
+	top: 0;
+	width: 100%;
+	height: 3px;
+	z-index: 1;
+	transition: 3s;
+}
+
+.daysContainer {
+	position: relative;
 }

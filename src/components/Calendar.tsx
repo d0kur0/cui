@@ -1,55 +1,64 @@
-import { getDate } from "date-fns";
+import { addMonths, getDate, startOfMonth, subMonths } from "date-fns";
 import { TiChevronLeft, TiChevronRight } from "solid-icons/ti";
 import { For, createMemo } from "solid-js";
+import { Transition } from "solid-transition-group";
 
 import { format } from "../helpers/date";
+import { transitionOnEnter, transitionOnExit } from "../helpers/transition";
 import useMonthDays from "../hooks/useMonthDays";
 import { Record } from "../storage/record";
 import { recordsStore } from "../stores/records";
 import styles from "./Calendar.module.css";
+import Loader from "./Loader";
 
 const dayNames = ["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"];
 
 function Calendar() {
-	const { records } = recordsStore;
+	const { records, setCurrentDate } = recordsStore;
 	const days = createMemo(() => useMonthDays(records.currentDate, records.list as Record[]));
 
-	console.log(days());
+	const handleCurrentDay = () => setCurrentDate(new Date());
+	const handleNextMonth = () => setCurrentDate(startOfMonth(addMonths(records.currentDate, 1)));
+	const handlePreviuosMonth = () => setCurrentDate(startOfMonth(subMonths(records.currentDate, 1)));
 
 	return (
 		<div className={styles.root}>
 			<div className={styles.title}>
-				<div className={styles.currentDate}>{format(records.currentDate)}</div>
+				<button onClick={handleCurrentDay}>Сегодня</button>
 
 				<div className={styles.actions}>
-					<button>
+					<button onClick={handlePreviuosMonth}>
 						<TiChevronLeft />
 					</button>
 
-					<button>Сегодня</button>
+					<button>{format(records.currentDate)}</button>
 
-					<button>
+					<button onClick={handleNextMonth}>
 						<TiChevronRight />
 					</button>
 				</div>
 			</div>
-			<div className={styles.dayNames}>
-				<For each={dayNames}>{name => <div className={styles.dayName}>{name}</div>}</For>
-			</div>
+			<div className={styles.daysContainer}>
+				<div className={records.isLoading ? `${styles.loading} plug` : styles.loading}></div>
 
-			<div className={styles.days}>
-				<For each={days()}>
-					{day => (
-						<div className={styles.day}>
-							<button
-								disabled={!day.isActive}
-								className={`${styles.dayButton} ${day.isCurrentDate ? styles.dayCurrent : ""}`}>
-								{getDate(day.date)}
-								{day.counter && <span className={styles.dayCounter}>{day.counter}</span>}
-							</button>
-						</div>
-					)}
-				</For>
+				<div className={styles.dayNames}>
+					<For each={dayNames}>{name => <div className={styles.dayName}>{name}</div>}</For>
+				</div>
+
+				<div className={styles.days}>
+					<For each={days()}>
+						{day => (
+							<div className={styles.day}>
+								<button
+									disabled={!day.isActive}
+									className={`${styles.dayButton} ${day.isCurrentDate ? styles.dayCurrent : ""}`}>
+									{getDate(day.date)}
+									{day.counter && <span className={styles.dayCounter}>{day.counter}</span>}
+								</button>
+							</div>
+						)}
+					</For>
+				</div>
 			</div>
 		</div>
 	);

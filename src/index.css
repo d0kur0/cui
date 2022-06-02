@@ -42,10 +42,13 @@ button {
 	--accent-color-very-dark: #b84eb0;
 
 	--secondary-color: #ffedfb;
-	--secondary-color-dark: #ffcbf4;
+	--secondary-color-dark: #ff59dc;
 
 	--separator-color: #cccfff;
 	--plug-color: #efefff;
+
+	--badge-bg-color: #ff0968;
+	--badge-color: #fff;
 
 	--shadow: 0px 0px 5px 2px #ddd;
 	--shadow-light: 0px 0px 3px 2px #bebebe1f;
@@ -91,7 +94,7 @@ button {
 }
 
 .plug {
-	background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+	background: linear-gradient(-45deg, #f2a38b, #fd2578, #23a6d5, #23d5ab);
 	background-size: 500% 500%;
 	animation: gradient 4s ease infinite;
 }
