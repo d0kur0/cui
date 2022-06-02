@@ -1,6 +1,8 @@
-import { add, eachDayOfInterval, endOfMonth, getDay, startOfMonth, sub } from "date-fns";
+import { add, eachDayOfInterval, endOfMonth, getDay, isEqual, startOfMonth, sub } from "date-fns";
 
-function useMonthDays(recordsDate: Date) {
+import { Record } from "../storage/record";
+
+function useMonthDays(recordsDate: Date, records: Record[]) {
 	let allDaysInMonth: Date[] = [];
 
 	try {
@@ -38,11 +40,25 @@ function useMonthDays(recordsDate: Date) {
 		}
 	}
 
-	return [
-		...firstOffsetDays.map(date => ({ date, isActive: false })),
-		...allDaysInMonth.map(date => ({ date, isActive: true })),
-		...lastOffsetDays.map(date => ({ date, isActive: false })),
-	];
+	const recordWithZeroTime = records.map(record => {
+		const date = record.date.toDate();
+		date.setHours(0, 0, 0);
+		return { ...record, date };
+	});
+
+	recordsDate.setHours(0, 0, 0);
+
+	const monthDays = allDaysInMonth.map(date => {
+		return {
+			date,
+			isActive: true,
+			isCurrentDate: date.toDateString() === recordsDate.toDateString(),
+			counter: recordWithZeroTime.reduce((acc, r) => acc + +isEqual(r.date, date), 0),
+		};
+	});
+
+	const fillDayObject = (date: Date) => ({ date, isActive: false, counter: 0, isCurrentDate: false });
+	return [...firstOffsetDays.map(fillDayObject), ...monthDays, ...lastOffsetDays.map(fillDayObject)];
 }
 
 export default useMonthDays;

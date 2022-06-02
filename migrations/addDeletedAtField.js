@@ -14,7 +14,7 @@ const firestore = app.firestore();
 		const resource = await firestore.collection("clients").get();
 
 		for (const doc of resource.docs) {
-			firestore
+			await firestore
 				.collection("clients")
 				.doc(doc.id)
 				.update({ ...doc.data(), deletedAt: null });
@@ -25,7 +25,7 @@ const firestore = app.firestore();
 		const resource = await firestore.collection("services").get();
 
 		for (const doc of resource.docs) {
-			firestore
+			await firestore
 				.collection("services")
 				.doc(doc.id)
 				.update({ ...doc.data(), deletedAt: null });

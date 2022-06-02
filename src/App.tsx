@@ -17,6 +17,7 @@ import SplashScreen from "./components/SplashScreen";
 import useHeightUnit from "./hooks/useHeightUnit";
 
 import { clientsStore } from "./stores/clients";
+import { recordsStore } from "./stores/records";
 import { servicesStore } from "./stores/services";
 import { userStore } from "./stores/user";
 
@@ -24,6 +25,7 @@ function AppForUsers() {
 	onMount(() => {
 		clientsStore.fetch();
 		servicesStore.fetch();
+		recordsStore.fetchCurrentMonth();
 	});
 
 	return (

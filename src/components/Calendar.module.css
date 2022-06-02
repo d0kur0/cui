@@ -8,8 +8,14 @@
 
 .title {
 	display: flex;
+	align-items: center;
 	justify-content: space-between;
 	padding: 8px;
+}
+
+.actions {
+	display: flex;
+	align-items: center;
 }
 
 .title button {
@@ -48,9 +54,10 @@
 	align-items: center;
 	justify-content: center;
 	font-size: 0.9em;
+	position: relative;
 }
 
-.day button {
+.dayButton {
 	font-weight: 600;
 	width: 35px;
 	height: 35px;
@@ -64,8 +71,28 @@
 	position: relative;
 }
 
+.dayCurrent {
+	background-color: var(--secondary-color-dark);
+}
+
 .day button:disabled {
 	color: var(--text-color);
 	background-color: var(--page-background-light);
 	opacity: 0.4;
+}
+
+.dayCounter {
+	position: absolute;
+	top: -2px;
+	right: -2px;
+	width: 15px;
+	border-radius: 50%;
+	height: 15px;
+	color: var(--accent-color-revert);
+	background-color: var(--accent-color);
+	font-size: 0.8em;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	box-shadow: var(--shadow);
 }

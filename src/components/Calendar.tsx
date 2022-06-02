@@ -1,37 +1,52 @@
 import { getDate } from "date-fns";
 import { TiChevronLeft, TiChevronRight } from "solid-icons/ti";
-import { For } from "solid-js";
+import { For, createMemo } from "solid-js";
 
+import { format } from "../helpers/date";
 import useMonthDays from "../hooks/useMonthDays";
+import { Record } from "../storage/record";
+import { recordsStore } from "../stores/records";
 import styles from "./Calendar.module.css";
 
 const dayNames = ["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"];
 
 function Calendar() {
-	const days = useMonthDays(new Date());
+	const { records } = recordsStore;
+	const days = createMemo(() => useMonthDays(records.currentDate, records.list as Record[]));
+
+	console.log(days());
 
 	return (
 		<div className={styles.root}>
 			<div className={styles.title}>
-				<button>
-					<TiChevronLeft />
-				</button>
+				<div className={styles.currentDate}>{format(records.currentDate)}</div>
 
-				<button>Сегодня</button>
+				<div className={styles.actions}>
+					<button>
+						<TiChevronLeft />
+					</button>
 
-				<button>
-					<TiChevronRight />
-				</button>
+					<button>Сегодня</button>
+
+					<button>
+						<TiChevronRight />
+					</button>
+				</div>
 			</div>
 			<div className={styles.dayNames}>
 				<For each={dayNames}>{name => <div className={styles.dayName}>{name}</div>}</For>
 			</div>
 
 			<div className={styles.days}>
-				<For each={days}>
+				<For each={days()}>
 					{day => (
 						<div className={styles.day}>
-							<button disabled={!day.isActive}>{getDate(day.date)}</button>
+							<button
+								disabled={!day.isActive}
+								className={`${styles.dayButton} ${day.isCurrentDate ? styles.dayCurrent : ""}`}>
+								{getDate(day.date)}
+								{day.counter && <span className={styles.dayCounter}>{day.counter}</span>}
+							</button>
 						</div>
 					)}
 				</For>

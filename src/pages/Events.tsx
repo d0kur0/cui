@@ -18,8 +18,7 @@ function Events() {
 					title="Записи"
 				/>
 			}
-			navBar={<NavBar />}
-		>
+			navBar={<NavBar />}>
 			<Calendar />
 		</Layout>
 	);
