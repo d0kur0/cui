@@ -8,6 +8,7 @@ type PaperProps = {
 	children: JSX.Element;
 	autoHeight?: boolean;
 	padding?: string;
+	margin?: string;
 };
 
 export default function Paper(props: PaperProps) {
@@ -16,6 +17,7 @@ export default function Paper(props: PaperProps) {
 
 	props.autoHeight && (rootStyles["height"] = "auto");
 	props.padding && (contentStyles["padding"] = props.padding);
+	props.margin && (contentStyles["margin"] = props.margin);
 
 	return (
 		<div className={styles.paper} style={rootStyles}>

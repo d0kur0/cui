@@ -1,15 +1,12 @@
 import { addMonths, getDate, startOfMonth, subMonths } from "date-fns";
 import { TiChevronLeft, TiChevronRight } from "solid-icons/ti";
 import { For, createMemo } from "solid-js";
-import { Transition } from "solid-transition-group";
 
 import { format } from "../helpers/date";
-import { transitionOnEnter, transitionOnExit } from "../helpers/transition";
 import useMonthDays from "../hooks/useMonthDays";
 import { Record } from "../storage/record";
 import { recordsStore } from "../stores/records";
 import styles from "./Calendar.module.css";
-import Loader from "./Loader";
 
 const dayNames = ["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"];
 
@@ -22,7 +19,7 @@ function Calendar() {
 	const handlePreviuosMonth = () => setCurrentDate(startOfMonth(subMonths(records.currentDate, 1)));
 
 	return (
-		<div className={styles.root}>
+		<div className={`${styles.root} ${records.isLoading ? styles.rootAnimated : ""}`}>
 			<div className={styles.title}>
 				<button onClick={handleCurrentDay}>Сегодня</button>
 
@@ -39,8 +36,6 @@ function Calendar() {
 				</div>
 			</div>
 			<div className={styles.daysContainer}>
-				<div className={records.isLoading ? `${styles.loading} plug` : styles.loading}></div>
-
 				<div className={styles.dayNames}>
 					<For each={dayNames}>{name => <div className={styles.dayName}>{name}</div>}</For>
 				</div>
@@ -50,6 +45,7 @@ function Calendar() {
 						{day => (
 							<div className={styles.day}>
 								<button
+									onClick={() => setCurrentDate(day.date)}
 									disabled={!day.isActive}
 									className={`${styles.dayButton} ${day.isCurrentDate ? styles.dayCurrent : ""}`}>
 									{getDate(day.date)}

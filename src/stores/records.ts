@@ -35,7 +35,7 @@ function createRecordsStore() {
 	};
 
 	const setCurrentDate = (date: Date) => {
-		const isMonthChanged = format(date, "dd-MM-yyyy") !== format(store.currentDate, "dd-MM-yyyy");
+		const isMonthChanged = format(date, "MM-yyyy") !== format(store.currentDate, "MM-yyyy");
 		setStore("currentDate", date);
 		isMonthChanged && (setStore("isLoading", true), fetchCurrentMonth());
 	};

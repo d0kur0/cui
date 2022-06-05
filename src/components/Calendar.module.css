@@ -4,6 +4,36 @@
 	border-radius: 15px;
 	--button-text-color: var(--text-color);
 	padding: 8px;
+	--borderWidth: 2px;
+	position: relative;
+	margin-top: var(--borderWidth);
+	transition: 2s;
+}
+
+.rootAnimated:after {
+	border-radius: 15px;
+	content: "";
+	position: absolute;
+	top: calc(-1 * var(--borderWidth));
+	left: calc(-1 * var(--borderWidth));
+	height: calc(100% + var(--borderWidth) * 2);
+	width: calc(100% + var(--borderWidth) * 2);
+	background: linear-gradient(60deg, #f79533, #f37055, #ef4e7b, #a166ab, #5073b8, #1098ad, #07b39b, #6fba82);
+	z-index: -1;
+	animation: animatedgradient 3s ease alternate infinite;
+	background-size: 300% 300%;
+}
+
+@keyframes animatedgradient {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
 }
 
 .title {
