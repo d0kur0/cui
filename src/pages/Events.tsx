@@ -1,10 +1,10 @@
 import { format } from "date-fns";
 import { FiPlusSquare } from "solid-icons/fi";
-import { HiSolidHashtag } from "solid-icons/hi";
 import { For, createMemo } from "solid-js";
 import { Transition } from "solid-transition-group";
 
 import { Avatar } from "../components/Avatar";
+import { Badge, BadgeGrid } from "../components/Badge";
 import Calendar from "../components/Calendar";
 import { Card, CardAvatar, CardHeader, CardInfo, CardMainRow, CardSecondRow } from "../components/Card";
 import Layout from "../components/Layout";
@@ -34,9 +34,13 @@ function Events() {
 			}));
 	});
 
+	const dayPriceSum = createMemo(() => {
+		return currentDayRecords().reduce((acc, r) => acc + r.services.reduce((acc, s) => acc + +s.price, 0), 0);
+	});
+
 	const RecordsList = () => {
 		return (
-			<List>
+			<List margin="5px 0" title={`Потенциальный доход: ${dayPriceSum()} руб.`}>
 				<For each={currentDayRecords()} fallback={<ListItem content="Список пуст"></ListItem>}>
 					{({ id, client, services }) => (
 						<ListItem
@@ -47,12 +51,14 @@ function Events() {
 										<Card>
 											<CardHeader>
 												<CardAvatar>
-													<Avatar size="large" imageSrc={client?.avatar} name={client?.name} />
+													<Avatar imageSrc={client?.avatar} name={client?.name} />
 												</CardAvatar>
 												<CardInfo>
 													<CardMainRow>{client?.name}</CardMainRow>
 													<CardSecondRow>
-														<For each={services}>{service => <span>{service.name}</span>}</For>
+														<BadgeGrid>
+															<For each={services}>{service => <Badge>{service.name}</Badge>}</For>
+														</BadgeGrid>
 													</CardSecondRow>
 												</CardInfo>
 											</CardHeader>
