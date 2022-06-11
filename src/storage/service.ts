@@ -60,7 +60,7 @@ export type UpdateProps = {
 	price: string;
 	serviceId: string;
 };
-0;
+
 async function update(props: UpdateProps): Promise<Service> {
 	const serviceRef = doc(collection(db, "services"), props.serviceId);
 	const serviceSnap = await getDoc(serviceRef);
