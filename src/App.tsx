@@ -1,5 +1,5 @@
 import { Route, Router, Routes } from "solid-app-router";
-import { Match, Switch, createEffect, onMount } from "solid-js";
+import { Match, Switch, onMount } from "solid-js";
 
 import Account from "./pages/Account";
 import { Client } from "./pages/Client";
@@ -10,6 +10,7 @@ import Guest from "./pages/Guest";
 import Service from "./pages/Service";
 import ServiceForm from "./pages/ServiceForm";
 import Services from "./pages/Services";
+import Stats from "./pages/Stats";
 
 import { Notifications } from "./components/Notifications";
 import SplashScreen from "./components/SplashScreen";
@@ -33,6 +34,7 @@ function AppForUsers() {
 			<Routes>
 				<Route path="/" element={<Events />} />
 				<Route path="/me" element={<Account />} />
+				<Route path="/stats" element={<Stats />} />
 				<Route path="/clients" element={<Clients />} />
 				<Route path="/client/create" element={<ClientForm />} />
 				<Route path="/client/edit/:id" element={<ClientForm />} />

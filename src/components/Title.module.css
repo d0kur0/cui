@@ -27,7 +27,8 @@
 	font-weight: 500;
 }
 
-.optionalElements button {
+.optionalElements button,
+a {
 	background-color: transparent;
 	color: var(--text-color);
 }

@@ -24,16 +24,24 @@ export function ListItem(props: ListItemProps) {
 	);
 }
 
+type AlignValues = "flex-start" | "flex-end" | "center";
+
 type ListItemBetweenContentProps = {
 	leftContent: string | JSX.Element;
 	rightContent: string | JSX.Element;
+	rightAlign?: AlignValues;
+	leftAlign?: AlignValues;
 };
 
-export function ListItemBetweenContent({ leftContent, rightContent }: ListItemBetweenContentProps) {
+export function ListItemBetweenContent({ leftContent, rightContent, ...props }: ListItemBetweenContentProps) {
 	return (
 		<div className={styles.itemBetweenContent}>
-			<div className={styles.itemBetweenContentLeft}>{leftContent}</div>
-			<div className={styles.itemBetweenContentRigth}>{rightContent}</div>
+			<div style={{ "align-self": props.rightAlign || "auto" }} className={styles.itemBetweenContentLeft}>
+				{leftContent}
+			</div>
+			<div style={{ "align-self": props.rightAlign || "auto" }} className={styles.itemBetweenContentRight}>
+				{rightContent}
+			</div>
 		</div>
 	);
 }

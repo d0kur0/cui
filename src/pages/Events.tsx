@@ -1,7 +1,7 @@
 import { format } from "date-fns";
+import { Link } from "solid-app-router";
 import { FiPlusSquare } from "solid-icons/fi";
 import { For, createMemo } from "solid-js";
-import { Transition } from "solid-transition-group";
 
 import { Avatar } from "../components/Avatar";
 import { Badge, BadgeGrid } from "../components/Badge";
@@ -12,7 +12,6 @@ import { List, ListItem, ListItemBetweenContent } from "../components/List";
 import NavBar from "../components/NavBar";
 import Paper from "../components/Paper";
 import Title from "../components/Title";
-import { transitionOnEnter, transitionOnExit } from "../helpers/transition";
 import { clientsStore } from "../stores/clients";
 import { recordsStore } from "../stores/records";
 import { servicesStore } from "../stores/services";
@@ -47,6 +46,7 @@ function Events() {
 							href={`/record/${id}`}
 							content={
 								<ListItemBetweenContent
+									rightAlign="flex-start"
 									leftContent={
 										<Card>
 											<CardHeader>
@@ -79,18 +79,16 @@ function Events() {
 			title={
 				<Title
 					rightChildren={
-						<button>
+						<Link href="/record/create">
 							<FiPlusSquare size={28} />
-						</button>
+						</Link>
 					}
 					title="Записи"
 				/>
 			}
 			navBar={<NavBar />}>
 			<Paper fixedContent={<Calendar />} margin="5px 0 0 0">
-				<Transition mode="outin" onEnter={transitionOnEnter()} onExit={transitionOnExit()}>
-					{records.isLoading ? <div></div> : <RecordsList />}
-				</Transition>
+				{records.isLoading ? <div>Загрузка...</div> : <RecordsList />}
 			</Paper>
 		</Layout>
 	);

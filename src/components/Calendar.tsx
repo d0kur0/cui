@@ -16,7 +16,7 @@ function Calendar() {
 
 	const handleCurrentDay = () => setCurrentDate(new Date());
 	const handleNextMonth = () => setCurrentDate(startOfMonth(addMonths(records.currentDate, 1)));
-	const handlePreviuosMonth = () => setCurrentDate(startOfMonth(subMonths(records.currentDate, 1)));
+	const handlePreviousMonth = () => setCurrentDate(startOfMonth(subMonths(records.currentDate, 1)));
 
 	return (
 		<div className={`${styles.root} ${records.isLoading ? styles.rootAnimated : ""}`}>
@@ -24,7 +24,7 @@ function Calendar() {
 				<button onClick={handleCurrentDay}>Сегодня</button>
 
 				<div className={styles.actions}>
-					<button onClick={handlePreviuosMonth}>
+					<button onClick={handlePreviousMonth}>
 						<TiChevronLeft />
 					</button>
 

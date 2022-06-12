@@ -1,4 +1,4 @@
-import { format, isEqual, lastDayOfMonth, startOfMonth } from "date-fns";
+import { format, lastDayOfMonth, startOfMonth } from "date-fns";
 import { createStore } from "solid-js/store";
 
 import { StaticStoreProps } from ".";
@@ -21,7 +21,6 @@ function createRecordsStore() {
 	});
 
 	const fetchCurrentMonth = () => {
-		console.log(store.currentDate);
 		const startDate = startOfMonth(store.currentDate);
 		startDate.setHours(0, 0, 0);
 
@@ -30,8 +29,9 @@ function createRecordsStore() {
 
 		recordStorage
 			.getAllOfMonth({ userId: userStore.user.id, startDate, endDate })
-			.then(records => setStore(store => ({ ...store, list: records, isLoading: false })))
-			.catch(error => pushError(error.message));
+			.then(records => setStore(store => ({ ...store, list: records })))
+			.catch(error => pushError(error.message))
+			.finally(() => setStore("isLoading", false));
 	};
 
 	const setCurrentDate = (date: Date) => {
