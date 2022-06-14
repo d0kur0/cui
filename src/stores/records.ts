@@ -40,7 +40,11 @@ function createRecordsStore() {
 		isMonthChanged && (setStore("isLoading", true), fetchCurrentMonth());
 	};
 
-	return { records: store, fetchCurrentMonth, setCurrentDate };
+	const create = () => {};
+
+	const update = () => {};
+
+	return { records: store, fetchCurrentMonth, setCurrentDate, create, update };
 }
 
 export const recordsStore = createRecordsStore();

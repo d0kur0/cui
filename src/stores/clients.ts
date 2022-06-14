@@ -1,3 +1,4 @@
+import firebase from "firebase/compat";
 import { createStore } from "solid-js/store";
 
 import { Client, ClientAdditionalInfo, CreateProps, UpdateProps, clientStorage } from "../storage/client";
@@ -8,6 +9,9 @@ import { userStore } from "./user";
 type Store = { list: Client[] } & StaticStoreProps;
 
 const { pushError, pushSuccess } = notificationsStore;
+const { fetchAdditionalInfo, update, create, toArchive, fetchAllOwnedByUser } = clientStorage;
+
+const errorHandler = (err: Error) => pushError(err.message);
 
 function createClientsStore() {
 	const [store, setStore] = createStore<Store>({
@@ -15,74 +19,68 @@ function createClientsStore() {
 		list: [],
 	});
 
-	const fetch = () => {
-		clientStorage
-			.fetchAllOwnedByUser(userStore.user.id)
-			.then(clients => setStore(currentValue => ({ ...currentValue, list: clients, isLoading: false })))
-			.catch(err => notificationsStore.pushError(err.message));
+	const fetchClients = () => {
+		const onFetched = (clients: Client[]) => {
+			setStore("list", clients);
+			setStore("isLoading", false);
+		};
+
+		fetchAllOwnedByUser(userStore.user.id).then(onFetched, errorHandler);
 	};
 
-	const fetchAdditionalInfo = (clientId: string) => {
+	const fetchAdditionalInfoOfClient = (clientId: string) => {
 		const [store, setStore] = createStore<ClientAdditionalInfo & StaticStoreProps>({
 			latestRecord: null,
 			countRecords: 0,
 			isLoading: true,
 		});
 
-		clientStorage
-			.fetchAdditionalInfo({ clientId, userId: userStore.user.id })
-			.then(additionalInfo => setStore(value => ({ ...value, ...additionalInfo, isLoading: false })));
+		const onFetched = (additionalInfo: ClientAdditionalInfo) => {
+			setStore(value => ({ ...value, ...additionalInfo, isLoading: false }));
+		};
+
+		fetchAdditionalInfo({ clientId, userId: userStore.user.id }).then(onFetched, errorHandler);
 
 		return store;
 	};
 
-	const create = (props: CreateProps, onCreateCallback?: () => void) => {
-		clientStorage
-			.create(props)
-			.then(client => {
-				setStore(value => ({ ...value, list: [client, ...value.list] }));
-				pushSuccess("Клиент создан");
-				onCreateCallback?.();
-			})
-			.catch(err => notificationsStore.pushError(err.message));
+	const createClient = (props: CreateProps, onCreateCallback?: () => void) => {
+		const onCreated = (client: Client) => {
+			setStore("list", clients => [client, ...clients]);
+			pushSuccess("Клиент создан");
+			onCreateCallback?.();
+		};
+
+		create(props).then(onCreated, errorHandler);
 	};
 
-	const update = (props: UpdateProps, onUpdateCallback?: () => void) => {
-		clientStorage
-			.update(props)
-			.then(updatedClient => {
-				setStore(value => ({
-					...value,
-					list: value.list.map(client => (client.id === props.clientId ? updatedClient : client)),
-				}));
-				pushSuccess("Клиент обновлен");
-				onUpdateCallback?.();
-			})
-			.catch(err => notificationsStore.pushError(err.message));
+	const updateClient = (props: UpdateProps, onUpdateCallback?: () => void) => {
+		const onUpdated = (client: Client) => {
+			setStore("list", clients => clients.map(c => (client.id === c.id ? c : client)));
+			pushSuccess("Клиент обновлен");
+			onUpdateCallback?.();
+		};
+
+		update(props).then(onUpdated, errorHandler);
 	};
 
-	const toArchive = (clientId: string, onArchiveCallback?: () => void) => {
-		clientStorage
-			.toArchive(clientId)
-			.then(() => {
-				setStore(value => ({
-					...value,
-					list: value.list.filter(client => client.id !== clientId),
-				}));
+	const toArchiveClient = (clientId: string, onArchiveCallback?: () => void) => {
+		const onArchived = () => {
+			setStore("list", clients => clients.filter(c => c.id !== clientId));
+			onArchiveCallback?.();
+			pushSuccess("Клиент удален");
+		};
 
-				onArchiveCallback?.();
-				pushSuccess("Клиент удален");
-			})
-			.catch(err => notificationsStore.pushError(err.message));
+		toArchive(clientId).then(onArchived, errorHandler);
 	};
 
 	return {
-		fetch,
-		create,
-		update,
 		clients: store,
-		toArchive,
-		fetchAdditionalInfo,
+		fetch: fetchClients,
+		create: createClient,
+		update: updateClient,
+		toArchive: toArchiveClient,
+		fetchAdditionalInfo: fetchAdditionalInfoOfClient,
 	};
 }
 

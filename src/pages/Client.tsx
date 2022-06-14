@@ -53,12 +53,12 @@ function ClientPlug() {
 
 export function Client() {
 	const { id } = useParams();
-	const { clients, fetchAdditionalInfo } = clientsStore;
+	const { clients, fetchAdditionalInfo, toArchive } = clientsStore;
 	const navigate = useNavigate();
 
 	const client = createMemo(() => clients.list.find(client => client.id === id));
 	const additionalInfo = fetchAdditionalInfo(id);
-	const handleDelete = () => clientsStore.toArchive(client()?.id || "", () => navigate("/clients"));
+	const handleDelete = () => toArchive(client()?.id || "", () => navigate("/clients"));
 
 	const additionalInfoList = createMemo(
 		() => [

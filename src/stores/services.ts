@@ -46,7 +46,7 @@ function createServicesStore() {
 	};
 
 	const toArchiveService = (serviceId: string, onArchiveCallback?: () => void) => {
-		const onArchived = (serviceId: string) => {
+		const onArchived = () => {
 			setStore("list", services => services.filter(service => service.id !== serviceId));
 			onArchiveCallback?.();
 			pushSuccess("Услуга удалена");

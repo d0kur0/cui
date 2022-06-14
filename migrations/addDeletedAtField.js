@@ -9,26 +9,19 @@ const app = admin.initializeApp({
 
 const firestore = app.firestore();
 
-(async () => {
-	{
-		const resource = await firestore.collection("clients").get();
+const addDeletedAtField = async collectionName => {
+	const resource = await firestore.collection(collectionName).get();
 
-		for (const doc of resource.docs) {
-			await firestore
-				.collection("clients")
-				.doc(doc.id)
-				.update({ ...doc.data(), deletedAt: null });
-		}
+	for (const doc of resource.docs) {
+		await firestore
+			.collection(collectionName)
+			.doc(doc.id)
+			.update({ ...doc.data(), deletedAt: null });
 	}
+};
 
-	{
-		const resource = await firestore.collection("services").get();
-
-		for (const doc of resource.docs) {
-			await firestore
-				.collection("services")
-				.doc(doc.id)
-				.update({ ...doc.data(), deletedAt: null });
-		}
+(async () => {
+	for (let collection of ["records", "services", "clients"]) {
+		await addDeletedAtField(collection);
 	}
 })();

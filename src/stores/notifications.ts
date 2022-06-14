@@ -21,17 +21,13 @@ export function createNotificationsStore() {
 	const pushNotification = (props: PushNotificationProps) => {
 		const label = +new Date();
 
-		const timeout = setTimeout(
-			() =>
-				setNotifications(notifications => ({
-					list: notifications.list.filter(notification => notification.label !== label),
-				})),
-			NOTIFICATION_TIMEOUT * 1000
-		);
+		const timeout = setTimeout(() => {
+			setNotifications("list", notifications =>
+				notifications.filter(notification => notification.label !== label)
+			);
+		}, NOTIFICATION_TIMEOUT * 1000);
 
-		setNotifications(notifications => ({
-			list: [...notifications.list, { ...props, label, timeout }],
-		}));
+		setNotifications("list", notifications => [...notifications, { ...props, label, timeout }]);
 	};
 
 	const pushError = (message: string) => {
@@ -47,13 +43,13 @@ export function createNotificationsStore() {
 	};
 
 	const discardNotification = (notificationId: number) => {
-		setNotifications(notifications => ({
-			list: notifications.list.filter((notification, id) => {
+		setNotifications("list", notifications =>
+			notifications.filter((notification, id) => {
 				if (notificationId !== id) return true;
 				notification.timeout && clearTimeout(notification.timeout);
 				return false;
-			}),
-		}));
+			})
+		);
 	};
 
 	return {

@@ -2,7 +2,7 @@ import { useNavigate, useParams } from "solid-app-router";
 import { BsArrowLeft } from "solid-icons/bs";
 import { createMemo, createSignal } from "solid-js";
 
-import { Button, FileInput, Form, TextInput } from "../components/Form";
+import { Button, Form, TextInput } from "../components/Form";
 import Layout from "../components/Layout";
 import NavBar from "../components/NavBar";
 import Paper from "../components/Paper";
@@ -15,7 +15,7 @@ export default function ServiceForm() {
 	const isCreate = !id;
 	const navigate = useNavigate();
 	const [isLoading, setIsLoading] = createSignal(false);
-	const { services } = servicesStore;
+	const { services, create, update } = servicesStore;
 	const service = createMemo(() => services.list.find(service => service.id === id));
 
 	const onSubmit = (
@@ -33,9 +33,7 @@ export default function ServiceForm() {
 			setIsLoading(false);
 		};
 
-		isCreate
-			? servicesStore.create(formFields, onDone)
-			: servicesStore.update({ ...formFields, serviceId: service()?.id || "" }, onDone);
+		isCreate ? create(formFields, onDone) : update({ ...formFields, serviceId: service()?.id || "" }, onDone);
 	};
 
 	return (

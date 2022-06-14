@@ -1,6 +1,17 @@
-import { Timestamp, collection, getDocs, orderBy, query, where } from "firebase/firestore";
+import {
+	Timestamp,
+	addDoc,
+	collection,
+	doc,
+	getDoc,
+	getDocs,
+	query,
+	updateDoc,
+	where,
+} from "firebase/firestore";
 
 import { db } from "../firebase";
+import { userStore } from "../stores/user";
 
 export type Record = {
 	id: string;
@@ -30,6 +41,54 @@ async function getAllOfMonth(props: GetAllOfMonthProps): Promise<Record[]> {
 	return docs.map(doc => ({ id: doc.id, ...doc.data() } as Record));
 }
 
+// create
+export type CreateProps = {
+	date: Date;
+	clientId: string;
+	serviceIds: string[];
+	description: string;
+};
+
+async function create({ clientId, serviceIds, date, description }: CreateProps): Promise<Record> {
+	const recordObject = {
+		date: Timestamp.fromDate(date),
+		userId: userStore.user.id,
+		clientId,
+		createdAt: Timestamp.now(),
+		deletedAt: null,
+		serviceIds,
+		description,
+	};
+
+	const newRecord = await addDoc(collection(db, "records"), recordObject);
+	return { ...recordObject, id: newRecord.id };
+}
+
+// update
+export type UpdateProps = {
+	date: Date;
+	clientId: string;
+	recordId: string;
+	serviceIds: string[];
+	description: string;
+};
+
+async function update({ recordId, date, serviceIds, description, clientId }: UpdateProps): Promise<Record> {
+	const recordRef = doc(collection(db, "records"), recordId);
+	const recordSnap = await getDoc(recordRef);
+	const record = { ...recordSnap.data() } as Record;
+
+	record.date = Timestamp.fromDate(date);
+	record.clientId = clientId;
+	record.serviceIds = serviceIds;
+	record.description = description;
+
+	await updateDoc(recordRef, record);
+	return { ...record, id: recordSnap.id };
+}
+
 export const recordStorage = {
 	getAllOfMonth,
+	create,
+	update,
 };

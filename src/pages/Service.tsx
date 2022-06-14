@@ -55,11 +55,11 @@ function ServicePlug() {
 
 function Service() {
 	const { id } = useParams();
-	const { services } = servicesStore;
+	const { services, toArchive } = servicesStore;
 	const navigate = useNavigate();
 
 	const service = createMemo(() => services.list.find(service => service.id === id));
-	const handleDelete = () => servicesStore.toArchive(service()?.id || "", () => navigate("/services"));
+	const handleDelete = () => toArchive(service()?.id || "", () => navigate("/services"));
 
 	const ClientCard = () => {
 		return (
