@@ -1,3 +1,4 @@
+import { on } from "solid-js";
 import { createStore } from "solid-js/store";
 
 import { StaticStoreProps } from ".";
@@ -7,64 +8,59 @@ import { userStore } from "./user";
 
 type Store = { list: Service[] } & StaticStoreProps;
 
-const { pushError, pushSuccess } = notificationsStore;
+const { pushSuccess, pushError } = notificationsStore;
+const { fetchAllOwnedByUser, create, toArchive, update } = serviceStorage;
+
+const errorHandler = (err: Error) => pushError(err.message);
 
 function createServicesStore() {
 	const [store, setStore] = createStore<Store>({ list: [], isLoading: true });
 
-	const fetch = () => {
-		serviceStorage
-			.fetchAllOwnedByUser(userStore.user.id)
-			.then(services => setStore(currentValue => ({ ...currentValue, list: services, isLoading: false })))
-			.catch(err => notificationsStore.pushError(err.message));
+	const fetchServices = () => {
+		const onFetched = (services: Service[]) => {
+			setStore("list", services);
+			setStore("isLoading", false);
+		};
+
+		fetchAllOwnedByUser(userStore.user.id).then(onFetched, errorHandler);
 	};
 
-	const create = (props: CreateProps, onCreateCallback?: () => void) => {
-		serviceStorage
-			.create(props)
-			.then(service => {
-				setStore(value => ({ ...value, list: [service, ...value.list] }));
-				pushSuccess("Услуга создана");
-				onCreateCallback?.();
-			})
-			.catch(err => notificationsStore.pushError(err.message));
+	const createService = (props: CreateProps, onCreateCallback?: () => void) => {
+		const onCreate = (service: Service) => {
+			setStore("list", services => [service, ...services]);
+			pushSuccess("Услуга создана");
+			onCreateCallback?.();
+		};
+
+		create(props).then(onCreate, errorHandler);
 	};
 
-	const update = (props: UpdateProps, onUpdateCallback?: () => void) => {
-		serviceStorage
-			.update(props)
-			.then(updatedClient => {
-				setStore(value => ({
-					...value,
-					list: value.list.map(service => (service.id === props.serviceId ? updatedClient : service)),
-				}));
-				pushSuccess("Услуга обновлена");
-				onUpdateCallback?.();
-			})
-			.catch(err => notificationsStore.pushError(err.message));
+	const updateService = (props: UpdateProps, onUpdateCallback?: () => void) => {
+		const onUpdate = (service: Service) => {
+			setStore("list", services => services.map(s => (service.id === s.id ? service : service)));
+			pushSuccess("Услуга обновлена");
+			onUpdateCallback?.();
+		};
+
+		update(props).then(onUpdate, errorHandler);
 	};
 
-	const toArchive = (serviceId: string, onArchiveCallback?: () => void) => {
-		serviceStorage
-			.toArchive(serviceId)
-			.then(() => {
-				setStore(value => ({
-					...value,
-					list: value.list.filter(service => service.id !== serviceId),
-				}));
+	const toArchiveService = (serviceId: string, onArchiveCallback?: () => void) => {
+		const onArchived = (serviceId: string) => {
+			setStore("list", services => services.filter(service => service.id !== serviceId));
+			onArchiveCallback?.();
+			pushSuccess("Услуга удалена");
+		};
 
-				onArchiveCallback?.();
-				pushSuccess("Услуга удалена");
-			})
-			.catch(err => notificationsStore.pushError(err.message));
+		toArchive(serviceId).then(onArchived, errorHandler);
 	};
 
 	return {
 		services: store,
-		fetch,
-		update,
-		create,
-		toArchive,
+		fetch: fetchServices,
+		update: updateService,
+		create: createService,
+		toArchive: toArchiveService,
 	};
 }
 
