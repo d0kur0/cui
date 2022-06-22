@@ -39,10 +39,10 @@
 
 .button {
 	border-radius: 5px;
-	padding: 8px 10px;
 	color: var(--accent-color-revert);
 	background-color: var(--accent-color);
 	display: flex;
+	height: 35px;
 	align-items: center;
 	justify-content: center;
 }
@@ -50,7 +50,6 @@
 .buttonFullwidth {
 	width: 100%;
 	display: block;
-	padding: 10px;
 }
 
 .buttonDanger {

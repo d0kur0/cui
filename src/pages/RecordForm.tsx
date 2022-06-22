@@ -2,6 +2,7 @@ import { useNavigate, useParams } from "solid-app-router";
 import { BsArrowLeft } from "solid-icons/bs";
 import { createMemo, createSignal } from "solid-js";
 
+import ClientPicker from "../components/ClientPicker";
 import { Button, Form, TextInput } from "../components/Form";
 import Layout from "../components/Layout";
 import NavBar from "../components/NavBar";
@@ -26,14 +27,14 @@ export default function RecordForm() {
 	) => {
 		setIsLoading(true);
 
-		const formFields = Object.fromEntries([...new FormData(event.currentTarget).entries()]) as CreateProps;
+		//const formFields = Object.fromEntries([...new FormData(event.currentTarget).entries()]) as CreateProps;
 
 		const onDone = () => {
 			navigate("/");
 			setIsLoading(false);
 		};
 
-		isCreate ? create(formFields, onDone) : update({ ...formFields, serviceId: record()?.id || "" }, onDone);
+		//	isCreate ? create(formFields, onDone) : update({ ...formFields, serviceId: record()?.id || "" }, onDone);
 	};
 
 	return (
@@ -52,6 +53,7 @@ export default function RecordForm() {
 			<Paper autoHeight={true}>
 				<Form onSubmit={onSubmit}>
 					<TextInput value={"123"} name="name" required={true} label="Название*" placeholder="Опил когтей" />
+					<ClientPicker />
 					<Button fullWidth={true} isLoading={isLoading()} margin="5px 0">
 						Сохранить
 					</Button>

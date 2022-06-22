@@ -96,7 +96,7 @@ export function Button(props: ButtonProps) {
 			disabled={props.isLoading}
 			style={{ margin: props.margin, width: props.width }}
 			className={classes.join(" ")}>
-			{props.isLoading ? <CgSpinner className="rotate" /> : props.children}
+			{props.isLoading ? <CgSpinner size={22} className="rotate" /> : props.children}
 		</button>
 	);
 }

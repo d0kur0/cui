@@ -4,6 +4,7 @@ import styles from "./SearchBar.module.css";
 
 type SearchBarProps = {
 	onInput?: (value: string) => void;
+	invertColor?: boolean;
 };
 
 function SearchBar(props: SearchBarProps) {
@@ -12,7 +13,7 @@ function SearchBar(props: SearchBarProps) {
 	};
 
 	return (
-		<div className={styles.searchBar}>
+		<div className={`${styles.searchBar} ${props.invertColor && styles.searchBarInvert}`}>
 			<input onInput={onInput} className={styles.searchBarInput} type="search" placeholder="Поиск" />
 		</div>
 	);

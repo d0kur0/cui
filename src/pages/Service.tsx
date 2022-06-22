@@ -59,7 +59,10 @@ function Service() {
 	const navigate = useNavigate();
 
 	const service = createMemo(() => services.list.find(service => service.id === id));
-	const handleDelete = () => toArchive(service()?.id || "", () => navigate("/services"));
+	const handleDelete = () => {
+		confirm("Действительно ахривировать услугу?") &&
+			toArchive(service()?.id || "", () => navigate("/services"));
+	};
 
 	const ClientCard = () => {
 		return (

@@ -37,6 +37,9 @@
 	left: 0;
 	width: 100%;
 	height: 100%;
+	background-color: transparent;
+	display: inline-block;
+	opacity: 1;
 }
 
 .itemAvatar {
@@ -50,6 +53,14 @@
 	font-size: 0.9em;
 	color: var(--text-color-light);
 	margin-top: 4px;
+}
+
+.rightButtons {
+	margin-right: 15px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border-bottom: 1px solid var(--separator-color);
 }
 
 .itemContentWrapper {

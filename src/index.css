@@ -6,9 +6,13 @@ body {
 	overflow: hidden;
 	background-color: var(--page-background);
 	color: var(--text-color);
-	max-width: 600px;
 	margin: auto;
 	position: relative;
+}
+
+#root {
+	max-width: 530px;
+	margin: auto;
 }
 
 code {

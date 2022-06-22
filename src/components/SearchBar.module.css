@@ -7,6 +7,10 @@
 	border-radius: 7px;
 }
 
+.searchBarInvert {
+	background-color: var(--page-background);
+}
+
 .searchBarInput {
 	flex: 1 1 0;
 	height: 100%;

@@ -58,7 +58,10 @@ export function Client() {
 
 	const client = createMemo(() => clients.list.find(client => client.id === id));
 	const additionalInfo = fetchAdditionalInfo(id);
-	const handleDelete = () => toArchive(client()?.id || "", () => navigate("/clients"));
+	const handleDelete = () => {
+		confirm("Действительно архивировать клиента?") &&
+			toArchive(client()?.id || "", () => navigate("/clients"));
+	};
 
 	const additionalInfoList = createMemo(
 		() => [

@@ -1,0 +1,30 @@
+.label {
+	color: var(--text-color);
+	width: 150px;
+}
+
+.wrapper {
+	margin: 15px 0;
+	display: flex;
+	align-items: center;
+	border-bottom: 2px solid transparent;
+}
+
+.input {
+	width: 100%;
+	box-sizing: border-box;
+	padding: 5px;
+}
+
+.choiceButton {
+	font: inherit;
+	height: 30px;
+	display: flex;
+	width: 100%;
+	align-items: center;
+	justify-content: center;
+	font-size: 0.9em;
+	background-color: transparent;
+	border: 2px solid var(--secondary-color-dark);
+	color: var(--secondary-color-dark);
+}
