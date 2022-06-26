@@ -52,9 +52,9 @@ export default function RecordForm() {
 			navBar={<NavBar />}>
 			<Paper autoHeight={true}>
 				<Form onSubmit={onSubmit}>
-					<TextInput value={"123"} name="name" required={true} label="Название*" placeholder="Опил когтей" />
+					<TextInput value={""} type="datetime-local" name="name" required={true} label="Дата записи*" />
 					<ClientPicker />
-					<Button fullWidth={true} isLoading={isLoading()} margin="5px 0">
+					<Button nativeType="submit" fullWidth={true} isLoading={isLoading()} margin="5px 0">
 						Сохранить
 					</Button>
 				</Form>

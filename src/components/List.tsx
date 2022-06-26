@@ -16,7 +16,7 @@ export function ListItem(props: ListItemProps) {
 	return (
 		<div className={styles.item}>
 			{props.href && <Link className={styles.itemLink} href={props.href} />}
-			{props.onClick && <button className={styles.itemLink} onClick={props.onClick} />}
+			{props.onClick && <button type="button" className={styles.itemLink} onClick={props.onClick} />}
 			{props.avatar && <div className={styles.itemAvatar}>{props.avatar}</div>}
 			<div className={styles.itemContentWrapper}>
 				{props.title && <div className={styles.itemTitle}>{props.title}</div>}

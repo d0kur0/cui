@@ -65,7 +65,7 @@ export default function ServiceForm() {
 						label="Стоимость"
 						placeholder="500"
 					/>
-					<Button fullWidth={true} isLoading={isLoading()} margin="5px 0">
+					<Button nativeType="submit" fullWidth={true} isLoading={isLoading()} margin="5px 0">
 						Сохранить
 					</Button>
 				</Form>

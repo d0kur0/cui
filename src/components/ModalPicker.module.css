@@ -36,17 +36,20 @@
 	height: 100%;
 	display: flex;
 	flex-direction: column;
+
+	--searchBarHeight: 60px;
+	--actionsHeight: 60px;
 }
 
 .actions {
 	display: flex;
 	align-items: center;
-	height: 60px;
+	height: var(--actionsHeight);
 	padding: 0 10px;
 }
 
 .searchBar {
-	height: 60px;
+	height: var(--searchBarHeight);
 	flex-direction: column;
 	display: flex;
 	padding: 0 10px;
@@ -54,7 +57,7 @@
 }
 
 .content {
-	height: calc(100% - 60px - 60px);
+	height: calc(100% - var(--actionsHeight) - var(--searchBarHeight));
 	overflow-x: auto;
 }
 
@@ -63,4 +66,15 @@
 	display: flex;
 	flex-direction: column;
 	list-style: none;
+}
+
+.selectedBadge {
+	width: 25px;
+	height: 25px;
+	border-radius: 50%;
+	display: flex;
+	align-items: center;
+	background-color: var(--success-color);
+	justify-content: center;
+	color: var(--accent-color-revert);
 }

@@ -67,7 +67,7 @@ export function ClientForm() {
 						label="Описание"
 						placeholder="Любит хлеб"
 					/>
-					<Button fullWidth={true} isLoading={isLoading()} margin="5px 0">
+					<Button nativeType="submit" fullWidth={true} isLoading={isLoading()} margin="5px 0">
 						Сохранить
 					</Button>
 				</Form>

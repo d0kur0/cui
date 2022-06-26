@@ -14,7 +14,7 @@ type BaseInputProps = {
 };
 
 type TextInputProps = BaseInputProps & {
-	type?: "text" | "password" | "number";
+	type?: "text" | "password" | "number" | "datetime-local";
 };
 
 export function TextInput(props: TextInputProps) {
@@ -82,6 +82,7 @@ type ButtonProps = {
 	isLoading?: boolean;
 	width?: string;
 	onClick?: () => void;
+	nativeType?: "button" | "submit";
 };
 
 export function Button(props: ButtonProps) {
@@ -92,6 +93,7 @@ export function Button(props: ButtonProps) {
 
 	return (
 		<button
+			type={props.nativeType || "button"}
 			onClick={() => props.onClick?.()}
 			disabled={props.isLoading}
 			style={{ margin: props.margin, width: props.width }}
