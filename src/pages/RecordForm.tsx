@@ -7,6 +7,7 @@ import { Button, Form, TextInput } from "../components/Form";
 import Layout from "../components/Layout";
 import NavBar from "../components/NavBar";
 import Paper from "../components/Paper";
+import ServicesPicker from "../components/ServicesPicker";
 import Title from "../components/Title";
 import { CreateProps } from "../storage/record";
 import { recordsStore } from "../stores/records";
@@ -54,6 +55,7 @@ export default function RecordForm() {
 				<Form onSubmit={onSubmit}>
 					<TextInput value={""} type="datetime-local" name="name" required={true} label="Дата записи*" />
 					<ClientPicker />
+					<ServicesPicker />
 					<Button nativeType="submit" fullWidth={true} isLoading={isLoading()} margin="5px 0">
 						Сохранить
 					</Button>

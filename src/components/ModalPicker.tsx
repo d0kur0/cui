@@ -15,6 +15,7 @@ type ModalPickerProps = {
 	multiple: boolean;
 	title: string;
 	onChoice?: (ids: string[]) => void;
+	hideAvatars?: boolean;
 };
 
 function ModalPicker(props: ModalPickerProps) {
@@ -63,7 +64,7 @@ function ModalPicker(props: ModalPickerProps) {
 										{({ id, name, avatar, description }) => (
 											<ListItem
 												onClick={() => handleSelect(id)}
-												avatar={<Avatar name={name} imageSrc={avatar} />}
+												avatar={props.hideAvatars ? undefined : <Avatar name={name} imageSrc={avatar} />}
 												title={name}
 												rightButtons={
 													selectedIds().includes(id) ? (

@@ -74,7 +74,7 @@
 	border-radius: 50%;
 	display: flex;
 	align-items: center;
-	background-color: var(--success-color);
+	background-color: var(--accent-color);
 	justify-content: center;
 	color: var(--accent-color-revert);
 }

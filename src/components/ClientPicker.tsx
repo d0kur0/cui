@@ -4,8 +4,8 @@ import { Client } from "../storage/client";
 import { clientsStore } from "../stores/clients";
 import { Avatar } from "./Avatar";
 import { Card, CardAvatar, CardHeader, CardInfo, CardMainRow, CardSecondRow } from "./Card";
-import styles from "./ClientPicker.module.css";
 import ModalPicker from "./ModalPicker";
+import styles from "./Pickers.module.css";
 
 function ClientPicker() {
 	const { clients } = clientsStore;
@@ -35,14 +35,14 @@ function ClientPicker() {
 				/>
 			</Show>
 
-			<div className={styles.input}>
-				<Show when={!selectedClient()}>
-					<button type="button" onClick={handleOpenModal} className={styles.choiceButton}>
-						Выберите клиента
-					</button>
-				</Show>
+			<Show when={!selectedClient()}>
+				<button type="button" onClick={handleOpenModal} className={styles.choiceButton}>
+					Выберите клиента
+				</button>
+			</Show>
 
-				<Show when={selectedClient()}>
+			<Show when={selectedClient()}>
+				<div className={styles.input}>
 					<Card>
 						<CardHeader>
 							<CardAvatar>
@@ -58,8 +58,8 @@ function ClientPicker() {
 							</CardInfo>
 						</CardHeader>
 					</Card>
-				</Show>
-			</div>
+				</div>
+			</Show>
 			<input name="clientId" type="hidden" value={selectedClient()?.id} />
 		</div>
 	);
