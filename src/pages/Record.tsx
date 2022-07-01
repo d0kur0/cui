@@ -5,6 +5,7 @@ import { For, createMemo } from "solid-js";
 import { Transition } from "solid-transition-group";
 
 import { Avatar } from "../components/Avatar";
+import { Badge, BadgeGrid } from "../components/Badge";
 import {
 	Card,
 	CardAvatar,
@@ -25,9 +26,10 @@ import Title from "../components/Title";
 import { formatRelative } from "../helpers/date";
 import { transitionOnEnter, transitionOnExit } from "../helpers/transition";
 import { clientsStore } from "../stores/clients";
+import { recordsStore } from "../stores/records";
 import { servicesStore } from "../stores/services";
 
-function ServicePlug() {
+function RecordPlug() {
 	return (
 		<div>
 			<Card>
@@ -47,36 +49,53 @@ function ServicePlug() {
 				<Divider margin="5px 0" />
 				<CardList>
 					<CardListItem name={<PlugText size={160} />} value={<PlugText size={50} />} />
+					<CardListItem name={<PlugText size={160} />} value={<PlugText size={50} />} />
 				</CardList>
 			</Card>
 		</div>
 	);
 }
 
-function Service() {
+function Record() {
 	const { id } = useParams();
-	const { services, toArchive } = servicesStore;
+	const { records, toArchive } = recordsStore;
 	const navigate = useNavigate();
 
-	const service = createMemo(() => services.list.find(service => service.id === id));
+	const { clients } = clientsStore;
+	const { services } = servicesStore;
+
+	const record = createMemo(() => records.list.find(record => record.id === id));
+
 	const handleDelete = () => {
-		confirm("Действительно ахривировать услугу?") &&
-			toArchive(service()?.id || "", () => navigate("/services"));
+		confirm("Действительно ахривировать запись?") && toArchive(record()?.id || "", () => navigate("/"));
 	};
 
-	const ClientCard = () => {
+	const recordClient = createMemo(() => clients.list.find(c => c.id === record()?.clientId));
+	const recordServices = createMemo(() => services.list.filter(s => record()?.serviceIds.includes(s.id)));
+
+	const RecordCard = () => {
 		return (
 			<div>
 				<Card>
 					<CardHeader>
+						<CardAvatar>
+							<Avatar size="large" imageSrc={recordClient()?.avatar} name={recordClient()?.name} />
+						</CardAvatar>
 						<CardInfo>
-							<CardMainRow>{service()?.name}</CardMainRow>
-							<CardSecondRow>{service()?.price} руб.</CardSecondRow>
+							<CardMainRow>{recordClient()?.name}</CardMainRow>
+							<CardSecondRow>
+								<BadgeGrid>
+									<For each={recordServices()}>{service => <Badge>{service.name}</Badge>}</For>
+								</BadgeGrid>
+							</CardSecondRow>
 						</CardInfo>
 					</CardHeader>
+				</Card>
+				<Card>
 					<Divider margin="5px 0" />
 					<CardList>
-						<CardListItem name="Дата создания" value={formatRelative(service()?.createdAt.toDate())} />
+						<CardListItem name="Дата записи" value={formatRelative(record()?.date.toDate())} />
+						<CardListItem name="Дата создания" value={formatRelative(record()?.createdAt.toDate())} />
 					</CardList>
 				</Card>
 			</div>
@@ -92,18 +111,18 @@ function Service() {
 							<BsArrowLeft size={24} />
 						</button>
 					}
-					title="Карточка услуги"
+					title="Карточка записи"
 				/>
 			}
 			navBar={<NavBar />}>
 			<Paper autoHeight={true}>
 				<Transition mode="outin" onEnter={transitionOnEnter(300)} onExit={transitionOnExit(300)}>
-					{services.isLoading ? <ServicePlug /> : <ClientCard />}
+					{records.isLoading ? <RecordPlug /> : <RecordCard />}
 				</Transition>
 			</Paper>
 
 			<ButtonGroup>
-				<Button onClick={() => navigate(`/service/edit/${service()?.id}`)} fullWidth={true}>
+				<Button onClick={() => navigate(`/record/edit/${record()?.id}`)} fullWidth={true}>
 					Редактировать
 				</Button>
 				<Button onClick={handleDelete} fullWidth={true} type="danger">
@@ -114,4 +133,4 @@ function Service() {
 	);
 }
 
-export default Service;
+export default Record;

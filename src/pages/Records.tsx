@@ -1,6 +1,5 @@
 import { format } from "date-fns";
 import { Link } from "solid-app-router";
-import { FiPlusSquare } from "solid-icons/fi";
 import { For, createMemo } from "solid-js";
 
 import { Avatar } from "../components/Avatar";
@@ -12,11 +11,12 @@ import { List, ListItem, ListItemBetweenContent } from "../components/List";
 import NavBar from "../components/NavBar";
 import Paper from "../components/Paper";
 import Title from "../components/Title";
+import titleStyles from "../components/Title.module.css";
 import { clientsStore } from "../stores/clients";
 import { recordsStore } from "../stores/records";
 import { servicesStore } from "../stores/services";
 
-function Events() {
+function Records() {
 	const { records } = recordsStore;
 	const { services } = servicesStore;
 	const { clients } = clientsStore;
@@ -79,8 +79,8 @@ function Events() {
 			title={
 				<Title
 					rightChildren={
-						<Link href="/record/create">
-							<FiPlusSquare size={28} />
+						<Link className={titleStyles.navigateLink} href="/record/create">
+							Добавить
 						</Link>
 					}
 					title="Записи"
@@ -94,4 +94,4 @@ function Events() {
 	);
 }
 
-export default Events;
+export default Records;

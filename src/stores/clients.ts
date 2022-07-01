@@ -56,7 +56,7 @@ function createClientsStore() {
 
 	const updateClient = (props: UpdateProps, onUpdateCallback?: () => void) => {
 		const onUpdated = (client: Client) => {
-			setStore("list", clients => clients.map(c => (client.id === c.id ? c : client)));
+			setStore("list", clients => clients.map(c => (client.id === c.id ? client : c)));
 			pushSuccess("Клиент обновлен");
 			onUpdateCallback?.();
 		};

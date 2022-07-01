@@ -2,15 +2,21 @@ import { format, lastDayOfMonth, startOfMonth } from "date-fns";
 import { createStore } from "solid-js/store";
 
 import { StaticStoreProps } from ".";
-import { Record, recordStorage } from "../storage/record";
+import { CreateProps, Record, UpdateProps, recordStorage } from "../storage/record";
 import { notificationsStore } from "./notifications";
 import { userStore } from "./user";
-
-const { pushError } = notificationsStore;
 
 type RecordsStore = StaticStoreProps & {
 	currentDate: Date;
 	list: Record[];
+};
+
+const { create, update, toArchive } = recordStorage;
+const { pushSuccess, pushError } = notificationsStore;
+
+const errorHandler = (err: Error) => {
+	console.log(err);
+	pushError(err.message);
 };
 
 function createRecordsStore() {
@@ -30,7 +36,7 @@ function createRecordsStore() {
 		recordStorage
 			.getAllOfMonth({ userId: userStore.user.id, startDate, endDate })
 			.then(records => setStore(store => ({ ...store, list: records })))
-			.catch(error => pushError(error.message))
+			.catch(errorHandler)
 			.finally(() => setStore("isLoading", false));
 	};
 
@@ -40,11 +46,44 @@ function createRecordsStore() {
 		isMonthChanged && (setStore("isLoading", true), fetchCurrentMonth());
 	};
 
-	const create = () => {};
+	const createRecord = (props: CreateProps, onCreateCallback?: () => void) => {
+		const onCreate = (record: Record) => {
+			setStore("list", records => [record, ...records]);
+			pushSuccess("Запись создана");
+			onCreateCallback?.();
+		};
 
-	const update = () => {};
+		create(props).then(onCreate, errorHandler);
+	};
 
-	return { records: store, fetchCurrentMonth, setCurrentDate, create, update };
+	const updateRecord = (props: UpdateProps, onUpdateCallback?: () => void) => {
+		const onUpdate = (record: Record) => {
+			setStore("list", records => records.map(r => (record.id === r.id ? record : r)));
+			pushSuccess("Запись обновлена");
+			onUpdateCallback?.();
+		};
+
+		update(props).then(onUpdate, errorHandler);
+	};
+
+	const toArchiveRecord = (recordId: string, onArchiveCallback?: () => void) => {
+		const onArchived = () => {
+			setStore("list", records => records.filter(r => r.id !== recordId));
+			onArchiveCallback?.();
+			pushSuccess("Запись удалена");
+		};
+
+		toArchive(recordId).then(onArchived, errorHandler);
+	};
+
+	return {
+		records: store,
+		fetchCurrentMonth,
+		setCurrentDate,
+		create: createRecord,
+		update: updateRecord,
+		toArchive: toArchiveRecord,
+	};
 }
 
 export const recordsStore = createRecordsStore();

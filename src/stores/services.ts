@@ -37,7 +37,7 @@ function createServicesStore() {
 
 	const updateService = (props: UpdateProps, onUpdateCallback?: () => void) => {
 		const onUpdate = (service: Service) => {
-			setStore("list", services => services.map(s => (service.id === s.id ? service : service)));
+			setStore("list", services => services.map(s => (service.id === s.id ? s : service)));
 			pushSuccess("Услуга обновлена");
 			onUpdateCallback?.();
 		};

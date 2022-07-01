@@ -1,3 +1,5 @@
+import { BsPlusSquareDotted } from "solid-icons/bs";
+import { HiOutlinePlus } from "solid-icons/hi";
 import { RiSystemCloseFill } from "solid-icons/ri";
 import { For, Show, createMemo, createSignal } from "solid-js";
 
@@ -30,6 +32,8 @@ function ServicesPicker() {
 		setSelectedServices(services => services?.filter(({ id }) => _id !== id));
 	};
 
+	const selectedIds = createMemo(() => selectedServices()?.map(({ id }) => id));
+
 	return (
 		<div className={styles.wrapper}>
 			<Show when={isOpen()}>
@@ -39,14 +43,14 @@ function ServicesPicker() {
 					multiple={true}
 					onChoice={handleChoice}
 					hideAvatars={true}
+					selectedIds={selectedIds()}
 				/>
 			</Show>
 
-			<Show when={!selectedServices()?.length}>
-				<button type="button" onClick={handleOpenModal} className={styles.choiceButton}>
-					Выберите услуги
-				</button>
-			</Show>
+			<button type="button" onClick={handleOpenModal} className={styles.choiceButton}>
+				<Show when={!selectedServices()?.length}>Выберите услуги</Show>
+				<Show when={selectedServices()?.length}>Изменить выбор</Show>
+			</button>
 
 			<Show when={selectedServices()?.length}>
 				<div className={styles.servicesList}>
@@ -54,7 +58,10 @@ function ServicesPicker() {
 						{service => (
 							<span className={styles.serviceBadge}>
 								{service.name}
-								<button onClick={() => handleRemove(service.id)} type="button">
+								<button
+									className={styles.serviceBadgeButton}
+									onClick={() => handleRemove(service.id)}
+									type="button">
 									<RiSystemCloseFill size={18} />
 								</button>
 							</span>
@@ -63,13 +70,7 @@ function ServicesPicker() {
 				</div>
 			</Show>
 
-			<input
-				name="servicesIds"
-				type="hidden"
-				value={selectedServices()
-					?.map(({ id }) => id)
-					.join(",")}
-			/>
+			<input name="serviceIds" type="hidden" value={selectedIds()?.join(",")} />
 		</div>
 	);
 }

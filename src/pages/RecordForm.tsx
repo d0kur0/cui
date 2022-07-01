@@ -10,6 +10,7 @@ import Paper from "../components/Paper";
 import ServicesPicker from "../components/ServicesPicker";
 import Title from "../components/Title";
 import { CreateProps } from "../storage/record";
+import { notificationsStore } from "../stores/notifications";
 import { recordsStore } from "../stores/records";
 
 export default function RecordForm() {
@@ -19,6 +20,7 @@ export default function RecordForm() {
 	const [isLoading, setIsLoading] = createSignal(false);
 	const { records, create, update } = recordsStore;
 	const record = createMemo(() => records.list.find(service => service.id === id));
+	const { pushWarning } = notificationsStore;
 
 	const onSubmit = (
 		event: Event & { submitter: HTMLElement } & {
@@ -26,16 +28,23 @@ export default function RecordForm() {
 			target: Element;
 		}
 	) => {
-		setIsLoading(true);
+		const formFields = Object.fromEntries([
+			...new FormData(event.currentTarget).entries(),
+		]) as unknown as CreateProps;
 
-		//const formFields = Object.fromEntries([...new FormData(event.currentTarget).entries()]) as CreateProps;
+		console.log(formFields);
+
+		if (!formFields.clientId) return pushWarning("Выберите клиента");
+		if (!formFields.serviceIds) return pushWarning("Выберите услугу");
+
+		setIsLoading(true);
 
 		const onDone = () => {
 			navigate("/");
 			setIsLoading(false);
 		};
 
-		//	isCreate ? create(formFields, onDone) : update({ ...formFields, serviceId: record()?.id || "" }, onDone);
+		isCreate ? create(formFields, onDone) : update({ ...formFields, recordId: record()?.id || "" }, onDone);
 	};
 
 	return (
@@ -53,7 +62,14 @@ export default function RecordForm() {
 			navBar={<NavBar />}>
 			<Paper autoHeight={true}>
 				<Form onSubmit={onSubmit}>
-					<TextInput value={""} type="datetime-local" name="name" required={true} label="Дата записи*" />
+					<TextInput value={""} type="datetime-local" name="date" required={true} label="Дата записи*" />
+					<TextInput
+						value={""}
+						placeholder="Помыть пятку"
+						type="text"
+						name="description"
+						label="Примечание"
+					/>
 					<ClientPicker />
 					<ServicesPicker />
 					<Button nativeType="submit" fullWidth={true} isLoading={isLoading()} margin="5px 0">

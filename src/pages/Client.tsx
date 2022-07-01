@@ -14,7 +14,7 @@ import {
 	CardMainRow,
 	CardSecondRow,
 } from "../components/Card";
-import Devider from "../components/Devider";
+import Divider from "../components/Divider";
 import { Button, ButtonGroup } from "../components/Form";
 import Layout from "../components/Layout";
 import NavBar from "../components/NavBar";
@@ -42,7 +42,7 @@ function ClientPlug() {
 						</CardSecondRow>
 					</CardInfo>
 				</CardHeader>
-				<Devider margin="5px 0" />
+				<Divider margin="5px 0" />
 				<CardList>
 					<CardListItem name={<PlugText size={160} />} value={<PlugText size={50} />} />
 				</CardList>
@@ -96,7 +96,7 @@ export function Client() {
 							<CardSecondRow>{client()?.description.trim() || "Описание отсутствует"}</CardSecondRow>
 						</CardInfo>
 					</CardHeader>
-					<Devider margin="5px 0" />
+					<Divider margin="5px 0" />
 					<CardList>
 						<For each={additionalInfoList()}>
 							{({ name, value }) => <CardListItem name={name} value={value} />}

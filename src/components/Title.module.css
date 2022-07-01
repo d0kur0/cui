@@ -36,3 +36,16 @@ a {
 .optionalElements a:visited {
 	color: var(--text-color);
 }
+
+.navigateLink {
+	background-color: var(--accent-color);
+	padding: 6px 17px;
+	border-radius: 8px;
+	text-decoration: none;
+	box-shadow: var(--shadow-light);
+	color: var(--accent-color-revert) !important;
+}
+
+.navigateLink:visited {
+	color: var(--accent-color-revert) !important;
+}

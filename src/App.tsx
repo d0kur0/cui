@@ -5,9 +5,10 @@ import Account from "./pages/Account";
 import { Client } from "./pages/Client";
 import { ClientForm } from "./pages/ClientForm";
 import Clients from "./pages/Clients";
-import Events from "./pages/Events";
 import Guest from "./pages/Guest";
+import Record from "./pages/Record";
 import RecordForm from "./pages/RecordForm";
+import Records from "./pages/Records";
 import Service from "./pages/Service";
 import ServiceForm from "./pages/ServiceForm";
 import Services from "./pages/Services";
@@ -33,8 +34,9 @@ function AppForUsers() {
 	return (
 		<Router>
 			<Routes>
-				<Route path="/" element={<Events />} />
+				<Route path="/" element={<Records />} />
 				<Route path="/record/create" element={<RecordForm />} />
+				<Route path="/record/:id" element={<Record />} />
 				<Route path="/me" element={<Account />} />
 				<Route path="/stats" element={<Stats />} />
 				<Route path="/clients" element={<Clients />} />

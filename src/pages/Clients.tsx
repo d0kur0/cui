@@ -1,5 +1,4 @@
 import { Link } from "solid-app-router";
-import { FiPlusSquare } from "solid-icons/fi";
 import { For, createMemo, createSignal } from "solid-js";
 import { Transition } from "solid-transition-group";
 
@@ -11,6 +10,7 @@ import Paper from "../components/Paper";
 import { PlugText } from "../components/Plugs";
 import SearchBar from "../components/SearchBar";
 import Title from "../components/Title";
+import titleStyles from "../components/Title.module.css";
 import { transitionOnEnter, transitionOnExit } from "../helpers/transition";
 import { clientsStore } from "../stores/clients";
 
@@ -65,8 +65,8 @@ function Clients() {
 			title={
 				<Title
 					rightChildren={
-						<Link href="/client/create">
-							<FiPlusSquare size={28} />
+						<Link className={titleStyles.navigateLink} href="/client/create">
+							Добавить
 						</Link>
 					}
 					title="Клиенты"

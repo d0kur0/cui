@@ -16,11 +16,12 @@ type ModalPickerProps = {
 	title: string;
 	onChoice?: (ids: string[]) => void;
 	hideAvatars?: boolean;
+	selectedIds?: string[];
 };
 
 function ModalPicker(props: ModalPickerProps) {
 	const [searchQuery, setSearchQuery] = createSignal("");
-	const [selectedIds, setSelectedIds] = createSignal<string[]>([]);
+	const [selectedIds, setSelectedIds] = createSignal<string[]>(props.selectedIds || []);
 
 	const filteredElements = createMemo(() =>
 		props.elements.filter(

@@ -4,7 +4,6 @@ import { HiSolidHashtag } from "solid-icons/hi";
 import { For, createMemo, createSignal } from "solid-js";
 import { Transition } from "solid-transition-group";
 
-import { Avatar } from "../components/Avatar";
 import Layout from "../components/Layout";
 import { List, ListItem, ListItemBetweenContent } from "../components/List";
 import NavBar from "../components/NavBar";
@@ -12,6 +11,7 @@ import Paper from "../components/Paper";
 import { PlugText } from "../components/Plugs";
 import SearchBar from "../components/SearchBar";
 import Title from "../components/Title";
+import titleStyles from "../components/Title.module.css";
 import { transitionOnEnter, transitionOnExit } from "../helpers/transition";
 import { servicesStore } from "../stores/services";
 
@@ -76,8 +76,8 @@ function Services() {
 			title={
 				<Title
 					rightChildren={
-						<Link href="/service/create">
-							<FiPlusSquare size={28} />
+						<Link className={titleStyles.navigateLink} href="/service/create">
+							Добавить
 						</Link>
 					}
 					title="Услуги"
