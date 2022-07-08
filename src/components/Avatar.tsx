@@ -1,14 +1,14 @@
-import { JSXElement, createSignal } from "solid-js";
+import { JSXElement, Match, Switch, createSignal } from "solid-js";
 
 import styles from "./Avatar.module.css";
 
 type AvatarProps = {
-	imageSrc?: string;
 	name?: string;
 	size?: "small" | "default" | "large";
 	isPlug?: boolean;
 	margin?: string;
 	children?: JSXElement;
+	imageSrc?: string;
 };
 
 type NameProps = { name: string };
@@ -24,25 +24,30 @@ function Name({ name }: NameProps) {
 }
 
 type ImageProps = {
-	imageSrc: string;
 	name: string;
 	onLoad: () => void;
 	onError: () => void;
+	imageSrc: string;
 };
 
 function Image({ imageSrc, name, onLoad, onError }: ImageProps) {
 	const [error, setError] = createSignal(false);
 
-	return error() ? (
-		<Name name={name} />
-	) : (
-		<img
-			src={imageSrc}
-			alt="user avatar image"
-			onLoad={onLoad}
-			onError={() => (setError(true), onError())}
-			className={styles.image}
-		/>
+	return (
+		<Switch>
+			<Match when={error()}>
+				<Name name={name} />
+			</Match>
+			<Match when={!error()}>
+				<img
+					src={imageSrc}
+					alt="user avatar image"
+					onLoad={onLoad}
+					onError={() => (setError(true), onError())}
+					className={styles.image}
+				/>
+			</Match>
+		</Switch>
 	);
 }
 
@@ -71,13 +76,15 @@ export function Avatar(props: AvatarProps) {
 
 	return (
 		<div style={{ margin: props.margin }} className={classNames().join(" ")}>
-			{props.children ? (
-				props.children
-			) : props.imageSrc ? (
-				<Image onError={onImageLoaded} onLoad={onImageLoaded} name={name} imageSrc={imageSrc} />
-			) : (
-				<Name name={name} />
-			)}
+			<Switch>
+				<Match when={props.children}>{props.children}</Match>
+				<Match when={props.imageSrc}>
+					<Image onError={onImageLoaded} onLoad={onImageLoaded} name={name} imageSrc={imageSrc} />
+				</Match>
+				<Match when={!props.imageSrc}>
+					<Name name={name} />
+				</Match>
+			</Switch>
 		</div>
 	);
 }

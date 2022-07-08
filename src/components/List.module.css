@@ -25,6 +25,11 @@
 
 .itemBetweenContentRight {
 	color: var(--text-color-light) !important;
+	align-self: var(--align-self);
+}
+
+.itemBetweenContentLeft {
+	align-self: var(--align-self);
 }
 
 .itemBetweenContentLeft svg {
