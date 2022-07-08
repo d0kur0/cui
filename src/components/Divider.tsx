@@ -1,9 +1,9 @@
 import styles from "./Divider.module.css";
 
-type DeviderProps = {
+type DividerProps = {
 	margin?: string;
 };
 
-export default function Divider(props: DeviderProps) {
-	return <div style={{ margin: props.margin }} className={styles.devider}></div>;
+export default function Divider(props: DividerProps) {
+	return <div style={{ margin: props.margin }} className={styles.divider}></div>;
 }
