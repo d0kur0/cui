@@ -11,9 +11,9 @@ import styles from "./ModalPicker.module.css";
 import SearchBar from "./SearchBar";
 
 type ModalPickerProps = {
+	title: string;
 	elements: DeepReadonly<{ id: string; name: string; avatar: string; description: string }[]>;
 	multiple: boolean;
-	title: string;
 	onChoice?: (ids: string[]) => void;
 	hideAvatars?: boolean;
 	selectedIds?: string[];

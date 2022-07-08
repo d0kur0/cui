@@ -5,12 +5,12 @@ import { JSX } from "solid-js/jsx-runtime";
 import styles from "./Form.module.css";
 
 type BaseInputProps = {
-	onInput?: (text: string) => void;
-	label?: string;
-	placeholder?: string;
-	value?: string;
-	required?: boolean;
 	name?: string;
+	label?: string;
+	value?: string;
+	onInput?: (text: string) => void;
+	required?: boolean;
+	placeholder?: string;
 };
 
 type TextInputProps = BaseInputProps & {
@@ -76,12 +76,12 @@ export function Form(props: FormProps) {
 
 type ButtonProps = {
 	type?: "danger" | "default";
+	width?: string;
+	margin?: string;
+	onClick?: () => void;
 	children: string | JSX.Element;
 	fullWidth?: boolean;
-	margin?: string;
 	isLoading?: boolean;
-	width?: string;
-	onClick?: () => void;
 	nativeType?: "button" | "submit";
 };
 

@@ -1,6 +1,5 @@
 import { JSX } from "solid-js/jsx-runtime";
 
-import { Button } from "./Form";
 import styles from "./Paper.module.css";
 
 type PaperProps = {
