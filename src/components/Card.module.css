@@ -6,6 +6,7 @@
 
 .cardAvatar {
 	margin-right: 15px;
+	align-self: var(--align-self);
 }
 
 .cardInfoDescription {

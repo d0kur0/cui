@@ -33,9 +33,9 @@ function Records() {
 			}));
 	});
 
-	const dayPriceSum = createMemo(() => {
-		return currentDayRecords().reduce((acc, r) => acc + r.services.reduce((acc, s) => acc + +s.price, 0), 0);
-	});
+	const dayPriceSum = createMemo(() =>
+		currentDayRecords().reduce((acc, r) => acc + r.services.reduce((acc, s) => acc + +s.price, 0), 0)
+	);
 
 	const RecordsList = () => {
 		return (
@@ -64,7 +64,9 @@ function Records() {
 											</CardHeader>
 										</Card>
 									}
-									rightContent={`${services.reduce((acc, s) => acc + +s.price, 0)}руб.`}
+									rightContent={
+										<span style="padding: 10px 0;">{services.reduce((acc, s) => acc + +s.price, 0)}руб.</span>
+									}
 								/>
 							}
 						/>

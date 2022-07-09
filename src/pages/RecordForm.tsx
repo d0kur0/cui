@@ -1,3 +1,4 @@
+import { format } from "date-fns";
 import { useNavigate, useParams } from "solid-app-router";
 import { BsArrowLeft } from "solid-icons/bs";
 import { createMemo, createSignal } from "solid-js";
@@ -47,6 +48,10 @@ export default function RecordForm() {
 		isCreate ? create(formFields, onDone) : update({ ...formFields, recordId: record()?.id || "" }, onDone);
 	};
 
+	const recordDate = createMemo(() =>
+		format((isCreate ? records.currentDate : record()?.date.toDate()) || new Date(), "yyyy-MM-dd'T'HH:mm")
+	);
+
 	return (
 		<Layout
 			title={
@@ -62,16 +67,22 @@ export default function RecordForm() {
 			navBar={<NavBar />}>
 			<Paper autoHeight={true}>
 				<Form onSubmit={onSubmit}>
-					<TextInput value={""} type="datetime-local" name="date" required={true} label="Дата записи*" />
 					<TextInput
-						value={""}
+						value={recordDate()}
+						type="datetime-local"
+						name="date"
+						required={true}
+						label="Дата записи*"
+					/>
+					<TextInput
+						value={record()?.description}
 						placeholder="Помыть пятку"
 						type="text"
 						name="description"
 						label="Примечание"
 					/>
-					<ClientPicker />
-					<ServicesPicker />
+					<ClientPicker defaultClientId={record()?.clientId} />
+					<ServicesPicker defaultServiceIds={[...(record()?.serviceIds || [])]} />
 					<Button nativeType="submit" fullWidth={true} isLoading={isLoading()} margin="5px 0">
 						Сохранить
 					</Button>

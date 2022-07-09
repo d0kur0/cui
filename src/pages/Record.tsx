@@ -75,7 +75,7 @@ function Record() {
 
 	const RecordCard = () => {
 		return (
-			<div>
+			<div style={{ "--align-self": "flex-start" }}>
 				<Card>
 					<CardHeader>
 						<CardAvatar>
@@ -94,7 +94,7 @@ function Record() {
 				<Card>
 					<Divider margin="5px 0" />
 					<CardList>
-						<CardListItem name="Дата записи" value={formatRelative(record()?.date.toDate())} />
+						<CardListItem name="Дата посещения" value={formatRelative(record()?.date.toDate())} />
 						<CardListItem name="Дата создания" value={formatRelative(record()?.createdAt.toDate())} />
 					</CardList>
 				</Card>

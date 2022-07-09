@@ -14,10 +14,7 @@ type RecordsStore = StaticStoreProps & {
 const { create, update, toArchive } = recordStorage;
 const { pushSuccess, pushError } = notificationsStore;
 
-const errorHandler = (err: Error) => {
-	console.log(err);
-	pushError(err.message);
-};
+const errorHandler = (err: Error) => pushError(err.message);
 
 function createRecordsStore() {
 	const [store, setStore] = createStore<RecordsStore>({

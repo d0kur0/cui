@@ -1,4 +1,4 @@
-import { Show, createSignal } from "solid-js";
+import { Show, createEffect, createSignal } from "solid-js";
 
 import { Client } from "../storage/client";
 import { clientsStore } from "../stores/clients";
@@ -7,11 +7,17 @@ import { Card, CardAvatar, CardHeader, CardInfo, CardMainRow, CardSecondRow } fr
 import ModalPicker from "./ModalPicker";
 import styles from "./Pickers.module.css";
 
-function ClientPicker() {
+type ClientPickerProps = {
+	defaultClientId?: string;
+};
+
+function ClientPicker(props: ClientPickerProps) {
 	const { clients } = clientsStore;
 
 	const [isOpen, setIsOpen] = createSignal(false);
 	const [selectedClient, setSelectedClient] = createSignal<undefined | Client>();
+
+	createEffect(() => setSelectedClient(clients.list.find(({ id }) => id === props.defaultClientId)));
 
 	const handleOpenModal = () => {
 		setIsOpen(true);

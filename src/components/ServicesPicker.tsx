@@ -1,18 +1,24 @@
-import { BsPlusSquareDotted } from "solid-icons/bs";
-import { HiOutlinePlus } from "solid-icons/hi";
 import { RiSystemCloseFill } from "solid-icons/ri";
-import { For, Show, createMemo, createSignal } from "solid-js";
+import { For, Show, createEffect, createMemo, createSignal } from "solid-js";
 
 import { Service } from "../storage/service";
 import { servicesStore } from "../stores/services";
 import ModalPicker from "./ModalPicker";
 import styles from "./Pickers.module.css";
 
-function ServicesPicker() {
+type ServicePickerProps = {
+	defaultServiceIds?: string[];
+};
+
+function ServicesPicker(props: ServicePickerProps) {
 	const { services } = servicesStore;
 
 	const [isOpen, setIsOpen] = createSignal(false);
 	const [selectedServices, setSelectedServices] = createSignal<undefined | Service[]>();
+
+	createEffect(() =>
+		setSelectedServices(services.list.filter(service => props.defaultServiceIds?.includes(service.id)))
+	);
 
 	const handleOpenModal = () => {
 		setIsOpen(true);

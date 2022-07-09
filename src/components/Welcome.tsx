@@ -1,3 +1,4 @@
+import welcomeSvg from "../assets/welcome.svg";
 import { userStore } from "../stores/user";
 import styles from "./Welcome.module.css";
 
@@ -21,7 +22,7 @@ function Welcome() {
 			</div>
 
 			<div className={styles.logoRoot}>
-				<img className={styles.logo} src="/src/assets/undraw_messaging_fun_re_vic9.svg" />
+				<img alt="welcome image" className={styles.logo} src={welcomeSvg} />
 			</div>
 
 			<div className={styles.footer}>

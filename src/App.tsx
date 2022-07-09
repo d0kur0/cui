@@ -1,5 +1,6 @@
 import { Route, Router, Routes } from "solid-app-router";
 import { Match, Switch, onMount } from "solid-js";
+import { useRegisterSW } from "virtual:pwa-register/solid";
 
 import Account from "./pages/Account";
 import { Client } from "./pages/Client";
@@ -36,13 +37,17 @@ function AppForUsers() {
 			<Routes>
 				<Route path="/" element={<Records />} />
 				<Route path="/record/create" element={<RecordForm />} />
+				<Route path="/record/edit/:id" element={<RecordForm />} />
 				<Route path="/record/:id" element={<Record />} />
+
 				<Route path="/me" element={<Account />} />
 				<Route path="/stats" element={<Stats />} />
+
 				<Route path="/clients" element={<Clients />} />
 				<Route path="/client/create" element={<ClientForm />} />
 				<Route path="/client/edit/:id" element={<ClientForm />} />
 				<Route path="/client/:id" element={<Client />} />
+
 				<Route path="/service/create" element={<ServiceForm />} />
 				<Route path="/service/edit/:id" element={<ServiceForm />} />
 				<Route path="/service/:id" element={<Service />} />
@@ -59,6 +64,7 @@ function AppForGuests() {
 function App() {
 	onMount(() => {
 		useHeightUnit();
+		useRegisterSW();
 	});
 
 	const { user } = userStore;
