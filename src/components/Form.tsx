@@ -21,15 +21,15 @@ export function TextInput(props: TextInputProps) {
 	props.type || (props.type = "text");
 
 	return (
-		<label className={styles.textInputWrapper}>
-			<span className={styles.textInputLabel}>{props.label}</span>
+		<label class={styles.textInputWrapper}>
+			<span class={styles.textInputLabel}>{props.label}</span>
 			<input
 				name={props.name}
 				required={props.required}
 				placeholder={props.placeholder}
 				value={props.value}
 				type={props.type}
-				className={styles.textInput}
+				class={styles.textInput}
 			/>
 		</label>
 	);
@@ -41,8 +41,8 @@ type FileInputProps = BaseInputProps & {
 
 export function FileInput(props: FileInputProps) {
 	return (
-		<label className={styles.textInputWrapper}>
-			<span className={styles.textInputLabel}>{props.label}</span>
+		<label class={styles.textInputWrapper}>
+			<span class={styles.textInputLabel}>{props.label}</span>
 			<input
 				accept={props.accept}
 				name={props.name}
@@ -50,7 +50,7 @@ export function FileInput(props: FileInputProps) {
 				placeholder={props.placeholder}
 				value={props.value}
 				type="file"
-				className={styles.textInput}
+				class={styles.textInput}
 			/>
 		</label>
 	);
@@ -68,7 +68,7 @@ type FormProps = {
 
 export function Form(props: FormProps) {
 	return (
-		<form onSubmit={event => (event.preventDefault(), props.onSubmit?.(event))} className={styles.form}>
+		<form onSubmit={event => (event.preventDefault(), props.onSubmit?.(event))} class={styles.form}>
 			{props.children}
 		</form>
 	);
@@ -97,8 +97,8 @@ export function Button(props: ButtonProps) {
 			onClick={() => props.onClick?.()}
 			disabled={props.isLoading}
 			style={{ margin: props.margin, width: props.width }}
-			className={classes.join(" ")}>
-			{props.isLoading ? <CgSpinner size={22} className="rotate" /> : props.children}
+			class={classes.join(" ")}>
+			{props.isLoading ? <CgSpinner size={22} class="rotate" /> : props.children}
 		</button>
 	);
 }
@@ -108,5 +108,5 @@ type ButtonGroupProps = {
 };
 
 export function ButtonGroup({ children }: ButtonGroupProps) {
-	return <div className={styles.buttonGroup}>{children}</div>;
+	return <div class={styles.buttonGroup}>{children}</div>;
 }

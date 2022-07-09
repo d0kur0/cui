@@ -13,8 +13,8 @@ function SearchBar(props: SearchBarProps) {
 	};
 
 	return (
-		<div className={`${styles.searchBar} ${props.invertColor && styles.searchBarInvert}`}>
-			<input onInput={onInput} className={styles.searchBarInput} type="search" placeholder="Поиск" />
+		<div class={`${styles.searchBar} ${props.invertColor && styles.searchBarInvert}`}>
+			<input onInput={onInput} class={styles.searchBarInput} type="search" placeholder="Поиск" />
 		</div>
 	);
 }

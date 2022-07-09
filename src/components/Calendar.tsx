@@ -19,11 +19,11 @@ function Calendar() {
 	const handlePreviousMonth = () => setCurrentDate(startOfMonth(subMonths(records.currentDate, 1)));
 
 	return (
-		<div className={`${styles.root} ${records.isLoading ? styles.rootAnimated : ""}`}>
-			<div className={styles.title}>
+		<div class={`${styles.root} ${records.isLoading ? styles.rootAnimated : ""}`}>
+			<div class={styles.title}>
 				<button onClick={handleCurrentDay}>Сегодня</button>
 
-				<div className={styles.actions}>
+				<div class={styles.actions}>
 					<button onClick={handlePreviousMonth}>
 						<TiChevronLeft />
 					</button>
@@ -35,21 +35,21 @@ function Calendar() {
 					</button>
 				</div>
 			</div>
-			<div className={styles.daysContainer}>
-				<div className={styles.dayNames}>
-					<For each={dayNames}>{name => <div className={styles.dayName}>{name}</div>}</For>
+			<div class={styles.daysContainer}>
+				<div class={styles.dayNames}>
+					<For each={dayNames}>{name => <div class={styles.dayName}>{name}</div>}</For>
 				</div>
 
-				<div className={styles.days}>
+				<div class={styles.days}>
 					<For each={days()}>
 						{day => (
-							<div className={styles.day}>
+							<div class={styles.day}>
 								<button
 									onClick={() => setCurrentDate(day.date)}
 									disabled={!day.isActive}
-									className={`${styles.dayButton} ${day.isCurrentDate ? styles.dayCurrent : ""}`}>
+									class={`${styles.dayButton} ${day.isCurrentDate ? styles.dayCurrent : ""}`}>
 									{getDate(day.date)}
-									{day.counter && <span className={styles.dayCounter}>{day.counter}</span>}
+									{day.counter && <span class={styles.dayCounter}>{day.counter}</span>}
 								</button>
 							</div>
 						)}

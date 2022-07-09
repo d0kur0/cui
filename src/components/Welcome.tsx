@@ -6,14 +6,14 @@ function Welcome() {
 	const { signIn } = userStore;
 
 	return (
-		<div className={styles.root}>
-			<div className={styles.body}>
-				<h1 className={styles.name}>CUI</h1>
-				<div className={styles.description}>
+		<div class={styles.root}>
+			<div class={styles.body}>
+				<h1 class={styles.name}>CUI</h1>
+				<div class={styles.description}>
 					Приложение для менеджента <br /> записей, клиентов и услуг.
 				</div>
 
-				<ul className={styles.features}>
+				<ul class={styles.features}>
 					<li>Progressive Web App</li>
 					<li>Статистики и отчеты</li>
 					<li>Работа оффлайн</li>
@@ -21,12 +21,12 @@ function Welcome() {
 				</ul>
 			</div>
 
-			<div className={styles.logoRoot}>
-				<img alt="welcome image" className={styles.logo} src={welcomeSvg} />
+			<div class={styles.logoRoot}>
+				<img alt="welcome image" class={styles.logo} src={welcomeSvg} />
 			</div>
 
-			<div className={styles.footer}>
-				<button onClick={signIn} className={styles.signIn}>
+			<div class={styles.footer}>
+				<button onClick={signIn} class={styles.signIn}>
 					Войти используя Google
 				</button>
 			</div>

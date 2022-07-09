@@ -19,35 +19,34 @@ function LinkExtended(props: LinkExtendedProps) {
 			classList={{
 				[styles.button]: true,
 				[styles.buttonActive]: location.pathname === props.to,
-			}}
-		>
-			<span className={styles.linkIcon}>{props.icon}</span>
-			<span className={styles.linkName}>{props.title}</span>
+			}}>
+			<span class={styles.linkIcon}>{props.icon}</span>
+			<span class={styles.linkName}>{props.title}</span>
 		</Link>
 	);
 }
 
 function NavBar() {
 	return (
-		<nav className={styles.root}>
-			<ul className={styles.list}>
-				<li className={styles.link}>
+		<nav class={styles.root}>
+			<ul class={styles.list}>
+				<li class={styles.link}>
 					<LinkExtended to="/" icon={<TiCalendar />} title="Записи" />
 				</li>
 
-				<li className={styles.link}>
+				<li class={styles.link}>
 					<LinkExtended to="/clients" icon={<TiBusinessCard />} title="Клиенты" />
 				</li>
 
-				<li className={styles.link}>
+				<li class={styles.link}>
 					<LinkExtended to="/services" icon={<TiBriefcase />} title="Услуги" />
 				</li>
 
-				<li className={styles.link}>
+				<li class={styles.link}>
 					<LinkExtended to="/stats" icon={<TiChartLine />} title="Статистика" />
 				</li>
 
-				<li className={styles.link}>
+				<li class={styles.link}>
 					<LinkExtended to="/me" icon={<TiEquals />} title="Аккаунт" />
 				</li>
 			</ul>

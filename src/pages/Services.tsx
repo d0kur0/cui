@@ -76,7 +76,7 @@ function Services() {
 			title={
 				<Title
 					rightChildren={
-						<Link className={titleStyles.navigateLink} href="/service/create">
+						<Link class={titleStyles.navigateLink} href="/service/create">
 							Добавить
 						</Link>
 					}

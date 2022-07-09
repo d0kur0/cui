@@ -5,5 +5,5 @@ type DividerProps = {
 };
 
 export default function Divider(props: DividerProps) {
-	return <div style={{ margin: props.margin }} className={styles.divider}></div>;
+	return <div style={{ margin: props.margin }} class={styles.divider}></div>;
 }

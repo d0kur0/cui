@@ -10,10 +10,10 @@ type TitleProps = {
 
 function Title({ leftChildren, rightChildren, title }: TitleProps) {
 	return (
-		<div className={styles.root}>
-			<div className={styles.optionalElements}>{leftChildren}</div>
-			<div className={styles.title}>{title}</div>
-			<div className={`${styles.optionalElements} ${styles.optionalElementsRight}`}>{rightChildren}</div>
+		<div class={styles.root}>
+			<div class={styles.optionalElements}>{leftChildren}</div>
+			<div class={styles.title}>{title}</div>
+			<div class={`${styles.optionalElements} ${styles.optionalElementsRight}`}>{rightChildren}</div>
 		</div>
 	);
 }

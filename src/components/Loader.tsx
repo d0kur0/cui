@@ -7,7 +7,7 @@ type LoaderProps = {
 
 function Loader({ width, height }: LoaderProps) {
 	return (
-		<svg style={{ width, height }} className={styles.spinner} viewBox="0 0 50 50">
+		<svg style={{ width, height }} class={styles.spinner} viewBox="0 0 50 50">
 			<circle cx="25" cy="25" r="20" fill="none" stroke-width="4" />
 		</svg>
 	);

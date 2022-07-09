@@ -48,18 +48,18 @@ function ModalPicker(props: ModalPickerProps) {
 	return (
 		<>
 			<Portal>
-				<div className={styles.overlay}></div>
+				<div class={styles.overlay}></div>
 			</Portal>
 
-			<div className={styles.picker}>
-				<div className={styles.container}>
-					<div className={styles.grid} style={gridStylesOverride}>
-						<div className={styles.searchBar}>
+			<div class={styles.picker}>
+				<div class={styles.container}>
+					<div class={styles.grid} style={gridStylesOverride}>
+						<div class={styles.searchBar}>
 							<SearchBar onInput={value => setSearchQuery(value)} invertColor={true} />
 						</div>
 
-						<div className={styles.content}>
-							<div className={styles.list}>
+						<div class={styles.content}>
+							<div class={styles.list}>
 								<List title={props.title || ""} margin="5px 0">
 									<For each={filteredElements()} fallback={<ListItem content="Список пуст" />}>
 										{({ id, name, avatar, description }) => (
@@ -69,7 +69,7 @@ function ModalPicker(props: ModalPickerProps) {
 												title={name}
 												rightButtons={
 													selectedIds().includes(id) ? (
-														<span className={styles.selectedBadge}>
+														<span class={styles.selectedBadge}>
 															<BsCheck size={24} />
 														</span>
 													) : (
@@ -84,7 +84,7 @@ function ModalPicker(props: ModalPickerProps) {
 							</div>
 						</div>
 						<Show when={props.multiple}>
-							<div className={styles.actions}>
+							<div class={styles.actions}>
 								<Button onClick={handleChoice} fullWidth={true}>
 									Выбрать, закрыть
 								</Button>

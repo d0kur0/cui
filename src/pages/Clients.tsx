@@ -65,7 +65,7 @@ function Clients() {
 			title={
 				<Title
 					rightChildren={
-						<Link className={titleStyles.navigateLink} href="/client/create">
+						<Link class={titleStyles.navigateLink} href="/client/create">
 							Добавить
 						</Link>
 					}

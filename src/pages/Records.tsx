@@ -12,9 +12,11 @@ import NavBar from "../components/NavBar";
 import Paper from "../components/Paper";
 import Title from "../components/Title";
 import titleStyles from "../components/Title.module.css";
+import { formatRelative } from "../helpers/date";
 import { clientsStore } from "../stores/clients";
 import { recordsStore } from "../stores/records";
 import { servicesStore } from "../stores/services";
+import record from "./Record";
 
 function Records() {
 	const { records } = recordsStore;
@@ -30,7 +32,8 @@ function Records() {
 				...record,
 				services: services.list.filter(s => record.serviceIds.includes(s.id)),
 				client: clients.list.find(c => c.id === record.clientId),
-			}));
+			}))
+			.sort((a, b) => a.date.seconds - b.date.seconds);
 	});
 
 	const dayPriceSum = createMemo(() =>
@@ -41,33 +44,38 @@ function Records() {
 		return (
 			<List margin="5px 0" title={`Потенциальный доход: ${dayPriceSum()} руб.`}>
 				<For each={currentDayRecords()} fallback={<ListItem content="Список пуст"></ListItem>}>
-					{({ id, client, services }) => (
+					{({ id, client, services, date }) => (
 						<ListItem
 							href={`/record/${id}`}
 							content={
-								<ListItemBetweenContent
-									rightAlign="flex-start"
-									leftContent={
-										<Card>
-											<CardHeader>
-												<CardAvatar>
-													<Avatar imageSrc={client?.avatar} name={client?.name} />
-												</CardAvatar>
-												<CardInfo>
-													<CardMainRow>{client?.name}</CardMainRow>
-													<CardSecondRow>
-														<BadgeGrid>
-															<For each={services}>{service => <Badge>{service.name}</Badge>}</For>
-														</BadgeGrid>
-													</CardSecondRow>
-												</CardInfo>
-											</CardHeader>
-										</Card>
-									}
-									rightContent={
-										<span style="padding: 10px 0;">{services.reduce((acc, s) => acc + +s.price, 0)}руб.</span>
-									}
-								/>
+								<>
+									<div style={{ "font-size": "0.89em" }}>{formatRelative(date.toDate())}</div>
+									<ListItemBetweenContent
+										rightAlign="flex-start"
+										leftContent={
+											<Card>
+												<CardHeader>
+													<CardAvatar>
+														<Avatar imageSrc={client?.avatar} name={client?.name} />
+													</CardAvatar>
+													<CardInfo>
+														<CardMainRow>{client?.name}</CardMainRow>
+														<CardSecondRow>
+															<BadgeGrid>
+																<For each={services}>{service => <Badge>{service.name}</Badge>}</For>
+															</BadgeGrid>
+														</CardSecondRow>
+													</CardInfo>
+												</CardHeader>
+											</Card>
+										}
+										rightContent={
+											<span style="padding: 10px 0;">
+												{services.reduce((acc, s) => acc + +s.price, 0)}руб.
+											</span>
+										}
+									/>
+								</>
 							}
 						/>
 					)}
@@ -81,7 +89,7 @@ function Records() {
 			title={
 				<Title
 					rightChildren={
-						<Link className={titleStyles.navigateLink} href="/record/create">
+						<Link class={titleStyles.navigateLink} href="/record/create">
 							Добавить
 						</Link>
 					}

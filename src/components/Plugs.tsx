@@ -8,7 +8,5 @@ type PlugTextProps = {
 export function PlugText(props: PlugTextProps) {
 	props.size || (props.size = 40);
 	props.height || (props.height = "0.9em");
-	return (
-		<span style={{ width: `${props.size}px`, height: props.height }} className={`${styles.text} plug`} />
-	);
+	return <span style={{ width: `${props.size}px`, height: props.height }} class={`${styles.text} plug`} />;
 }

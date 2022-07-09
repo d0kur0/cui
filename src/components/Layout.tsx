@@ -16,17 +16,17 @@ function Layout({ navBar, title, children }: LayoutProps) {
 	title || (inlineStyles["--title-height"] = "0px");
 
 	return (
-		<div className={styles.root} style={inlineStyles}>
+		<div class={styles.root} style={inlineStyles}>
 			<Show when={title}>
-				<div className={styles.title}>{title}</div>
+				<div class={styles.title}>{title}</div>
 			</Show>
 
-			<div className={styles.body}>
-				<div className={styles.bodyWrapper}>{children}</div>
+			<div class={styles.body}>
+				<div class={styles.bodyWrapper}>{children}</div>
 			</div>
 
 			<Show when={navBar}>
-				<div className={styles.navBar}>{navBar}</div>
+				<div class={styles.navBar}>{navBar}</div>
 			</Show>
 		</div>
 	);

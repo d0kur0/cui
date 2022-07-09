@@ -20,7 +20,7 @@ function Name({ name }: NameProps) {
 			? `${nameSegments[0].charAt(0)}${nameSegments[1].charAt(0)}`
 			: name.substring(0, 2);
 
-	return <div className={styles.initials}>{initials}</div>;
+	return <div class={styles.initials}>{initials}</div>;
 }
 
 type ImageProps = {
@@ -44,7 +44,7 @@ function Image({ imageSrc, name, onLoad, onError }: ImageProps) {
 					alt="user avatar image"
 					onLoad={onLoad}
 					onError={() => (setError(true), onError())}
-					className={styles.image}
+					class={styles.image}
 				/>
 			</Match>
 		</Switch>
@@ -56,26 +56,26 @@ export function Avatar(props: AvatarProps) {
 
 	props.size = props.size || "default";
 
-	const initialClassNames = [styles.avatar];
+	const initialclasss = [styles.avatar];
 
-	props.size === "small" && initialClassNames.push(styles.sizeSmall);
-	props.size === "large" && initialClassNames.push(styles.sizeLarge);
-	props.size === "default" && initialClassNames.push(styles.sizeDefault);
+	props.size === "small" && initialclasss.push(styles.sizeSmall);
+	props.size === "large" && initialclasss.push(styles.sizeLarge);
+	props.size === "default" && initialclasss.push(styles.sizeDefault);
 
-	(props.isPlug || isLoading()) && initialClassNames.push("plug");
+	(props.isPlug || isLoading()) && initialclasss.push("plug");
 
-	const [classNames, setClassNames] = createSignal(initialClassNames);
+	const [classs, setclasss] = createSignal(initialclasss);
 
 	const name = props.name || "";
 	const imageSrc = props.imageSrc || "";
 
 	const onImageLoaded = () => {
 		setIsLoading(false);
-		setClassNames(c => c.filter(c => c !== "plug"));
+		setclasss(c => c.filter(c => c !== "plug"));
 	};
 
 	return (
-		<div style={{ margin: props.margin }} className={classNames().join(" ")}>
+		<div style={{ margin: props.margin }} class={classs().join(" ")}>
 			<Switch>
 				<Match when={props.children}>{props.children}</Match>
 				<Match when={props.imageSrc}>

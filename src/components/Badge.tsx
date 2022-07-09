@@ -9,7 +9,7 @@ type BadgeGridProps = {
 
 export function BadgeGrid({ gap, children }: BadgeGridProps) {
 	return (
-		<div style={{ gap: gap || "5px" }} className={styles.badgeGrid}>
+		<div style={{ gap: gap || "5px" }} class={styles.badgeGrid}>
 			{children}
 		</div>
 	);
@@ -20,5 +20,5 @@ type BadgeProps = {
 };
 
 export function Badge({ children }: BadgeProps) {
-	return <span className={styles.badge}>{children}</span>;
+	return <span class={styles.badge}>{children}</span>;
 }

@@ -7,10 +7,10 @@ export function Notifications() {
 	const { notifications, discardNotification } = notificationsStore;
 
 	return (
-		<div className={styles.notifications}>
+		<div class={styles.notifications}>
 			{notifications.list.map((notification, id) => (
 				<div
-					className={`${styles.notification} ${
+					class={`${styles.notification} ${
 						{
 							error: styles.notificationError,
 							success: styles.notificationSuccess,
@@ -18,7 +18,7 @@ export function Notifications() {
 						}[notification.type]
 					}`}>
 					{notification.message}
-					<button onClick={() => discardNotification(id)} className={styles.closeButton}>
+					<button onClick={() => discardNotification(id)} class={styles.closeButton}>
 						<IoClose size={24} />
 					</button>
 				</div>

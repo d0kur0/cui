@@ -14,28 +14,28 @@ type ListItemProps = {
 
 export function ListItem(props: ListItemProps) {
 	return (
-		<div className={styles.item}>
+		<div class={styles.item}>
 			<Show when={props.href}>
-				<Link className={styles.itemLink} href={props.href || ""} />
+				<Link class={styles.itemLink} href={props.href || ""} />
 			</Show>
 
 			<Show when={props.onClick}>
-				<button type="button" className={styles.itemLink} onClick={props.onClick} />
+				<button type="button" class={styles.itemLink} onClick={props.onClick} />
 			</Show>
 
 			<Show when={props.avatar}>
-				<div className={styles.itemAvatar}>{props.avatar}</div>
+				<div class={styles.itemAvatar}>{props.avatar}</div>
 			</Show>
 
-			<div className={styles.itemContentWrapper}>
+			<div class={styles.itemContentWrapper}>
 				<Show when={props.title}>
-					<div className={styles.itemTitle}>{props.title}</div>
+					<div class={styles.itemTitle}>{props.title}</div>
 				</Show>
-				<div className={styles.itemContent}>{props.content}</div>
+				<div class={styles.itemContent}>{props.content}</div>
 			</div>
 
 			<Show when={props.rightButtons}>
-				<div className={styles.rightButtons}>{props.rightButtons}</div>
+				<div class={styles.rightButtons}>{props.rightButtons}</div>
 			</Show>
 		</div>
 	);
@@ -52,9 +52,9 @@ type ListItemBetweenContentProps = {
 
 export function ListItemBetweenContent({ leftContent, rightContent, ...props }: ListItemBetweenContentProps) {
 	return (
-		<div className={styles.itemBetweenContent} style={{ "--align-self": props.rightAlign || "auto" }}>
-			<div className={styles.itemBetweenContentLeft}>{leftContent}</div>
-			<div className={styles.itemBetweenContentRight}>{rightContent}</div>
+		<div class={styles.itemBetweenContent} style={{ "--align-self": props.rightAlign || "auto" }}>
+			<div class={styles.itemBetweenContentLeft}>{leftContent}</div>
+			<div class={styles.itemBetweenContentRight}>{rightContent}</div>
 		</div>
 	);
 }
@@ -67,9 +67,9 @@ type ListProps = {
 
 export function List(props: ListProps) {
 	return (
-		<div className={styles.root} style={{ margin: props.margin || "" }}>
+		<div class={styles.root} style={{ margin: props.margin || "" }}>
 			<Show when={props.title}>
-				<div className={styles.listTitle}>{props.title}</div>
+				<div class={styles.listTitle}>{props.title}</div>
 			</Show>
 			{props.children}
 		</div>

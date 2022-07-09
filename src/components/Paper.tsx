@@ -19,9 +19,9 @@ export default function Paper(props: PaperProps) {
 	props.margin && (contentStyles["margin"] = props.margin);
 
 	return (
-		<div className={styles.paper} style={rootStyles}>
-			{props.fixedContent && <div className={styles.fixedContent}>{props.fixedContent}</div>}
-			<div style={contentStyles} className={styles.content}>
+		<div class={styles.paper} style={rootStyles}>
+			{props.fixedContent && <div class={styles.fixedContent}>{props.fixedContent}</div>}
+			<div style={contentStyles} class={styles.content}>
 				{props.children}
 			</div>
 		</div>

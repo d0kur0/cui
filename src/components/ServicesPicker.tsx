@@ -41,7 +41,7 @@ function ServicesPicker(props: ServicePickerProps) {
 	const selectedIds = createMemo(() => selectedServices()?.map(({ id }) => id));
 
 	return (
-		<div className={styles.wrapper}>
+		<div class={styles.wrapper}>
 			<Show when={isOpen()}>
 				<ModalPicker
 					title="Выберите услуги"
@@ -53,19 +53,19 @@ function ServicesPicker(props: ServicePickerProps) {
 				/>
 			</Show>
 
-			<button type="button" onClick={handleOpenModal} className={styles.choiceButton}>
+			<button type="button" onClick={handleOpenModal} class={styles.choiceButton}>
 				<Show when={!selectedServices()?.length}>Выберите услуги</Show>
 				<Show when={selectedServices()?.length}>Изменить выбор</Show>
 			</button>
 
 			<Show when={selectedServices()?.length}>
-				<div className={styles.servicesList}>
+				<div class={styles.servicesList}>
 					<For each={selectedServices()}>
 						{service => (
-							<span className={styles.serviceBadge}>
+							<span class={styles.serviceBadge}>
 								{service.name}
 								<button
-									className={styles.serviceBadgeButton}
+									class={styles.serviceBadgeButton}
 									onClick={() => handleRemove(service.id)}
 									type="button">
 									<RiSystemCloseFill size={18} />

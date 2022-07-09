@@ -31,7 +31,7 @@ function ClientPicker(props: ClientPickerProps) {
 	};
 
 	return (
-		<div className={styles.wrapper}>
+		<div class={styles.wrapper}>
 			<Show when={isOpen()}>
 				<ModalPicker
 					title="Выберите клиента"
@@ -42,13 +42,13 @@ function ClientPicker(props: ClientPickerProps) {
 			</Show>
 
 			<Show when={!selectedClient()}>
-				<button type="button" onClick={handleOpenModal} className={styles.choiceButton}>
+				<button type="button" onClick={handleOpenModal} class={styles.choiceButton}>
 					Выберите клиента
 				</button>
 			</Show>
 
 			<Show when={selectedClient()}>
-				<div className={styles.input}>
+				<div class={styles.input}>
 					<Card>
 						<CardHeader>
 							<CardAvatar>
@@ -57,7 +57,7 @@ function ClientPicker(props: ClientPickerProps) {
 							<CardInfo>
 								<CardMainRow>{selectedClient()?.name}</CardMainRow>
 								<CardSecondRow>
-									<button onClick={handleOpenModal} className={styles.choiceAnotherButton} type="button">
+									<button onClick={handleOpenModal} class={styles.choiceAnotherButton} type="button">
 										Выбрать другого
 									</button>
 								</CardSecondRow>

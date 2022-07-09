@@ -22,20 +22,20 @@ export function Card({ children }: CardProps) {
 }
 
 export function CardInfo({ children }: CardInfoProps) {
-	return <div className={styles.cardInfo}>{children}</div>;
+	return <div class={styles.cardInfo}>{children}</div>;
 }
 
 export function CardHeader({ children }: CardHeaderProps) {
-	return <div className={styles.card}>{children}</div>;
+	return <div class={styles.card}>{children}</div>;
 }
 
 export function CardList({ children }: CardListProps) {
-	return <div className={styles.statistic}>{children}</div>;
+	return <div class={styles.statistic}>{children}</div>;
 }
 
 export function CardListItem({ name, value }: CardListItemProps) {
 	return (
-		<div className={styles.statisticItem}>
+		<div class={styles.statisticItem}>
 			<div>{name}</div>
 			<div>{value}</div>
 		</div>
@@ -43,13 +43,13 @@ export function CardListItem({ name, value }: CardListItemProps) {
 }
 
 export function CardAvatar({ children }: CardAvatarProps) {
-	return <div className={styles.cardAvatar}>{children}</div>;
+	return <div class={styles.cardAvatar}>{children}</div>;
 }
 
 export function CardMainRow({ children }: CardMainRow) {
-	return <div className={styles.cardInfoName}>{children}</div>;
+	return <div class={styles.cardInfoName}>{children}</div>;
 }
 
 export function CardSecondRow({ children }: CardSecondRow) {
-	return <div className={styles.cardInfoDescription}>{children}</div>;
+	return <div class={styles.cardInfoDescription}>{children}</div>;
 }

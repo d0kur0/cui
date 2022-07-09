@@ -8,13 +8,13 @@ import styles from "./SplashScreen.module.css";
 
 function SplashScreenBody() {
 	return (
-		<div className={styles.root}>
-			<div className={styles.body}>
-				<div className={styles.logo}>
+		<div class={styles.root}>
+			<div class={styles.body}>
+				<div class={styles.logo}>
 					<Loader />
 				</div>
 
-				<h3 className={styles.name}>CUI</h3>
+				<h3 class={styles.name}>CUI</h3>
 			</div>
 		</div>
 	);
