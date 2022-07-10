@@ -49,7 +49,6 @@ function Records() {
 							href={`/record/${id}`}
 							content={
 								<>
-									<div style={{ "font-size": "0.89em" }}>{formatRelative(date.toDate())}</div>
 									<ListItemBetweenContent
 										rightAlign="flex-start"
 										leftContent={
@@ -57,6 +56,10 @@ function Records() {
 												<CardHeader>
 													<CardAvatar>
 														<Avatar imageSrc={client?.avatar} name={client?.name} />
+														<div
+															style={{ "font-size": "0.76em", "text-align": "center", "margin-top": "10px" }}>
+															{format(date.toDate() || new Date(), "HH:mm")}
+														</div>
 													</CardAvatar>
 													<CardInfo>
 														<CardMainRow>{client?.name}</CardMainRow>
