@@ -27,7 +27,7 @@ export function TextInput(props: TextInputProps) {
 				name={props.name}
 				required={props.required}
 				placeholder={props.placeholder}
-				value={props.value}
+				value={props.value || ""}
 				type={props.type}
 				class={styles.textInput}
 			/>
@@ -48,7 +48,6 @@ export function FileInput(props: FileInputProps) {
 				name={props.name}
 				required={props.required}
 				placeholder={props.placeholder}
-				value={props.value}
 				type="file"
 				class={styles.textInput}
 			/>

@@ -1,4 +1,5 @@
 import { BsCheck } from "solid-icons/bs";
+import { VscClose } from "solid-icons/vsc";
 import { For, Show, createMemo, createSignal } from "solid-js";
 import { JSX } from "solid-js/jsx-runtime";
 import { DeepReadonly } from "solid-js/store";
@@ -42,6 +43,11 @@ function ModalPicker(props: ModalPickerProps) {
 		props.onChoice?.(selectedIds());
 	};
 
+	const handleClose = () => {
+		setSelectedIds([]);
+		props.onChoice?.([]);
+	};
+
 	let gridStylesOverride: JSX.CSSProperties = {};
 	props.multiple || (gridStylesOverride["--actionsHeight"] = "0px");
 
@@ -54,13 +60,20 @@ function ModalPicker(props: ModalPickerProps) {
 			<div class={styles.picker}>
 				<div class={styles.container}>
 					<div class={styles.grid} style={gridStylesOverride}>
+						<div class={styles.titleBar}>
+							{props.title || "Выбер элемента"}
+							<button onClick={handleClose} class={styles.titleBarCloseButton} type="button">
+								<VscClose />
+							</button>
+						</div>
+
 						<div class={styles.searchBar}>
 							<SearchBar onInput={value => setSearchQuery(value)} invertColor={true} />
 						</div>
 
 						<div class={styles.content}>
 							<div class={styles.list}>
-								<List title={props.title || ""} margin="5px 0">
+								<List margin="5px 0">
 									<For each={filteredElements()} fallback={<ListItem content="Список пуст" />}>
 										{({ id, name, avatar, description }) => (
 											<ListItem
