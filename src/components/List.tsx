@@ -69,7 +69,7 @@ export function List(props: ListProps) {
 	return (
 		<div class={styles.root} style={{ margin: props.margin || "" }}>
 			<Show when={props.title}>
-				<div class={styles.listTitle}>{props.title}</div>
+				<div class={styles.title}>{props.title}</div>
 			</Show>
 			{props.children}
 		</div>

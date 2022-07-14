@@ -25,10 +25,10 @@ function ServicesListPlug() {
 							<ListItemBetweenContent
 								leftContent={
 									<>
-										<HiSolidHashtag /> <PlugText size={200} />
+										<HiSolidHashtag /> <PlugText width={200} />
 									</>
 								}
-								rightContent={<PlugText size={30} />}
+								rightContent={<PlugText width={30} />}
 							/>
 						}
 					/>

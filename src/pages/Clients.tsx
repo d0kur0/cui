@@ -21,8 +21,8 @@ function ClientListPlug() {
 				{_ => (
 					<ListItem
 						avatar={<Avatar isPlug={true} />}
-						title={<PlugText size={80} height={"0.7em"} />}
-						content={<PlugText size={160} />}
+						title={<PlugText width={80} height={"0.7em"} />}
+						content={<PlugText width={160} />}
 					/>
 				)}
 			</For>

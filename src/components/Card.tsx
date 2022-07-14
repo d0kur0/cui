@@ -51,5 +51,5 @@ export function CardMainRow({ children }: CardMainRow) {
 }
 
 export function CardSecondRow({ children }: CardSecondRow) {
-	return <div class={styles.cardInfoDescription}>{children}</div>;
+	return <div class={styles.cardDescription}>{children}</div>;
 }

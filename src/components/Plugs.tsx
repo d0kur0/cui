@@ -1,12 +1,12 @@
 import styles from "./Plugs.module.css";
 
 type PlugTextProps = {
-	size?: number;
+	width?: number;
 	height?: string;
 };
 
-export function PlugText(props: PlugTextProps) {
-	props.size || (props.size = 40);
-	props.height || (props.height = "0.9em");
-	return <span style={{ width: `${props.size}px`, height: props.height }} class={`${styles.text} plug`} />;
+export function PlugText({ width, height }: PlugTextProps) {
+	width = width || 40;
+	height = height || "0.9em";
+	return <span style={{ width: `${width}px`, height }} classList={{ [styles.text]: true, plug: true }} />;
 }

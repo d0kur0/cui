@@ -2,7 +2,6 @@ import { BsCheck } from "solid-icons/bs";
 import { VscClose } from "solid-icons/vsc";
 import { For, Show, createMemo, createSignal } from "solid-js";
 import { JSX } from "solid-js/jsx-runtime";
-import { DeepReadonly } from "solid-js/store";
 import { Portal } from "solid-js/web";
 
 import { Avatar } from "./Avatar";
@@ -13,7 +12,7 @@ import SearchBar from "./SearchBar";
 
 type ModalPickerProps = {
 	title: string;
-	elements: DeepReadonly<{ id: string; name: string; avatar: string; description: string }[]>;
+	elements: { id: string; name: string; avatar: string; description: string }[];
 	multiple: boolean;
 	onChoice?: (ids: string[]) => void;
 	hideAvatars?: boolean;
@@ -62,7 +61,7 @@ function ModalPicker(props: ModalPickerProps) {
 					<div class={styles.grid} style={gridStylesOverride}>
 						<div class={styles.titleBar}>
 							{props.title || "Выбер элемента"}
-							<button onClick={handleClose} class={styles.titleBarCloseButton} type="button">
+							<button onClick={handleClose} class={styles.closeButton} type="button">
 								<VscClose />
 							</button>
 						</div>

@@ -1,6 +1,6 @@
 import { addMonths, getDate, startOfMonth, subMonths } from "date-fns";
 import { TiChevronLeft, TiChevronRight } from "solid-icons/ti";
-import { For, createMemo } from "solid-js";
+import { For, Show, createMemo } from "solid-js";
 
 import { format } from "../helpers/date";
 import useMonthDays from "../hooks/useMonthDays";
@@ -47,9 +47,11 @@ function Calendar() {
 								<button
 									onClick={() => setCurrentDate(day.date)}
 									disabled={!day.isActive}
-									class={`${styles.dayButton} ${day.isCurrentDate ? styles.dayCurrent : ""}`}>
+									classList={{ [styles.dayButton]: true, [styles.dayCurrent]: day.isCurrentDate }}>
 									{getDate(day.date)}
-									{day.counter && <span class={styles.dayCounter}>{day.counter}</span>}
+									<Show when={day.counter}>
+										<span class={styles.dayCounter}>{day.counter}</span>
+									</Show>
 								</button>
 							</div>
 						)}

@@ -3,11 +3,11 @@ import { JSX } from "solid-js/jsx-runtime";
 import styles from "./Paper.module.css";
 
 type PaperProps = {
-	fixedContent?: JSX.Element;
+	margin?: string;
+	padding?: string;
 	children: JSX.Element;
 	autoHeight?: boolean;
-	padding?: string;
-	margin?: string;
+	fixedContent?: JSX.Element;
 };
 
 export default function Paper(props: PaperProps) {

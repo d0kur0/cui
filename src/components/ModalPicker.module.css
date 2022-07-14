@@ -59,7 +59,7 @@
 	position: relative;
 }
 
-.titleBarCloseButton {
+.closeButton {
 	position: absolute;
 	right: 10px;
 	top: 50%;

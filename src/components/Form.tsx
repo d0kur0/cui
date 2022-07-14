@@ -1,5 +1,5 @@
 import { CgSpinner } from "solid-icons/cg";
-import { JSXElement } from "solid-js";
+import { JSXElement, Match, Switch } from "solid-js";
 import { JSX } from "solid-js/jsx-runtime";
 
 import styles from "./Form.module.css";
@@ -17,19 +17,19 @@ type TextInputProps = BaseInputProps & {
 	type?: "text" | "password" | "number" | "datetime-local";
 };
 
-export function TextInput(props: TextInputProps) {
-	props.type || (props.type = "text");
+export function TextInput({ label, type, name, value, required, placeholder }: TextInputProps) {
+	type = type || "text";
 
 	return (
 		<label class={styles.textInputWrapper}>
-			<span class={styles.textInputLabel}>{props.label}</span>
+			<span class={styles.textInputLabel}>{label}</span>
 			<input
-				name={props.name}
-				required={props.required}
-				placeholder={props.placeholder}
-				value={props.value || ""}
-				type={props.type}
+				type={type}
+				name={name}
+				value={value || ""}
 				class={styles.textInput}
+				required={required}
+				placeholder={placeholder}
 			/>
 		</label>
 	);
@@ -39,36 +39,41 @@ type FileInputProps = BaseInputProps & {
 	accept?: string;
 };
 
-export function FileInput(props: FileInputProps) {
+export function FileInput({ label, accept, name, required, placeholder }: FileInputProps) {
 	return (
 		<label class={styles.textInputWrapper}>
-			<span class={styles.textInputLabel}>{props.label}</span>
+			<span class={styles.textInputLabel}>{label}</span>
 			<input
-				accept={props.accept}
-				name={props.name}
-				required={props.required}
-				placeholder={props.placeholder}
 				type="file"
+				name={name}
 				class={styles.textInput}
+				accept={accept}
+				required={required}
+				placeholder={placeholder}
 			/>
 		</label>
 	);
 }
 
-type FormProps = {
-	children: JSX.Element;
-	onSubmit?: (
-		event: Event & { submitter: HTMLElement } & {
-			currentTarget: HTMLFormElement;
-			target: Element;
-		}
-	) => void;
+type submitEvent = Event & { submitter: HTMLElement } & {
+	currentTarget: HTMLFormElement;
+	target: Element;
 };
 
-export function Form(props: FormProps) {
+type FormProps = {
+	children: JSX.Element;
+	onSubmit?: (event: submitEvent) => void;
+};
+
+export function Form({ onSubmit, children }: FormProps) {
+	const handleSubmit = (event: submitEvent) => {
+		event.preventDefault();
+		onSubmit?.(event);
+	};
+
 	return (
-		<form onSubmit={event => (event.preventDefault(), props.onSubmit?.(event))} class={styles.form}>
-			{props.children}
+		<form onSubmit={handleSubmit} class={styles.form}>
+			{children}
 		</form>
 	);
 }
@@ -84,20 +89,33 @@ type ButtonProps = {
 	nativeType?: "button" | "submit";
 };
 
-export function Button(props: ButtonProps) {
-	const classes = [styles.button];
-
-	props.type === "danger" && classes.push(styles.buttonDanger);
-	props.fullWidth && classes.push(styles.buttonFullwidth);
-
+export function Button({
+	type,
+	width,
+	margin,
+	onClick,
+	children,
+	fullWidth,
+	isLoading,
+	nativeType,
+}: ButtonProps) {
 	return (
 		<button
-			type={props.nativeType || "button"}
-			onClick={() => props.onClick?.()}
-			disabled={props.isLoading}
-			style={{ margin: props.margin, width: props.width }}
-			class={classes.join(" ")}>
-			{props.isLoading ? <CgSpinner size={22} class="rotate" /> : props.children}
+			type={nativeType || "button"}
+			onClick={() => onClick?.()}
+			disabled={isLoading}
+			style={{ margin, width }}
+			classList={{
+				[styles.button]: true,
+				[styles.buttonDanger]: type === "danger",
+				[styles.buttonFullWidth]: fullWidth,
+			}}>
+			<Switch>
+				<Match when={!isLoading}>{children}</Match>
+				<Match when={isLoading}>
+					<CgSpinner size={22} class="rotate" />
+				</Match>
+			</Switch>
 		</button>
 	);
 }

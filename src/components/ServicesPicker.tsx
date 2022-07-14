@@ -10,15 +10,15 @@ type ServicePickerProps = {
 	defaultServiceIds?: string[];
 };
 
-function ServicesPicker(props: ServicePickerProps) {
+function ServicesPicker({ defaultServiceIds }: ServicePickerProps) {
 	const { services } = servicesStore;
 
 	const [isOpen, setIsOpen] = createSignal(false);
 	const [selectedServices, setSelectedServices] = createSignal<undefined | Service[]>();
 
-	createEffect(() =>
-		setSelectedServices(services.list.filter(service => props.defaultServiceIds?.includes(service.id)))
-	);
+	createEffect(() => {
+		setSelectedServices(services.list.filter(service => defaultServiceIds?.includes(service.id)));
+	});
 
 	const handleOpenModal = () => {
 		setIsOpen(true);

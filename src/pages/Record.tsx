@@ -42,14 +42,14 @@ function RecordPlug() {
 							<PlugText />
 						</CardMainRow>
 						<CardSecondRow>
-							<PlugText size={100} />
+							<PlugText width={100} />
 						</CardSecondRow>
 					</CardInfo>
 				</CardHeader>
 				<Divider margin="5px 0" />
 				<CardList>
-					<CardListItem name={<PlugText size={160} />} value={<PlugText size={50} />} />
-					<CardListItem name={<PlugText size={160} />} value={<PlugText size={50} />} />
+					<CardListItem name={<PlugText width={160} />} value={<PlugText width={50} />} />
+					<CardListItem name={<PlugText width={160} />} value={<PlugText width={50} />} />
 				</CardList>
 			</Card>
 		</div>

@@ -3,13 +3,13 @@ import { JSX } from "solid-js/jsx-runtime";
 import styles from "./Badge.module.css";
 
 type BadgeGridProps = {
-	children: JSX.Element | string;
 	gap?: string;
+	children: JSX.Element | string;
 };
 
 export function BadgeGrid({ gap, children }: BadgeGridProps) {
 	return (
-		<div style={{ gap: gap || "5px" }} class={styles.badgeGrid}>
+		<div style={{ gap: gap || "5px" }} class={styles.grid}>
 			{children}
 		</div>
 	);

@@ -2,22 +2,3 @@
 	--size: 2px;
 	border-top: var(--size) dashed var(--separator-color);
 }
-
-.dividerTime {
-	font-size: 0.79em;
-	text-align: center;
-	position: relative;
-	background-color: #fff;
-	z-index: 5;
-}
-
-.dividerTime::after {
-	content: "";
-	position: absolute;
-	width: 100%;
-	height: 2px;
-	top: 5px;
-	z-index: -1;
-	left: 0;
-	background-color: red;
-}

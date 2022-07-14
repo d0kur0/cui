@@ -13,7 +13,6 @@ function SplashScreenBody() {
 				<div class={styles.logo}>
 					<Loader />
 				</div>
-
 				<h3 class={styles.name}>CUI</h3>
 			</div>
 		</div>

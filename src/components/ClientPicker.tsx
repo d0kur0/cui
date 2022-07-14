@@ -11,13 +11,15 @@ type ClientPickerProps = {
 	defaultClientId?: string;
 };
 
-function ClientPicker(props: ClientPickerProps) {
+function ClientPicker({ defaultClientId }: ClientPickerProps) {
 	const { clients } = clientsStore;
 
 	const [isOpen, setIsOpen] = createSignal(false);
 	const [selectedClient, setSelectedClient] = createSignal<undefined | Client>();
 
-	createEffect(() => setSelectedClient(clients.list.find(({ id }) => id === props.defaultClientId)));
+	createEffect(() => {
+		setSelectedClient(clients.list.find(({ id }) => id === defaultClientId));
+	});
 
 	const handleOpenModal = () => {
 		setIsOpen(true);

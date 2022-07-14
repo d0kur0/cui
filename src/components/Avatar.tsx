@@ -14,24 +14,30 @@ type AvatarProps = {
 type NameProps = { name: string };
 
 function Name({ name }: NameProps) {
-	const nameSegments = name.split(" ");
-	const initials =
-		nameSegments.length > 1
-			? `${nameSegments[0].charAt(0)}${nameSegments[1].charAt(0)}`
-			: name.substring(0, 2);
+	const initials = name
+		.split(" ")
+		.slice(0, 2)
+		.map(([symbol]) => symbol)
+		.join("")
+		.padEnd(2, name[1] || "");
 
 	return <div class={styles.initials}>{initials}</div>;
 }
 
 type ImageProps = {
+	src: string;
 	name: string;
 	onLoad: () => void;
 	onError: () => void;
-	imageSrc: string;
 };
 
-function Image({ imageSrc, name, onLoad, onError }: ImageProps) {
+function Image({ src, name, onLoad, onError }: ImageProps) {
 	const [error, setError] = createSignal(false);
+
+	const handleError = () => {
+		setError(true);
+		onError();
+	};
 
 	return (
 		<Switch>
@@ -40,48 +46,42 @@ function Image({ imageSrc, name, onLoad, onError }: ImageProps) {
 			</Match>
 			<Match when={!error()}>
 				<img
-					src={imageSrc}
+					src={src}
 					alt="user avatar image"
+					class={styles.avatarImage}
 					onLoad={onLoad}
-					onError={() => (setError(true), onError())}
-					class={styles.image}
+					onError={handleError}
 				/>
 			</Match>
 		</Switch>
 	);
 }
 
-export function Avatar(props: AvatarProps) {
-	const [isLoading, setIsLoading] = createSignal(props.imageSrc || false);
-
-	props.size = props.size || "default";
-
-	const initialclasss = [styles.avatar];
-
-	props.size === "small" && initialclasss.push(styles.sizeSmall);
-	props.size === "large" && initialclasss.push(styles.sizeLarge);
-	props.size === "default" && initialclasss.push(styles.sizeDefault);
-
-	(props.isPlug || isLoading()) && initialclasss.push("plug");
-
-	const [classs, setclasss] = createSignal(initialclasss);
-
-	const name = props.name || "";
-	const imageSrc = props.imageSrc || "";
+export function Avatar({ size, name, imageSrc, margin, isPlug, children }: AvatarProps) {
+	const [isLoading, setIsLoading] = createSignal(Boolean(imageSrc) || false);
 
 	const onImageLoaded = () => {
 		setIsLoading(false);
-		setclasss(c => c.filter(c => c !== "plug"));
 	};
 
+	name = name || "";
+	imageSrc = imageSrc || "";
+
 	return (
-		<div style={{ margin: props.margin }} class={classs().join(" ")}>
+		<div
+			style={{ margin }}
+			classList={{
+				plug: Boolean(isPlug || isLoading()),
+				[styles.small]: size === "small",
+				[styles.large]: size === "large",
+				[styles.avatar]: true,
+			}}>
 			<Switch>
-				<Match when={props.children}>{props.children}</Match>
-				<Match when={props.imageSrc}>
-					<Image onError={onImageLoaded} onLoad={onImageLoaded} name={name} imageSrc={imageSrc} />
+				<Match when={children}>{children}</Match>
+				<Match when={imageSrc}>
+					<Image onError={onImageLoaded} onLoad={onImageLoaded} name={name} src={imageSrc} />
 				</Match>
-				<Match when={!props.imageSrc}>
+				<Match when={!imageSrc}>
 					<Name name={name} />
 				</Match>
 			</Switch>

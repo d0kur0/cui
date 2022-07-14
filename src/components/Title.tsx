@@ -13,7 +13,9 @@ function Title({ leftChildren, rightChildren, title }: TitleProps) {
 		<div class={styles.root}>
 			<div class={styles.optionalElements}>{leftChildren}</div>
 			<div class={styles.title}>{title}</div>
-			<div class={`${styles.optionalElements} ${styles.optionalElementsRight}`}>{rightChildren}</div>
+			<div classList={{ [styles.optionalElements]: true, [styles.optionalElementsRight]: true }}>
+				{rightChildren}
+			</div>
 		</div>
 	);
 }
