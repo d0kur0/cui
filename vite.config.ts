@@ -13,7 +13,7 @@ export default defineConfig({
 			},
 			includeAssets: ["fonts/**/**", "logo512.png", "logo192.png", "favicon.png"],
 			manifest: {
-				name: "CUI12",
+				name: "CUI",
 				short_name: "CUI",
 				description: "Records manager",
 				theme_color: "#ffedfb",
