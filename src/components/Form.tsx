@@ -2,7 +2,7 @@ import { CgSpinner } from "solid-icons/cg";
 import { JSXElement, Match, Switch } from "solid-js";
 import { JSX } from "solid-js/jsx-runtime";
 
-import styles from "./Form.module.css";
+import styles from "./modules/Form.module.css";
 
 type BaseInputProps = {
 	name?: string;

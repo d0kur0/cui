@@ -1,7 +1,7 @@
 import { Show } from "solid-js";
 import { JSX } from "solid-js/jsx-runtime";
 
-import styles from "./Layout.module.css";
+import styles from "./modules/Layout.module.css";
 
 type LayoutProps = {
 	title?: JSX.Element;
@@ -9,7 +9,7 @@ type LayoutProps = {
 	children?: JSX.Element;
 };
 
-function Layout({ navBar, title, children }: LayoutProps) {
+export function Layout({ navBar, title, children }: LayoutProps) {
 	const inlineStyles: JSX.CSSProperties = {};
 
 	navBar || (inlineStyles["--navBar-height"] = "0px");
@@ -31,5 +31,3 @@ function Layout({ navBar, title, children }: LayoutProps) {
 		</div>
 	);
 }
-
-export default Layout;

@@ -2,9 +2,9 @@ import { Match, Switch } from "solid-js";
 import { Transition } from "solid-transition-group";
 
 import { transitionOnEnter, transitionOnExit } from "../helpers/transition";
-import { userStore } from "../stores/user";
-import Loader from "./Loader";
-import styles from "./SplashScreen.module.css";
+import { useStore } from "../stores";
+import { Loader } from "./Loader";
+import styles from "./modules/SplashScreen.module.css";
 
 function SplashScreenBody() {
 	return (
@@ -19,8 +19,8 @@ function SplashScreenBody() {
 	);
 }
 
-function SplashScreen() {
-	const { user } = userStore;
+export function SplashScreen() {
+	const { user } = useStore("user");
 
 	return (
 		<Transition mode="outin" onEnter={transitionOnEnter(1000)} onExit={transitionOnExit(1000)}>
@@ -35,5 +35,3 @@ function SplashScreen() {
 		</Transition>
 	);
 }
-
-export default SplashScreen;

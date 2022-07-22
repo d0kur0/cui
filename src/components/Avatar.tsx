@@ -1,6 +1,6 @@
 import { JSXElement, Match, Switch, createSignal } from "solid-js";
 
-import styles from "./Avatar.module.css";
+import styles from "./modules/Avatar.module.css";
 
 type AvatarProps = {
 	name?: string;

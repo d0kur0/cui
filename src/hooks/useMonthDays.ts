@@ -2,7 +2,7 @@ import { add, eachDayOfInterval, endOfMonth, getDay, isEqual, startOfMonth, sub 
 
 import { Record } from "../storage/record";
 
-function useMonthDays(recordsDate: Date, records: Record[]) {
+export function useMonthDays(recordsDate: Date, records: Record[]) {
 	let allDaysInMonth: Date[] = [];
 
 	try {
@@ -60,5 +60,3 @@ function useMonthDays(recordsDate: Date, records: Record[]) {
 	const fillDayObject = (date: Date) => ({ date, isActive: false, counter: 0, isCurrentDate: false });
 	return [...firstOffsetDays.map(fillDayObject), ...monthDays, ...lastOffsetDays.map(fillDayObject)];
 }
-
-export default useMonthDays;

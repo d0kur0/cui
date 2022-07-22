@@ -2,7 +2,7 @@ import { Link, useLocation } from "solid-app-router";
 import { TiBriefcase, TiBusinessCard, TiCalendar, TiChartLine, TiEquals } from "solid-icons/ti";
 import { JSX } from "solid-js/jsx-runtime";
 
-import styles from "./NavBar.module.css";
+import styles from "./modules/NavBar.module.css";
 
 type LinkExtendedProps = {
 	to: string;
@@ -26,7 +26,7 @@ function LinkExtended(props: LinkExtendedProps) {
 	);
 }
 
-function NavBar() {
+export function NavBar() {
 	return (
 		<nav class={styles.root}>
 			<ul class={styles.list}>
@@ -53,5 +53,3 @@ function NavBar() {
 		</nav>
 	);
 }
-
-export default NavBar;

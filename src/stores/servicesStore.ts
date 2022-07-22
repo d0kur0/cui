@@ -1,10 +1,9 @@
-import { on } from "solid-js";
 import { createStore } from "solid-js/store";
 
 import { StaticStoreProps } from ".";
 import { CreateProps, Service, UpdateProps, serviceStorage } from "../storage/service";
-import { notificationsStore } from "./notifications";
-import { userStore } from "./user";
+import { notificationsStore } from "./notificationsStore";
+import { userStore } from "./userStore";
 
 type Store = { list: Service[] } & StaticStoreProps;
 
@@ -13,7 +12,7 @@ const { fetchAllOwnedByUser, create, toArchive, update } = serviceStorage;
 
 const errorHandler = (err: Error) => pushError(err.message);
 
-function createServicesStore() {
+export function servicesFactory() {
 	const [store, setStore] = createStore<Store>({ list: [], isLoading: true });
 
 	const fetchServices = () => {
@@ -64,4 +63,4 @@ function createServicesStore() {
 	};
 }
 
-export const servicesStore = createServicesStore();
+export const servicesStore = servicesFactory();

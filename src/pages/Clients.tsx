@@ -3,16 +3,17 @@ import { For, createMemo, createSignal } from "solid-js";
 import { Transition } from "solid-transition-group";
 
 import { Avatar } from "../components/Avatar";
-import Layout from "../components/Layout";
+import { Layout } from "../components/Layout";
 import { List, ListItem } from "../components/List";
-import NavBar from "../components/NavBar";
-import Paper from "../components/Paper";
+import { NavBar } from "../components/NavBar";
+import { Paper } from "../components/Paper";
 import { PlugText } from "../components/Plugs";
-import SearchBar from "../components/SearchBar";
-import Title from "../components/Title";
-import titleStyles from "../components/Title.module.css";
+import { SearchBar } from "../components/SearchBar";
+import { Title } from "../components/Title";
+import titleStyles from "../components/modules/Title.module.css";
+
 import { transitionOnEnter, transitionOnExit } from "../helpers/transition";
-import { clientsStore } from "../stores/clients";
+import { useStore } from "../stores";
 
 function ClientListPlug() {
 	return (
@@ -30,9 +31,9 @@ function ClientListPlug() {
 	);
 }
 
-function Clients() {
+export function Clients() {
 	const [searchQuery, setSearchQuery] = createSignal("");
-	const { clients } = clientsStore;
+	const { clients } = useStore("clients");
 
 	const filteredClients = createMemo(() => {
 		if (!searchQuery()) return clients.list;
@@ -81,5 +82,3 @@ function Clients() {
 		</Layout>
 	);
 }
-
-export default Clients;

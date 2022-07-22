@@ -2,16 +2,17 @@ import { addMonths, getDate, startOfMonth, subMonths } from "date-fns";
 import { TiChevronLeft, TiChevronRight } from "solid-icons/ti";
 import { For, Show, createMemo } from "solid-js";
 
+import { useMonthDays } from "../hooks/useMonthDays";
+
 import { format } from "../helpers/date";
-import useMonthDays from "../hooks/useMonthDays";
 import { Record } from "../storage/record";
-import { recordsStore } from "../stores/records";
-import styles from "./Calendar.module.css";
+import { useStore } from "../stores";
+import styles from "./modules/Calendar.module.css";
 
 const dayNames = ["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"];
 
-function Calendar() {
-	const { records, setCurrentDate } = recordsStore;
+export function Calendar() {
+	const { records, setCurrentDate } = useStore("records");
 	const days = createMemo(() => useMonthDays(records.currentDate, records.list as Record[]));
 
 	const handleCurrentDay = () => setCurrentDate(new Date());
@@ -61,5 +62,3 @@ function Calendar() {
 		</div>
 	);
 }
-
-export default Calendar;

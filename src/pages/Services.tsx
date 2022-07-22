@@ -1,46 +1,48 @@
 import { Link } from "solid-app-router";
-import { FiPlusSquare } from "solid-icons/fi";
 import { HiSolidHashtag } from "solid-icons/hi";
 import { For, createMemo, createSignal } from "solid-js";
 import { Transition } from "solid-transition-group";
 
-import Layout from "../components/Layout";
+import { Layout } from "../components/Layout";
 import { List, ListItem, ListItemBetweenContent } from "../components/List";
-import NavBar from "../components/NavBar";
-import Paper from "../components/Paper";
+import { NavBar } from "../components/NavBar";
+import { Paper } from "../components/Paper";
 import { PlugText } from "../components/Plugs";
-import SearchBar from "../components/SearchBar";
-import Title from "../components/Title";
-import titleStyles from "../components/Title.module.css";
+import { SearchBar } from "../components/SearchBar";
+import { Title } from "../components/Title";
+import titleStyles from "../components/modules/Title.module.css";
+
 import { transitionOnEnter, transitionOnExit } from "../helpers/transition";
-import { servicesStore } from "../stores/services";
+import { useStore } from "../stores";
 
 function ServicesListPlug() {
+	function EachItem() {
+		return (
+			<ListItem
+				content={
+					<ListItemBetweenContent
+						leftContent={
+							<>
+								<HiSolidHashtag /> <PlugText width={200} />
+							</>
+						}
+						rightContent={<PlugText width={30} />}
+					/>
+				}
+			/>
+		);
+	}
+
 	return (
 		<List title="Список услуг" margin="5px 0">
-			<For each={Array(15).fill(0)}>
-				{_ => (
-					<ListItem
-						content={
-							<ListItemBetweenContent
-								leftContent={
-									<>
-										<HiSolidHashtag /> <PlugText width={200} />
-									</>
-								}
-								rightContent={<PlugText width={30} />}
-							/>
-						}
-					/>
-				)}
-			</For>
+			<For each={Array(15).fill(0)}>{_ => <EachItem />}</For>
 		</List>
 	);
 }
 
-function Services() {
+export function Services() {
 	const [searchQuery, setSearchQuery] = createSignal("");
-	const { services } = servicesStore;
+	const { services } = useStore("services");
 
 	const filteredServices = createMemo(() => {
 		if (!searchQuery()) return services.list;
@@ -92,5 +94,3 @@ function Services() {
 		</Layout>
 	);
 }
-
-export default Services;

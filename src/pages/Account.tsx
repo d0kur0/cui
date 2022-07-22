@@ -3,29 +3,35 @@ import { BsArrowLeft } from "solid-icons/bs";
 import { Avatar } from "../components/Avatar";
 import { Card, CardAvatar, CardHeader, CardInfo, CardMainRow, CardSecondRow } from "../components/Card";
 import { Button, ButtonGroup } from "../components/Form";
-import Layout from "../components/Layout";
-import NavBar from "../components/NavBar";
-import Paper from "../components/Paper";
-import Title from "../components/Title";
-import { userStore } from "../stores/user";
+import { Layout } from "../components/Layout";
+import { NavBar } from "../components/NavBar";
+import { Paper } from "../components/Paper";
+import { Title } from "../components/Title";
 
-function Account() {
-	const { user } = userStore;
-	const handleSignOut = () => userStore.signOut(() => location.replace("/"));
+import { useStore } from "../stores";
+
+function AccountTitle() {
+	return (
+		<Title
+			leftChildren={
+				<button onClick={() => history.back()}>
+					<BsArrowLeft size={24} />
+				</button>
+			}
+			title="Аккаунт"
+		/>
+	);
+}
+
+export function Account() {
+	const { signOut, user } = useStore("user");
+
+	function handleSignOut() {
+		signOut(() => location.replace("/"));
+	}
 
 	return (
-		<Layout
-			title={
-				<Title
-					leftChildren={
-						<button onClick={() => history.back()}>
-							<BsArrowLeft size={24} />
-						</button>
-					}
-					title="Аккаунт"
-				/>
-			}
-			navBar={<NavBar />}>
+		<Layout title={<AccountTitle />} navBar={<NavBar />}>
 			<Paper autoHeight={true}>
 				<Card>
 					<CardHeader>
@@ -48,5 +54,3 @@ function Account() {
 		</Layout>
 	);
 }
-
-export default Account;

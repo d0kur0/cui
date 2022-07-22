@@ -5,13 +5,13 @@
 	"semi": true,
 	"singleQuote": false,
 	"bracketSpacing": true,
-	"jsxBracketSameLine": true,
+	"bracketSameLine": true,
 	"arrowParens": "avoid",
 	"importOrder": [
-		"^\\.\\/pages/(.*)$",
-		"^\\.\\/components/(.*)$",
-		"^\\.\\/hooks/(.*)$",
-		"^\\.\\/stores/(.*)$",
+		"(.+?.)/pages/(.+?.)",
+		"(.+?.)/components/(.*)$",
+		"(.+?.)/hooks/(.*)$",
+		"(.+?.)/stores/(.*)$",
 		"^[./]"
 	],
 	"importOrderSeparation": true,

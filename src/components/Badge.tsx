@@ -1,6 +1,6 @@
 import { JSX } from "solid-js/jsx-runtime";
 
-import styles from "./Badge.module.css";
+import styles from "./modules/Badge.module.css";
 
 type BadgeGridProps = {
 	gap?: string;

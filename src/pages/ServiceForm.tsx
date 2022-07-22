@@ -3,19 +3,20 @@ import { BsArrowLeft } from "solid-icons/bs";
 import { createMemo, createSignal } from "solid-js";
 
 import { Button, Form, TextInput } from "../components/Form";
-import Layout from "../components/Layout";
-import NavBar from "../components/NavBar";
-import Paper from "../components/Paper";
-import Title from "../components/Title";
-import { CreateProps } from "../storage/service";
-import { servicesStore } from "../stores/services";
+import { Layout } from "../components/Layout";
+import { NavBar } from "../components/NavBar";
+import { Paper } from "../components/Paper";
+import { Title } from "../components/Title";
 
-export default function ServiceForm() {
+import { CreateProps } from "../storage/service";
+import { useStore } from "../stores";
+
+export function ServiceForm() {
 	const { id } = useParams();
 	const isCreate = !id;
 	const navigate = useNavigate();
 	const [isLoading, setIsLoading] = createSignal(false);
-	const { services, create, update } = servicesStore;
+	const { services, create, update } = useStore("services");
 	const service = createMemo(() => services.list.find(service => service.id === id));
 
 	const onSubmit = (

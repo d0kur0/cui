@@ -15,7 +15,7 @@ type NotificationStore = { list: Notification[] };
 
 type PushNotificationProps = { message: string; type: NotificationType };
 
-export function createNotificationsStore() {
+export function notificationsFactory() {
 	const [notifications, setNotifications] = createStore<NotificationStore>({ list: [] });
 
 	const pushNotification = (props: PushNotificationProps) => {
@@ -61,4 +61,4 @@ export function createNotificationsStore() {
 	};
 }
 
-export const notificationsStore = createNotificationsStore();
+export const notificationsStore = notificationsFactory();

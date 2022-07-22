@@ -1,7 +1,7 @@
 import { Link } from "solid-app-router";
 import { JSX, Show } from "solid-js";
 
-import styles from "./List.module.css";
+import styles from "./modules/List.module.css";
 
 type ListItemProps = {
 	href?: string;

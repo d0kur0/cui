@@ -1,6 +1,6 @@
 import { JSX } from "solid-js";
 
-import styles from "./Title.module.css";
+import styles from "./modules/Title.module.css";
 
 type TitleProps = {
 	title: string;
@@ -8,7 +8,7 @@ type TitleProps = {
 	rightChildren?: JSX.Element;
 };
 
-function Title({ leftChildren, rightChildren, title }: TitleProps) {
+export function Title({ leftChildren, rightChildren, title }: TitleProps) {
 	return (
 		<div class={styles.root}>
 			<div class={styles.optionalElements}>{leftChildren}</div>
@@ -19,5 +19,3 @@ function Title({ leftChildren, rightChildren, title }: TitleProps) {
 		</div>
 	);
 }
-
-export default Title;

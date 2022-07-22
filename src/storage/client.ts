@@ -13,7 +13,7 @@ import { Timestamp } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 
 import { db, storage } from "../firebase";
-import { userStore } from "../stores/user";
+import { useStore } from "../stores";
 
 export type Client = {
 	id: string;
@@ -93,9 +93,11 @@ export type CreateProps = {
 };
 
 async function create({ name, description, avatar }: CreateProps): Promise<Client> {
+	const { user } = useStore("user");
+
 	const clientObject = {
 		name,
-		userId: userStore.user.id,
+		userId: user.id,
 		avatar: "",
 		createdAt: Timestamp.now(),
 		deletedAt: null,

@@ -3,25 +3,25 @@ import { useNavigate, useParams } from "solid-app-router";
 import { BsArrowLeft } from "solid-icons/bs";
 import { createMemo, createSignal } from "solid-js";
 
-import ClientPicker from "../components/ClientPicker";
+import { ClientPicker } from "../components/ClientPicker";
 import { Button, Form, TextInput } from "../components/Form";
-import Layout from "../components/Layout";
-import NavBar from "../components/NavBar";
-import Paper from "../components/Paper";
-import ServicesPicker from "../components/ServicesPicker";
-import Title from "../components/Title";
-import { CreateProps } from "../storage/record";
-import { notificationsStore } from "../stores/notifications";
-import { recordsStore } from "../stores/records";
+import { Layout } from "../components/Layout";
+import { NavBar } from "../components/NavBar";
+import { Paper } from "../components/Paper";
+import { ServicesPicker } from "../components/ServicesPicker";
+import { Title } from "../components/Title";
 
-export default function RecordForm() {
+import { CreateProps } from "../storage/record";
+import { useStore } from "../stores";
+
+export function RecordForm() {
 	const { id } = useParams();
 	const isCreate = !id;
 	const navigate = useNavigate();
 	const [isLoading, setIsLoading] = createSignal(false);
-	const { records, create, update } = recordsStore;
+	const { records, create, update } = useStore("records");
 	const record = createMemo(() => records.list.find(service => service.id === id));
-	const { pushWarning } = notificationsStore;
+	const { pushWarning } = useStore("notifications");
 
 	const onSubmit = (
 		event: Event & { submitter: HTMLElement } & {
