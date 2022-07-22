@@ -1,6 +1,6 @@
 import { JSX } from "solid-js";
 
-import styles from "./Card.module.css";
+import styles from "./modules/Card.module.css";
 
 type BaseComponentProps = { children: JSX.Element };
 

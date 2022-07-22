@@ -2,16 +2,16 @@ import { RiSystemCloseFill } from "solid-icons/ri";
 import { For, Show, createEffect, createMemo, createSignal } from "solid-js";
 
 import { Service } from "../storage/service";
-import { servicesStore } from "../stores/services";
-import ModalPicker from "./ModalPicker";
-import styles from "./Pickers.module.css";
+import { useStore } from "../stores";
+import { ModalPicker } from "./ModalPicker";
+import styles from "./modules/Pickers.module.css";
 
 type ServicePickerProps = {
 	defaultServiceIds?: string[];
 };
 
-function ServicesPicker({ defaultServiceIds }: ServicePickerProps) {
-	const { services } = servicesStore;
+export function ServicesPicker({ defaultServiceIds }: ServicePickerProps) {
+	const { services } = useStore("services");
 
 	const [isOpen, setIsOpen] = createSignal(false);
 	const [selectedServices, setSelectedServices] = createSignal<undefined | Service[]>();
@@ -80,5 +80,3 @@ function ServicesPicker({ defaultServiceIds }: ServicePickerProps) {
 		</div>
 	);
 }
-
-export default ServicesPicker;

@@ -1,13 +1,13 @@
 import { JSX } from "solid-js";
 
-import styles from "./SearchBar.module.css";
+import styles from "./modules/SearchBar.module.css";
 
 type SearchBarProps = {
 	onInput?: (value: string) => void;
 	invertColor?: boolean;
 };
 
-function SearchBar(props: SearchBarProps) {
+export function SearchBar(props: SearchBarProps) {
 	const onInput: JSX.EventHandlerUnion<HTMLInputElement, InputEvent> = event => {
 		props.onInput && props.onInput(event.currentTarget.value);
 	};
@@ -18,5 +18,3 @@ function SearchBar(props: SearchBarProps) {
 		</div>
 	);
 }
-
-export default SearchBar;

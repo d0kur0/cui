@@ -1,18 +1,18 @@
 import { Show, createEffect, createSignal } from "solid-js";
 
 import { Client } from "../storage/client";
-import { clientsStore } from "../stores/clients";
+import { useStore } from "../stores";
 import { Avatar } from "./Avatar";
 import { Card, CardAvatar, CardHeader, CardInfo, CardMainRow, CardSecondRow } from "./Card";
-import ModalPicker from "./ModalPicker";
-import styles from "./Pickers.module.css";
+import { ModalPicker } from "./ModalPicker";
+import styles from "./modules/Pickers.module.css";
 
 type ClientPickerProps = {
 	defaultClientId?: string;
 };
 
-function ClientPicker({ defaultClientId }: ClientPickerProps) {
-	const { clients } = clientsStore;
+export function ClientPicker({ defaultClientId }: ClientPickerProps) {
+	const { clients } = useStore("clients");
 
 	const [isOpen, setIsOpen] = createSignal(false);
 	const [selectedClient, setSelectedClient] = createSignal<undefined | Client>();
@@ -37,7 +37,7 @@ function ClientPicker({ defaultClientId }: ClientPickerProps) {
 			<Show when={isOpen()}>
 				<ModalPicker
 					title="Выберите клиента"
-					elements={clientsStore.clients.list}
+					elements={clients.list}
 					multiple={false}
 					onChoice={handleChoice}
 				/>
@@ -72,5 +72,3 @@ function ClientPicker({ defaultClientId }: ClientPickerProps) {
 		</div>
 	);
 }
-
-export default ClientPicker;

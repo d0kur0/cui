@@ -12,7 +12,7 @@ import {
 } from "firebase/firestore";
 
 import { db } from "../firebase";
-import { userStore } from "../stores/user";
+import { useStore } from "../stores";
 
 export type Service = {
 	id: string;
@@ -42,10 +42,12 @@ export type CreateProps = {
 };
 
 async function create({ name, price }: CreateProps): Promise<Service> {
+	const { user } = useStore("user");
+
 	const serviceObject = {
 		name,
-		userId: userStore.user.id,
 		price: +price,
+		userId: user.id,
 		createdAt: Timestamp.now(),
 		deletedAt: null,
 	};

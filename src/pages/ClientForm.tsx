@@ -4,19 +4,20 @@ import { createMemo, createSignal } from "solid-js";
 
 import { Avatar } from "../components/Avatar";
 import { Button, FileInput, Form, TextInput } from "../components/Form";
-import Layout from "../components/Layout";
-import NavBar from "../components/NavBar";
-import Paper from "../components/Paper";
-import Title from "../components/Title";
+import { Layout } from "../components/Layout";
+import { NavBar } from "../components/NavBar";
+import { Paper } from "../components/Paper";
+import { Title } from "../components/Title";
+
 import { CreateProps } from "../storage/client";
-import { clientsStore } from "../stores/clients";
+import { useStore } from "../stores";
 
 export function ClientForm() {
 	const { id } = useParams();
 	const isCreate = !id;
 	const navigate = useNavigate();
 	const [isLoading, setIsLoading] = createSignal(false);
-	const { clients, create, update } = clientsStore;
+	const { clients, create, update } = useStore("clients");
 	const client = createMemo(() => clients.list.find(client => client.id === id));
 
 	const onSubmit = (
@@ -34,7 +35,8 @@ export function ClientForm() {
 			setIsLoading(false);
 		};
 
-		isCreate ? create(formFields, onDone) : update({ ...formFields, clientId: client()?.id || "" }, onDone);
+		isCreate && create(formFields, onDone);
+		isCreate || update({ ...formFields, clientId: client()?.id || "" }, onDone);
 	};
 
 	return (

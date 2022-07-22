@@ -1,10 +1,9 @@
-import firebase from "firebase/compat";
 import { createStore } from "solid-js/store";
 
 import { Client, ClientAdditionalInfo, CreateProps, UpdateProps, clientStorage } from "../storage/client";
 import { StaticStoreProps } from "./index";
-import { notificationsStore } from "./notifications";
-import { userStore } from "./user";
+import { notificationsStore } from "./notificationsStore";
+import { userStore } from "./userStore";
 
 type Store = { list: Client[] } & StaticStoreProps;
 
@@ -13,7 +12,7 @@ const { fetchAdditionalInfo, update, create, toArchive, fetchAllOwnedByUser } = 
 
 const errorHandler = (err: Error) => pushError(err.message);
 
-function createClientsStore() {
+export function clientsFactory() {
 	const [store, setStore] = createStore<Store>({
 		isLoading: true,
 		list: [],
@@ -40,7 +39,6 @@ function createClientsStore() {
 		};
 
 		fetchAdditionalInfo({ clientId, userId: userStore.user.id }).then(onFetched, errorHandler);
-
 		return store;
 	};
 
@@ -84,4 +82,4 @@ function createClientsStore() {
 	};
 }
 
-export const clientsStore = createClientsStore();
+export const clientsStore = clientsFactory();

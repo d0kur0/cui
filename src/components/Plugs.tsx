@@ -1,4 +1,4 @@
-import styles from "./Plugs.module.css";
+import styles from "./modules/Plugs.module.css";
 
 type PlugTextProps = {
 	width?: number;

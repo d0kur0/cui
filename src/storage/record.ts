@@ -11,7 +11,7 @@ import {
 } from "firebase/firestore";
 
 import { db } from "../firebase";
-import { userStore } from "../stores/user";
+import { useStore } from "../stores";
 
 export type Record = {
 	id: string;
@@ -51,11 +51,11 @@ export type CreateProps = {
 };
 
 async function create({ clientId, serviceIds, date, description }: CreateProps): Promise<Record> {
-	console.log(date, new Date(date));
+	const { user } = useStore("user");
 
 	const recordObject = {
 		date: Timestamp.fromDate(new Date(date)),
-		userId: userStore.user.id,
+		userId: user.id,
 		clientId,
 		createdAt: Timestamp.now(),
 		deletedAt: null,

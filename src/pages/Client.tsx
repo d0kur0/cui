@@ -14,18 +14,20 @@ import {
 	CardMainRow,
 	CardSecondRow,
 } from "../components/Card";
-import Divider from "../components/Divider";
+import { Divider } from "../components/Divider";
 import { Button, ButtonGroup } from "../components/Form";
-import Layout from "../components/Layout";
-import NavBar from "../components/NavBar";
-import Paper from "../components/Paper";
+import { Layout } from "../components/Layout";
+import { NavBar } from "../components/NavBar";
+import { Paper } from "../components/Paper";
 import { PlugText } from "../components/Plugs";
-import Title from "../components/Title";
+import { Title } from "../components/Title";
+
 import { formatRelative } from "../helpers/date";
 import { transitionOnEnter, transitionOnExit } from "../helpers/transition";
-import { clientsStore } from "../stores/clients";
+import type { Client as ClientStruct } from "../storage/client";
+import { useStore } from "../stores";
 
-function ClientPlug() {
+function PlugData() {
 	return (
 		<div>
 			<Card>
@@ -51,17 +53,58 @@ function ClientPlug() {
 	);
 }
 
+type ClientCardProps = {
+	client: ClientStruct | undefined;
+	additionalInfo: { name: string; value: string | number }[];
+};
+
+function ClientCard({ client, additionalInfo }: ClientCardProps) {
+	return (
+		<div>
+			<Card>
+				<CardHeader>
+					<CardAvatar>
+						<Avatar size="large" name={client?.name} imageSrc={client?.avatar} />
+					</CardAvatar>
+					<CardInfo>
+						<CardMainRow>{client?.name}</CardMainRow>
+						<CardSecondRow>{client?.description.trim() || "Описание отсутствует"}</CardSecondRow>
+					</CardInfo>
+				</CardHeader>
+				<Divider margin="5px 0" />
+				<CardList>
+					<For each={additionalInfo}>{({ name, value }) => <CardListItem name={name} value={value} />}</For>
+				</CardList>
+			</Card>
+		</div>
+	);
+}
+
+function ClientTitle() {
+	return (
+		<Title
+			leftChildren={
+				<button onClick={() => history.back()}>
+					<BsArrowLeft size={24} />
+				</button>
+			}
+			title="Профиль клиента"
+		/>
+	);
+}
+
 export function Client() {
 	const { id } = useParams();
-	const { clients, fetchAdditionalInfo, toArchive } = clientsStore;
+	const { clients, fetchAdditionalInfo, toArchive } = useStore("clients");
 	const navigate = useNavigate();
 
 	const client = createMemo(() => clients.list.find(client => client.id === id));
 	const additionalInfo = fetchAdditionalInfo(id);
-	const handleDelete = () => {
-		confirm("Действительно архивировать клиента?") &&
-			toArchive(client()?.id || "", () => navigate("/clients"));
-	};
+
+	function handleDelete() {
+		const onArchived = () => navigate("/clients");
+		confirm("Действительно архивировать клиента?") && toArchive(String(client()?.id), onArchived);
+	}
 
 	const additionalInfoList = createMemo(
 		() => [
@@ -83,46 +126,15 @@ export function Client() {
 		[additionalInfo]
 	);
 
-	const ClientCard = () => {
-		return (
-			<div>
-				<Card>
-					<CardHeader>
-						<CardAvatar>
-							<Avatar size="large" name={client()?.name} imageSrc={client()?.avatar} />
-						</CardAvatar>
-						<CardInfo>
-							<CardMainRow>{client()?.name}</CardMainRow>
-							<CardSecondRow>{client()?.description.trim() || "Описание отсутствует"}</CardSecondRow>
-						</CardInfo>
-					</CardHeader>
-					<Divider margin="5px 0" />
-					<CardList>
-						<For each={additionalInfoList()}>
-							{({ name, value }) => <CardListItem name={name} value={value} />}
-						</For>
-					</CardList>
-				</Card>
-			</div>
-		);
-	};
-
 	return (
-		<Layout
-			title={
-				<Title
-					leftChildren={
-						<button onClick={() => history.back()}>
-							<BsArrowLeft size={24} />
-						</button>
-					}
-					title="Профиль клиента"
-				/>
-			}
-			navBar={<NavBar />}>
+		<Layout title={<ClientTitle />} navBar={<NavBar />}>
 			<Paper autoHeight={true}>
 				<Transition mode="outin" onEnter={transitionOnEnter(300)} onExit={transitionOnExit(300)}>
-					{clients.isLoading || additionalInfo.isLoading ? <ClientPlug /> : <ClientCard />}
+					{clients.isLoading || additionalInfo.isLoading ? (
+						<PlugData />
+					) : (
+						<ClientCard additionalInfo={additionalInfoList()} client={client()} />
+					)}
 				</Transition>
 			</Paper>
 

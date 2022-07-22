@@ -1,6 +1,6 @@
 import { JSX } from "solid-js/jsx-runtime";
 
-import styles from "./Paper.module.css";
+import styles from "./modules/Paper.module.css";
 
 type PaperProps = {
 	margin?: string;
@@ -10,7 +10,7 @@ type PaperProps = {
 	fixedContent?: JSX.Element;
 };
 
-export default function Paper(props: PaperProps) {
+export function Paper(props: PaperProps) {
 	const rootStyles: JSX.CSSProperties = {};
 	const contentStyles: JSX.CSSProperties = {};
 

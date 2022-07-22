@@ -7,8 +7,8 @@ import { Portal } from "solid-js/web";
 import { Avatar } from "./Avatar";
 import { Button } from "./Form";
 import { List, ListItem } from "./List";
-import styles from "./ModalPicker.module.css";
-import SearchBar from "./SearchBar";
+import { SearchBar } from "./SearchBar";
+import styles from "./modules/ModalPicker.module.css";
 
 type ModalPickerProps = {
 	title: string;
@@ -19,7 +19,7 @@ type ModalPickerProps = {
 	selectedIds?: string[];
 };
 
-function ModalPicker(props: ModalPickerProps) {
+export function ModalPicker(props: ModalPickerProps) {
 	const [searchQuery, setSearchQuery] = createSignal("");
 	const [selectedIds, setSelectedIds] = createSignal<string[]>(props.selectedIds || []);
 
@@ -108,5 +108,3 @@ function ModalPicker(props: ModalPickerProps) {
 		</>
 	);
 }
-
-export default ModalPicker;

@@ -3,8 +3,8 @@ import { createStore } from "solid-js/store";
 
 import { StaticStoreProps } from ".";
 import { CreateProps, Record, UpdateProps, recordStorage } from "../storage/record";
-import { notificationsStore } from "./notifications";
-import { userStore } from "./user";
+import { notificationsStore } from "./notificationsStore";
+import { userStore } from "./userStore";
 
 type RecordsStore = StaticStoreProps & {
 	currentDate: Date;
@@ -16,7 +16,7 @@ const { pushSuccess, pushError } = notificationsStore;
 
 const errorHandler = (err: Error) => pushError(err.message);
 
-function createRecordsStore() {
+export function recordsFactory() {
 	const [store, setStore] = createStore<RecordsStore>({
 		currentDate: new Date(),
 		isLoading: true,
@@ -32,7 +32,7 @@ function createRecordsStore() {
 
 		recordStorage
 			.getAllOfMonth({ userId: userStore.user.id, startDate, endDate })
-			.then(records => setStore(store => ({ ...store, list: records })))
+			.then(records => setStore("list", records))
 			.catch(errorHandler)
 			.finally(() => setStore("isLoading", false));
 	};
@@ -83,4 +83,4 @@ function createRecordsStore() {
 	};
 }
 
-export const recordsStore = createRecordsStore();
+export const recordsStore = recordsFactory();

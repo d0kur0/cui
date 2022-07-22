@@ -1,10 +1,10 @@
 import { IoClose } from "solid-icons/io";
 
-import { notificationsStore } from "../stores/notifications";
-import styles from "./Notifications.module.css";
+import { useStore } from "../stores";
+import styles from "./modules/Notifications.module.css";
 
 export function Notifications() {
-	const { notifications, discardNotification } = notificationsStore;
+	const { notifications, discardNotification } = useStore("notifications");
 
 	return (
 		<div class={styles.notifications}>

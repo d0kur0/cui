@@ -1,9 +1,9 @@
 import welcomeSvg from "../assets/welcome.svg";
-import { userStore } from "../stores/user";
-import styles from "./Welcome.module.css";
+import { useStore } from "../stores";
+import styles from "./modules/Welcome.module.css";
 
-function Welcome() {
-	const { signIn } = userStore;
+export function Welcome() {
+	const { signIn } = useStore("user");
 
 	return (
 		<div class={styles.root}>
@@ -33,5 +33,3 @@ function Welcome() {
 		</div>
 	);
 }
-
-export default Welcome;

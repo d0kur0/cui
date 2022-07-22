@@ -1,7 +1,6 @@
 import { useNavigate, useParams } from "solid-app-router";
 import { BsArrowLeft } from "solid-icons/bs";
-import { HiSolidHashtag } from "solid-icons/hi";
-import { For, createMemo } from "solid-js";
+import { createMemo } from "solid-js";
 import { Transition } from "solid-transition-group";
 
 import { Avatar } from "../components/Avatar";
@@ -15,17 +14,17 @@ import {
 	CardMainRow,
 	CardSecondRow,
 } from "../components/Card";
-import Divider from "../components/Divider";
+import { Divider } from "../components/Divider";
 import { Button, ButtonGroup } from "../components/Form";
-import Layout from "../components/Layout";
-import NavBar from "../components/NavBar";
-import Paper from "../components/Paper";
+import { Layout } from "../components/Layout";
+import { NavBar } from "../components/NavBar";
+import { Paper } from "../components/Paper";
 import { PlugText } from "../components/Plugs";
-import Title from "../components/Title";
+import { Title } from "../components/Title";
+
 import { formatRelative } from "../helpers/date";
 import { transitionOnEnter, transitionOnExit } from "../helpers/transition";
-import { clientsStore } from "../stores/clients";
-import { servicesStore } from "../stores/services";
+import { useStore } from "../stores";
 
 function ServicePlug() {
 	return (
@@ -53,9 +52,9 @@ function ServicePlug() {
 	);
 }
 
-function Service() {
+export function Service() {
 	const { id } = useParams();
-	const { services, toArchive } = servicesStore;
+	const { services, toArchive } = useStore("services");
 	const navigate = useNavigate();
 
 	const service = createMemo(() => services.list.find(service => service.id === id));
@@ -113,5 +112,3 @@ function Service() {
 		</Layout>
 	);
 }
-
-export default Service;

@@ -1,6 +1,5 @@
 import { useNavigate, useParams } from "solid-app-router";
 import { BsArrowLeft } from "solid-icons/bs";
-import { HiSolidHashtag } from "solid-icons/hi";
 import { For, createMemo } from "solid-js";
 import { Transition } from "solid-transition-group";
 
@@ -16,18 +15,17 @@ import {
 	CardMainRow,
 	CardSecondRow,
 } from "../components/Card";
-import Divider from "../components/Divider";
+import { Divider } from "../components/Divider";
 import { Button, ButtonGroup } from "../components/Form";
-import Layout from "../components/Layout";
-import NavBar from "../components/NavBar";
-import Paper from "../components/Paper";
+import { Layout } from "../components/Layout";
+import { NavBar } from "../components/NavBar";
+import { Paper } from "../components/Paper";
 import { PlugText } from "../components/Plugs";
-import Title from "../components/Title";
+import { Title } from "../components/Title";
+
 import { formatRelative } from "../helpers/date";
 import { transitionOnEnter, transitionOnExit } from "../helpers/transition";
-import { clientsStore } from "../stores/clients";
-import { recordsStore } from "../stores/records";
-import { servicesStore } from "../stores/services";
+import { useStore } from "../stores";
 
 function RecordPlug() {
 	return (
@@ -56,13 +54,13 @@ function RecordPlug() {
 	);
 }
 
-function Record() {
+export function Record() {
 	const { id } = useParams();
-	const { records, toArchive } = recordsStore;
 	const navigate = useNavigate();
 
-	const { clients } = clientsStore;
-	const { services } = servicesStore;
+	const { records, toArchive } = useStore("records");
+	const { clients } = useStore("clients");
+	const { services } = useStore("services");
 
 	const record = createMemo(() => records.list.find(record => record.id === id));
 
@@ -132,5 +130,3 @@ function Record() {
 		</Layout>
 	);
 }
-
-export default Record;
