@@ -2,7 +2,7 @@ import { createStore } from "solid-js/store";
 
 import { Client, ClientAdditionalInfo, CreateProps, UpdateProps, clientStorage } from "../storage/client";
 import { StaticStoreProps } from "./index";
-import { notificationsStore } from "./notificationsStore";
+import { notificationsStore } from "./notifications";
 import { userStore } from "./userStore";
 
 type Store = { list: Client[] } & StaticStoreProps;

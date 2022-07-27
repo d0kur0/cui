@@ -3,7 +3,7 @@ import { createStore } from "solid-js/store";
 
 import { StaticStoreProps } from ".";
 import { CreateProps, Record, UpdateProps, recordStorage } from "../storage/record";
-import { notificationsStore } from "./notificationsStore";
+import { notificationsStore } from "./notifications";
 import { userStore } from "./userStore";
 
 type RecordsStore = StaticStoreProps & {

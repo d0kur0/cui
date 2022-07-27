@@ -2,7 +2,7 @@ import { createStore } from "solid-js/store";
 
 import { StaticStoreProps } from ".";
 import { CreateProps, Service, UpdateProps, serviceStorage } from "../storage/service";
-import { notificationsStore } from "./notificationsStore";
+import { notificationsStore } from "./notifications";
 import { userStore } from "./userStore";
 
 type Store = { list: Service[] } & StaticStoreProps;

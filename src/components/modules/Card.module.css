@@ -9,6 +9,10 @@
 	align-self: var(--align-self);
 }
 
+.cardInfo {
+	align-self: var(--align-self);
+}
+
 .cardDescription {
 	color: var(--text-color-light);
 }
