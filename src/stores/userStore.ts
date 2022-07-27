@@ -3,7 +3,7 @@ import { User } from "firebase/auth";
 import { createStore } from "solid-js/store";
 
 import { auth } from "../firebase";
-import { notificationsStore } from "./notificationsStore";
+import { notificationsStore } from "./notifications";
 
 export type UserStore = {
 	id: string;

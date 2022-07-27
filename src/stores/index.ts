@@ -1,7 +1,7 @@
-import { clientsStore } from "./clientsStore";
-import { notificationsStore } from "./notificationsStore";
-import { recordsStore } from "./recordsStore";
-import { servicesStore } from "./servicesStore";
+import { clientsStore } from "./clients";
+import { notificationsStore } from "./notifications";
+import { recordsStore } from "./records";
+import { servicesStore } from "./services";
 import { userStore } from "./userStore";
 
 export type StaticStoreProps = {
