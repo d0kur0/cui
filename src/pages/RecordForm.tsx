@@ -11,6 +11,7 @@ import { Paper } from "../components/Paper";
 import { ServicesPicker } from "../components/ServicesPicker";
 import { Title } from "../components/Title";
 
+import { formatForInput } from "../helpers/date";
 import { CreateProps } from "../storage/record";
 import { useStore } from "../stores";
 
@@ -45,11 +46,12 @@ export function RecordForm() {
 			setIsLoading(false);
 		};
 
-		isCreate ? create(formFields, onDone) : update({ ...formFields, recordId: record()?.id || "" }, onDone);
+		isCreate && create(formFields, onDone);
+		isCreate || update({ ...formFields, recordId: record()?.id || "" }, onDone);
 	};
 
 	const recordDate = createMemo(() =>
-		format((isCreate ? records.currentDate : record()?.date.toDate()) || new Date(), "yyyy-MM-dd'T'HH:mm")
+		formatForInput(isCreate ? records.currentDate : record()?.date.toDate())
 	);
 
 	return (
