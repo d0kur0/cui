@@ -1,0 +1,25 @@
+.root {
+	display: flex;
+	justify-content: space-between;
+	gap: 15px;
+}
+
+.label {
+	flex: 1 1 0;
+}
+
+.input {
+	width: 100%;
+	border-radius: 8px;
+	box-sizing: border-box;
+	border: 2px solid var(--accent-color);
+	padding: 5px 12px;
+	margin: 10px 0;
+}
+
+.labelText {
+}
+
+.labelTextEnd {
+	text-align: right;
+}
