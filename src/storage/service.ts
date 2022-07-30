@@ -28,7 +28,6 @@ async function fetchAllOwnedByUser(userId: string): Promise<Service[]> {
 	const _query = query(
 		collection(db, "services"),
 		where("userId", "==", userId),
-		where("deletedAt", "==", null),
 		orderBy("createdAt", "desc")
 	);
 	const { docs } = await getDocs(_query);

@@ -10,7 +10,7 @@ type Store = { list: Service[] } & StaticStoreProps;
 const { pushSuccess, pushError } = notificationsStore;
 const { fetchAllOwnedByUser, create, toArchive, update } = serviceStorage;
 
-const errorHandler = (err: Error) => pushError(err.message);
+const errorHandler = (err: Error) => (pushError(err.message), console.log(err));
 
 export function servicesFactory() {
 	const [store, setStore] = createStore<Store>({ list: [], isLoading: true });
@@ -55,10 +55,10 @@ export function servicesFactory() {
 	};
 
 	return {
-		services: store,
 		fetch: fetchServices,
 		update: updateService,
 		create: createService,
+		services: store,
 		toArchive: toArchiveService,
 	};
 }

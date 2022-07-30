@@ -34,8 +34,6 @@ export function RecordForm() {
 			...new FormData(event.currentTarget).entries(),
 		]) as unknown as CreateProps;
 
-		console.log(formFields);
-
 		if (!formFields.clientId) return pushWarning("Выберите клиента");
 		if (!formFields.serviceIds) return pushWarning("Выберите услугу");
 

@@ -1,6 +1,6 @@
 import { format } from "date-fns";
 import { Link } from "solid-app-router";
-import { For, Match, Switch, createMemo } from "solid-js";
+import { For, Match, Switch, createEffect, createMemo } from "solid-js";
 
 import { Avatar } from "../components/Avatar";
 import { Badge, BadgeGrid } from "../components/Badge";
@@ -47,7 +47,7 @@ function RecordItem({ record }: RecordItemProps) {
 	}
 
 	function RightContent() {
-		return <span style="padding: 10px 0;">{services.reduce((acc, s) => acc + +s.price, 0)}руб.</span>;
+		return <span style="padding: 10px 0;">{services.reduce((acc, s) => acc + +s.price, 0)} руб.</span>;
 	}
 
 	return (
@@ -94,6 +94,8 @@ export function Records() {
 			services: services.list.filter(s => record.serviceIds.includes(s.id)),
 		};
 	}
+
+	// WLN26jz45Qrewb8Y8xyS
 
 	function sortByDate(currentRecord: Record, nextRecord: Record) {
 		return currentRecord.date.seconds - nextRecord.date.seconds;
