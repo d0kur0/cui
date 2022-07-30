@@ -1,4 +1,4 @@
-import { Show, createEffect, createSignal } from "solid-js";
+import { Show, createEffect, createMemo, createSignal } from "solid-js";
 
 import { Client } from "../storage/client";
 import { useStore } from "../stores";
@@ -32,12 +32,14 @@ export function ClientPicker({ defaultClientId }: ClientPickerProps) {
 		setSelectedClient(clients.list.find(client => client.id === clientId));
 	};
 
+	const filteredClients = createMemo(() => clients.list.filter(({ deletedAt }) => !deletedAt));
+
 	return (
 		<div class={styles.wrapper}>
 			<Show when={isOpen()}>
 				<ModalPicker
 					title="Выберите клиента"
-					elements={clients.list}
+					elements={filteredClients()}
 					multiple={false}
 					onChoice={handleChoice}
 				/>

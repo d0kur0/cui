@@ -45,8 +45,11 @@ export function Services() {
 	const { services } = useStore("services");
 
 	const filteredServices = createMemo(() => {
-		if (!searchQuery()) return services.list;
-		return services.list.filter(service => service.name.toLowerCase().includes(searchQuery().toLowerCase()));
+		const _services = services.list.filter(({ deletedAt }) => !deletedAt);
+
+		if (!searchQuery()) return _services;
+
+		return _services.filter(service => service.name.toLowerCase().includes(searchQuery().toLowerCase()));
 	});
 
 	const ServiceList = () => {

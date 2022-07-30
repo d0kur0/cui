@@ -3,13 +3,18 @@ import { createStore } from "solid-js/store";
 
 import { StaticStoreProps } from ".";
 import { Record } from "../storage/record";
+import { recordStorage } from "./../storage/record";
 import { notificationsStore } from "./notifications";
 import { recordsStore } from "./records";
+import { userStore } from "./userStore";
 
-type Store = { records: Record[]; range: { start: Date; end: Date } } & StaticStoreProps;
+export type StatisticDateRange = { start: Date; end: Date };
+type Store = { records: Record[]; range: StatisticDateRange } & StaticStoreProps;
+
+const { getAllOfMonth } = recordStorage;
 
 const { pushError } = notificationsStore;
-const errorHandler = (err: Error) => pushError(err.message);
+const errorHandler = (err: Error) => (pushError(err.message), console.log(err));
 
 export function statisticsFactory() {
 	const [store, setStore] = createStore<Store>({
@@ -26,19 +31,27 @@ export function statisticsFactory() {
 		setStore("isLoading", false);
 	};
 
-	const setStartDate = (start: Date) => {
-		setStore("range", range => ({ ...range, start }));
+	const fetchStatistic = () => {
+		setStore("isLoading", true);
+
+		const onLoaded = (records: Record[]) => {
+			setStore("records", records);
+		};
+
+		getAllOfMonth({ userId: userStore.user.id, startDate: store.range.start, endDate: store.range.end })
+			.then(onLoaded, errorHandler)
+			.finally(() => setStore("isLoading", false));
 	};
 
-	const setEndDate = (end: Date) => {
-		setStore("range", range => ({ ...range, end }));
+	const setDateRange = ({ start, end }: StatisticDateRange) => {
+		setStore("range", { start, end });
+		fetchStatistic();
 	};
 
 	return {
 		statistics: store,
-		setRecords,
-		setEndDate,
-		setStartDate,
+		setDateRange,
+		fetchStatistic,
 	};
 }
 

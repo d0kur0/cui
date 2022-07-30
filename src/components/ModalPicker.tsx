@@ -1,5 +1,5 @@
 import { BsCheck } from "solid-icons/bs";
-import { VscClose } from "solid-icons/vsc";
+import { IoClose } from "solid-icons/io";
 import { For, Show, createMemo, createSignal } from "solid-js";
 import { JSX } from "solid-js/jsx-runtime";
 import { Portal } from "solid-js/web";
@@ -62,7 +62,7 @@ export function ModalPicker(props: ModalPickerProps) {
 						<div class={styles.titleBar}>
 							{props.title || "Выбер элемента"}
 							<button onClick={handleClose} class={styles.closeButton} type="button">
-								<VscClose />
+								<IoClose />
 							</button>
 						</div>
 

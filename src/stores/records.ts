@@ -7,20 +7,20 @@ import { notificationsStore } from "./notifications";
 import { userStore } from "./userStore";
 
 type RecordsStore = StaticStoreProps & {
-	currentDate: Date;
 	list: Record[];
+	currentDate: Date;
 };
 
 const { create, update, toArchive } = recordStorage;
 const { pushSuccess, pushError } = notificationsStore;
 
-const errorHandler = (err: Error) => pushError(err.message);
+const errorHandler = (err: Error) => (pushError(err.message), console.log(err));
 
 export function recordsFactory() {
 	const [store, setStore] = createStore<RecordsStore>({
-		currentDate: new Date(),
-		isLoading: true,
 		list: [],
+		isLoading: true,
+		currentDate: new Date(),
 	});
 
 	const fetchCurrentMonth = () => {

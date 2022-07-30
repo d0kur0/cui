@@ -1,3 +1,4 @@
+import { Timestamp } from "@firebase/firestore";
 import { createStore } from "solid-js/store";
 
 import { Client, ClientAdditionalInfo, CreateProps, UpdateProps, clientStorage } from "../storage/client";
@@ -10,7 +11,7 @@ type Store = { list: Client[] } & StaticStoreProps;
 const { pushError, pushSuccess } = notificationsStore;
 const { fetchAdditionalInfo, update, create, toArchive, fetchAllOwnedByUser } = clientStorage;
 
-const errorHandler = (err: Error) => pushError(err.message);
+const errorHandler = (err: Error) => (pushError(err.message), console.log(err));
 
 export function clientsFactory() {
 	const [store, setStore] = createStore<Store>({

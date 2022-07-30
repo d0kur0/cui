@@ -31,7 +31,9 @@ export function ServicesPicker({ defaultServiceIds }: ServicePickerProps) {
 	};
 
 	const servicesAsPickerStruct = createMemo(() =>
-		services.list.map(({ id, name, price }) => ({ id, name, avatar: "", description: `${price} руб.` }))
+		services.list
+			.filter(({ deletedAt }) => !deletedAt)
+			.map(({ id, name, price }) => ({ id, name, avatar: "", description: `${price} руб.` }))
 	);
 
 	const handleRemove = (_id: string) => {

@@ -36,8 +36,11 @@ export function Clients() {
 	const { clients } = useStore("clients");
 
 	const filteredClients = createMemo(() => {
-		if (!searchQuery()) return clients.list;
-		return clients.list.filter(
+		const _clients = clients.list.filter(client => !client.deletedAt);
+
+		if (!searchQuery()) return _clients;
+
+		return _clients.filter(
 			client =>
 				client.name.toLowerCase().includes(searchQuery().toLowerCase()) ||
 				client.description.toLowerCase().includes(searchQuery().toLowerCase())

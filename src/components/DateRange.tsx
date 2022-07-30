@@ -1,4 +1,6 @@
-import { createEffect, createSignal } from "solid-js";
+import { createSignal } from "solid-js";
+
+import { StatisticDateRange } from "../stores/statistics";
 
 import { formatForInput } from "../helpers/date";
 import styles from "./modules/DateRange.module.css";
@@ -6,7 +8,7 @@ import styles from "./modules/DateRange.module.css";
 export type DateRangeProps = {
 	end: Date;
 	start: Date;
-	onChange?: (dates: { start: Date; end: Date }) => void;
+	onChange?: (dates: StatisticDateRange) => void;
 };
 
 type DateChangeHandler = (e: Event & { currentTarget: HTMLInputElement }) => void;
