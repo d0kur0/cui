@@ -4,7 +4,6 @@ import { HiSolidHashtag } from "solid-icons/hi";
 import { TbDisabled2 } from "solid-icons/tb";
 import { For, Match, Switch, createEffect, createMemo } from "solid-js";
 
-import { Badge } from "../components/Badge";
 import { DateRange } from "../components/DateRange";
 import { Layout } from "../components/Layout";
 import { List, ListItem, ListItemBetweenContent } from "../components/List";
@@ -46,8 +45,8 @@ export function Stats() {
 		recordsWithServices()
 			.reduce((acc, { services }) => {
 				services.forEach(service => {
-					const serviceExists = acc.findIndex(s => s.service.id === service.id);
-					serviceExists > -1 ? (acc[serviceExists].count += 1) : acc.push({ service, count: 1 });
+					const foundedService = acc.findIndex(s => s.service.id === service.id);
+					foundedService > -1 ? (acc[foundedService].count += 1) : acc.push({ service, count: 1 });
 				});
 
 				return acc;
@@ -71,7 +70,7 @@ export function Stats() {
 				<Paper autoHeight={true} margin="15px 0 0 0">
 					<List title="Общая статистика" margin="5px 0">
 						<For each={statisticList()} fallback={<ListItem content="Список пуст"></ListItem>}>
-							{({ title, value, icon }) => (
+							{({ icon }) => (
 								<ListItem
 									content={
 										<ListItemBetweenContent
