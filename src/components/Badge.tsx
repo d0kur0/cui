@@ -4,12 +4,13 @@ import styles from "./modules/Badge.module.css";
 
 type BadgeGridProps = {
 	gap?: string;
+	margin?: string;
 	children: JSX.Element | string;
 };
 
-export function BadgeGrid({ gap, children }: BadgeGridProps) {
+export function BadgeGrid({ gap, children, margin }: BadgeGridProps) {
 	return (
-		<div style={{ gap: gap || "5px" }} class={styles.grid}>
+		<div style={{ gap: gap || "5px", margin: margin || "0" }} class={styles.grid}>
 			{children}
 		</div>
 	);

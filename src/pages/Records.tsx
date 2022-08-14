@@ -36,7 +36,7 @@ function RecordItem({ record }: RecordItemProps) {
 					<CardInfo>
 						<CardMainRow>{client?.name}</CardMainRow>
 						<CardSecondRow>
-							<BadgeGrid>
+							<BadgeGrid margin="10px 0 0 0">
 								<For each={services}>{service => <Badge>{service.name}</Badge>}</For>
 							</BadgeGrid>
 						</CardSecondRow>
@@ -47,7 +47,7 @@ function RecordItem({ record }: RecordItemProps) {
 	}
 
 	function RightContent() {
-		return <span style="padding: 10px 0;">{services.reduce((acc, s) => acc + +s.price, 0)} руб.</span>;
+		return <span style="padding: 10px 0;">{services.reduce((acc, s) => acc + +s.price, 0)}₽</span>;
 	}
 
 	return (
@@ -94,8 +94,6 @@ export function Records() {
 			services: services.list.filter(s => record.serviceIds.includes(s.id)),
 		};
 	}
-
-	// WLN26jz45Qrewb8Y8xyS
 
 	function sortByDate(currentRecord: Record, nextRecord: Record) {
 		return currentRecord.date.seconds - nextRecord.date.seconds;
