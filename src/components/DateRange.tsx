@@ -1,8 +1,11 @@
+import { addMonths, endOfMonth, startOfMonth, subMonths } from "date-fns";
+import { FaSolidLeftLong, FaSolidRightLong } from "solid-icons/fa";
 import { createSignal } from "solid-js";
 
 import { StatisticDateRange } from "../stores/statistics";
 
 import { formatForInput } from "../helpers/date";
+import { Button } from "./Form";
 import styles from "./modules/DateRange.module.css";
 
 export type DateRangeProps = {
@@ -32,10 +35,39 @@ export function DateRange({ start, end, onChange }: DateRangeProps) {
 		});
 	};
 
+	const handleSetPreviousMonth = () => {
+		setDates(dates => {
+			dates = {
+				...dates,
+				end: startOfMonth(subMonths(dates.start, 1)),
+				start: endOfMonth(subMonths(dates.start, 1)),
+			};
+			onChange?.(dates);
+			return dates;
+		});
+	};
+
+	const handleSetNextMonth = () => {
+		setDates(dates => {
+			dates = {
+				...dates,
+				end: startOfMonth(addMonths(dates.start, 1)),
+				start: endOfMonth(addMonths(dates.start, 1)),
+			};
+			onChange?.(dates);
+			return dates;
+		});
+	};
+
 	return (
 		<div class={styles.root}>
 			<label class={styles.label}>
-				<div class={styles.labelText}>Дата начала</div>
+				<div class={styles.labelText}>
+					<button onClick={handleSetPreviousMonth} class={styles.button}>
+						<FaSolidLeftLong />
+					</button>
+					Дата начала
+				</div>
 				<input
 					type="date"
 					value={formatForInput(dates().start, true)}
@@ -45,7 +77,12 @@ export function DateRange({ start, end, onChange }: DateRangeProps) {
 			</label>
 
 			<label class={styles.label}>
-				<div classList={{ [styles.labelText]: true, [styles.labelTextEnd]: true }}>Дата конца</div>
+				<div classList={{ [styles.labelText]: true, [styles.labelTextEnd]: true }}>
+					Дата конца
+					<button onClick={handleSetNextMonth} class={styles.button}>
+						<FaSolidRightLong />
+					</button>
+				</div>
 				<input
 					type="date"
 					value={formatForInput(dates().end, true)}
