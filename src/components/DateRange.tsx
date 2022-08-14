@@ -39,8 +39,8 @@ export function DateRange({ start, end, onChange }: DateRangeProps) {
 		setDates(dates => {
 			dates = {
 				...dates,
-				end: startOfMonth(subMonths(dates.start, 1)),
-				start: endOfMonth(subMonths(dates.start, 1)),
+				end: endOfMonth(subMonths(dates.start, 1)),
+				start: startOfMonth(subMonths(dates.start, 1)),
 			};
 			onChange?.(dates);
 			return dates;
@@ -51,8 +51,8 @@ export function DateRange({ start, end, onChange }: DateRangeProps) {
 		setDates(dates => {
 			dates = {
 				...dates,
-				end: startOfMonth(addMonths(dates.start, 1)),
-				start: endOfMonth(addMonths(dates.start, 1)),
+				end: endOfMonth(addMonths(dates.start, 1)),
+				start: startOfMonth(addMonths(dates.start, 1)),
 			};
 			onChange?.(dates);
 			return dates;
