@@ -2,9 +2,6 @@ import { Route, Router, Routes } from "solid-app-router";
 import { Match, Switch, onMount } from "solid-js";
 import { useRegisterSW } from "virtual:pwa-register/solid";
 
-import { Notifications } from "./components/Notifications";
-import { SplashScreen } from "./components/SplashScreen";
-import { useHeightUnit } from "./hooks/useHeightUnit";
 import { Account } from "./pages/Account";
 import { Client } from "./pages/Client";
 import { ClientForm } from "./pages/ClientForm";
@@ -17,6 +14,12 @@ import { Service } from "./pages/Service";
 import { ServiceForm } from "./pages/ServiceForm";
 import { Services } from "./pages/Services";
 import { Stats } from "./pages/Stats";
+
+import { Notifications } from "./components/Notifications";
+import { SplashScreen } from "./components/SplashScreen";
+
+import { useHeightUnit } from "./hooks/useHeightUnit";
+
 import { useStore } from "./stores";
 
 function AppForUsers() {

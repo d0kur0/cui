@@ -8,10 +8,10 @@
 	"bracketSameLine": true,
 	"arrowParens": "avoid",
 	"importOrder": [
-		"(.+?.)/pages/(.+?.)",
-		"(.+?.)/components/(.*)$",
-		"(.+?.)/hooks/(.*)$",
-		"(.+?.)/stores/(.*)$",
+		"(.+)/pages/(.+)",
+		"(.+)/components/(.*)$",
+		"(.+)/hooks/(.*)$",
+		"(.+)/stores/(.*)$",
 		"^[./]"
 	],
 	"importOrderSeparation": true,

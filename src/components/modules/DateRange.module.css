@@ -9,6 +9,8 @@
 }
 
 .input {
+	-webkit-appearance: none;
+	-moz-appearance: none;
 	width: 100%;
 	border-radius: 8px;
 	box-sizing: border-box;
@@ -18,8 +20,23 @@
 }
 
 .labelText {
+	display: flex;
+	align-items: center;
+}
+
+.labelText button {
+	margin-right: 10px;
 }
 
 .labelTextEnd {
-	text-align: right;
+	justify-content: flex-end;
+}
+
+.labelTextEnd button {
+	margin: 0 0 0 10px;
+}
+
+.button {
+	display: inline-block;
+	background-color: transparent;
 }
